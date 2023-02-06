@@ -12,7 +12,9 @@
 
 void position_system(registry &r);
 void draw_system(registry &r);
-void control_system(registry &r);
-void input_system(registry &r);
+//void control_system(registry &r);
+void input_system(registry &r, sf::Event event);
+void collision_system(registry &r);
+void loop_system(registry &r);
 
 #endif //URANUS_SYSTEMS_HPP

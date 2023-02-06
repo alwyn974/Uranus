@@ -27,3 +27,15 @@ void delete_inputKeyboard(registry &r, size_t const e) {
 void delete_inputMouse(registry &r, size_t const e) {
     r.remove_component<component::inputMouse>(e);
 }
+
+void delete_collisionable(registry &r, size_t const e) {
+    r.remove_component<component::collisionable>(e);
+}
+
+void delete_sprite_component(registry &r, size_t const e) {
+    r.remove_component<component::sprite>(e);
+}
+
+void delete_loop_component(registry &r, size_t e) {
+    r.remove_component<component::loop>(e);
+}
