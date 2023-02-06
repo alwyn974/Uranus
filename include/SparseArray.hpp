@@ -55,6 +55,8 @@ public :
     void erase(size_type pos);
 
     size_type get_index(value_type const &) const;
+
+    reference_type get_at(const size_type &pos);
 private :
     container_t _data;
 };

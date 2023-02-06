@@ -19,6 +19,10 @@ public :
     template <class Component>
     sparse_array<Component> &register_component(std::function<void(registry &, size_t const &)> &);
     template <class Component>
+    typename sparse_array<Component>::reference_type get_component(Entity const &e);
+    template <class Component>
+    typename sparse_array<Component>::reference_type get_component(size_t const &e);
+    template <class Component>
     sparse_array<Component> &get_components();
     template <class Component>
     sparse_array<Component> const &get_components() const;
@@ -33,16 +37,10 @@ public :
     void remove_component(Entity const &from);
     template <typename Component>
     void remove_component(size_t const &from);
-//    template <class ... Components, typename Function>
-//    void add_system (Function && f);
-//    template <class ... Components, typename Function>
-//    void add_system(Function const & f );
-//    void run_systems();
 
 private :
     std::unordered_map<std::type_index, std::any> _components_arrays;
     std::unordered_map<std::type_index, std::function<void(registry &, size_t const &)>> _destroy_arrays;
-//    std::unordered_map<std::type_index, System> _systems_arrays;
     size_t entity_counter = 0;
     std::stack<size_t> free_ids;
 };
@@ -57,6 +55,22 @@ sparse_array<Component> &registry::register_component(std::function<void(registr
     _components_arrays[type_index] = sparse_array<Component>();
     _destroy_arrays[type_index] = delete_function;
     return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index]);
+}
+
+template <class Component>
+typename sparse_array<Component>::reference_type registry::get_component(Entity const &e) {
+    auto const &type_index = std::type_index(typeid(Component));
+    if (_components_arrays.find(type_index) == _components_arrays.end())
+        throw std::runtime_error("Component not registered");
+    return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index])[e];
+}
+
+template <class Component>
+typename sparse_array<Component>::reference_type registry::get_component(size_t const &e) {
+    auto const &type_index = std::type_index(typeid(Component));
+    if (_components_arrays.find(type_index) == _components_arrays.end())
+        throw std::runtime_error("Component not registered");
+    return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index])[e];
 }
 
 template <class Component>

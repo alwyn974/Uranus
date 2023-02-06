@@ -19,3 +19,11 @@ void delete_drawable(registry &r, size_t const e) {
 void delete_controllable(registry &r, size_t const e) {
     r.remove_component<component::controllable>(e);
 }
+
+void delete_inputKeyboard(registry &r, size_t const e) {
+    r.remove_component<component::inputKeyboard>(e);
+}
+
+void delete_inputMouse(registry &r, size_t const e) {
+    r.remove_component<component::inputMouse>(e);
+}
