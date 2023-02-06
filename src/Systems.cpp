@@ -7,9 +7,6 @@
 void position_system(registry &r) {
     auto &positions = r.get_components<component::position>();
     auto &velocities = r.get_components<component::velocity>();
-    for (auto &vel : velocities) {
-        std::cout << vel->x << " " << vel->y << std::endl;
-    }
     for (size_t i = 0; i < positions.size() && i < velocities.size() ; ++i) {
         auto &pos = positions[i];
         auto &vel = velocities[i];

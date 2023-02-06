@@ -29,7 +29,6 @@ namespace component {
     };
 
     struct inputKeyboard {
-        std::vector<sf::Keyboard::Key> keys;
         std::function<void(registry &r, const size_t)> callback;
     };
 

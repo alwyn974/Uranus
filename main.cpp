@@ -10,19 +10,19 @@ void moveLRUD(registry &r, size_t entity) {
     auto &vel = r.get_component<component::velocity>(entity);
     auto &input = r.get_component<component::inputKeyboard>(entity);
     if (vel && input) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::Left) != input->keys.end()) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
             std::cout << "Left" << std::endl;
             vel->x = -1;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::Right) != input->keys.end()) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
             std::cout << "Right" << std::endl;
             vel->x = 1;
         } else {
             vel->x = 0;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::Up) != input->keys.end()) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
             std::cout << "Up" << std::endl;
             vel->y = -1;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::Down) != input->keys.end()) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
             std::cout << "Down" << std::endl;
             vel->y = 1;
         } else {
@@ -35,19 +35,19 @@ void moveZQSD(registry &r, const size_t &entity) {
     auto &vel = r.get_component<component::velocity>(entity);
     auto &input = r.get_component<component::inputKeyboard>(entity);
     if (vel && input) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::Q) != input->keys.end()) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)){
             std::cout << "Q" << std::endl;
             vel->x = -1;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::D) != input->keys.end()) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
             std::cout << "D" << std::endl;
             vel->x = 1;
         } else {
             vel->x = 0;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::Z) != input->keys.end()) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z)) {
             std::cout << "Z" << std::endl;
             vel->y = -1;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && std::find(input->keys.begin(), input->keys.end(), sf::Keyboard::Key::S) != input->keys.end()) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
             std::cout << "S" << std::endl;
             vel->y = 1;
         } else {
@@ -88,12 +88,12 @@ int main() {
     r.add_component(e1, component::position{0, 0});
     r.add_component(e1, component::velocity{0, 0});
     r.add_component(e1, component::drawable{new sf::RectangleShape(sf::Vector2f(100, 100)), sf::Color::Blue});
-    r.add_component(e1, component::inputKeyboard{std::vector<sf::Keyboard::Key>{sf::Keyboard::Key::Z, sf::Keyboard::Key::Q ,sf::Keyboard::Key::S, sf::Keyboard::Key::D}, manage_input});
+    r.add_component(e1, component::inputKeyboard{manage_input});
 
     r.add_component(e2, component::position{100, 100});
     r.add_component(e2, component::velocity{0, 0});
     r.add_component(e2, component::drawable{new sf::RectangleShape(sf::Vector2f(100, 100)), sf::Color::Red});
-    r.add_component(e2, component::inputKeyboard{std::vector<sf::Keyboard::Key>{sf::Keyboard::Key::Left, sf::Keyboard::Key::Up ,sf::Keyboard::Key::Right, sf::Keyboard::Key::Down}, manage_input2});
+    r.add_component(e2, component::inputKeyboard{ manage_input2});
 
     r.add_component(e3, component::position{200, 200});
     r.add_component(e3, component::drawable{new sf::RectangleShape(sf::Vector2f(100, 100)), sf::Color::Green});
