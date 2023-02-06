@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-//Singleton window class
+// Singleton window class
 class Window {
 public:
     ~Window() = default;
@@ -15,12 +15,11 @@ public:
     Window &operator=(const Window &) = delete;
 
     static sf::RenderWindow *getWindow();
+
 private:
     Window() = default;
 
     static sf::RenderWindow *_window;
 };
 
-
-
-#endif //URANUS_WINDOW_HPP
+#endif // URANUS_WINDOW_HPP

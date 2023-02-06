@@ -6,15 +6,17 @@
 */
 
 #include "Player.hpp"
-#include "Components.hpp"
+
 #include "Bullet.hpp"
+#include "Components.hpp"
 
 Player::Player(registry &r) : _entity(r.spawn_entity())
 {
-    r.add_component(this->_entity, component::position{0, 0});
-    r.add_component(this->_entity, component::velocity{0, 0});
-    r.add_component(this->_entity, component::sprite{new Sprite("ship.png")});
-    r.add_component(this->_entity, component::inputKeyboard{.callback = [&](registry &r, size_t entity, const sf::Event event){this->move(r, entity, event);}});
+    r.add_component(this->_entity, component::position {0, 0});
+    r.add_component(this->_entity, component::velocity {0, 0});
+    r.add_component(this->_entity, component::sprite {new Sprite("ship.png")});
+    r.add_component(
+        this->_entity, component::inputKeyboard {.callback = [&](registry &r, size_t entity, const sf::Event event) { this->move(r, entity, event); }});
 }
 
 void Player::move(registry &r, size_t entity, const sf::Event event)
@@ -39,8 +41,6 @@ void Player::move(registry &r, size_t entity, const sf::Event event)
             vel->y = 0;
         }
 
-        if (event.type == event.KeyPressed && event.key.code == sf::Keyboard::Key::A) {
-            Bullet bullet(r, component::position{pos->x, pos->y});
-        }
+        if (event.type == event.KeyPressed && event.key.code == sf::Keyboard::Key::A) { Bullet bullet(r, component::position {pos->x, pos->y}); }
     }
 }

@@ -12,6 +12,8 @@ Sprite::Sprite(const std::string &file_path)
     this->texture.loadFromFile(file_path);
     this->sprite.setTexture(this->texture);
 }
-sf::Sprite &Sprite::get(){
-return this->sprite;
+
+sf::Sprite &Sprite::get()
+{
+    return this->sprite;
 }

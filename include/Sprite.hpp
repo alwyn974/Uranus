@@ -5,7 +5,6 @@
 ** Sprite.hpp
 */
 
-
 #ifndef URANUS_SPRITE_HPP
 #define URANUS_SPRITE_HPP
 
@@ -16,9 +15,10 @@ public:
     ~Sprite() = default;
     Sprite(const std::string &file_path);
     sf::Sprite &get();
+
 private:
     sf::Sprite sprite;
     sf::Texture texture;
 };
 
-#endif //URANUS_SPRITE_HPP
+#endif // URANUS_SPRITE_HPP

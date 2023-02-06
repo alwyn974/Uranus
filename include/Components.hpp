@@ -5,8 +5,8 @@
 #ifndef URANUS_COMPONENTS_HPP
 #define URANUS_COMPONENTS_HPP
 
-#include "Sprite.hpp"
 #include "Registry.hpp"
+#include "Sprite.hpp"
 
 namespace component {
 
@@ -26,11 +26,10 @@ namespace component {
     };
 
     struct sprite {
-       Sprite *sprite;
+        Sprite *sprite;
     };
 
-    struct controllable {
-    };
+    struct controllable {};
 
     struct collisionable {
         float x;
@@ -51,7 +50,7 @@ namespace component {
     struct loop {
         std::function<void(registry &r, const size_t)> update;
     };
-}
+} // namespace component
 
 void delete_position(registry &r, size_t e);
 void delete_velocity(registry &r, size_t e);
@@ -63,4 +62,4 @@ void delete_sprite_component(registry &r, size_t e);
 void delete_collisionable(registry &r, size_t e);
 void delete_loop_component(registry &r, size_t e);
 
-#endif //URANUS_COMPONENTS_HPP
+#endif // URANUS_COMPONENTS_HPP

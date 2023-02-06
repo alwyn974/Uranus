@@ -2,15 +2,15 @@
 // Created by nicol on 09/01/2023.
 //
 
-#include "Window.hpp"
-#include "Systems.hpp"
-#include "Components.hpp"
-
-#include "Player.hpp"
-#include "Enemy.hpp"
 #include "Bullet.hpp"
+#include "Components.hpp"
+#include "Enemy.hpp"
+#include "Player.hpp"
+#include "Systems.hpp"
+#include "Window.hpp"
 
-int main() {
+int main()
+{
     sf::RenderWindow *window = Window::getWindow();
     window->setFramerateLimit(60);
 
@@ -40,8 +40,7 @@ int main() {
     while (window->isOpen()) {
         sf::Event event;
         while (window->pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window->close();
+            if (event.type == sf::Event::Closed) window->close();
 
             input_system(r, event);
         }
@@ -54,4 +53,3 @@ int main() {
     }
     return 0;
 }
-
