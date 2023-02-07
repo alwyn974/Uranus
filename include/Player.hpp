@@ -13,13 +13,14 @@
 #include "Entity.hpp"
 #include "Registry.hpp"
 
+
 class Player {
 public:
     ~Player() = default;
     explicit Player(registry &r);
     //    void handle_input(registry &r, size_t entity, const sf::Event event);
-    void move(registry &r, size_t entity, const sf::Event event);
-    void loop();
+    void handle_inputs(registry &r, size_t entity, const sf::Event event);
+    void loop(registry &r, const size_t entity);
 
 private:
     Entity _entity;

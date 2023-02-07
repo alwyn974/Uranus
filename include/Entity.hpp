@@ -6,6 +6,7 @@
 #define B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_ENTITY_HPP
 
 #include <cstddef>
+#include <iostream>
 
 class registry;
 
@@ -20,7 +21,7 @@ public:
     operator std::size_t &() { return _id; }
 
 private:
-    explicit Entity(size_t id) : _id(id) {}
+    explicit Entity(size_t id) : _id(id) {std::cout << "constructor entity id: " << _id << std::endl;}
 
     size_t _id;
 };

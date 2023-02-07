@@ -32,10 +32,7 @@ namespace component {
     struct controllable {};
 
     struct collisionable {
-        float x;
-        float y;
-        float width;
-        float height;
+        sf::FloatRect rect;
         std::function<void(registry &r, const size_t, const size_t)> callback;
     };
 

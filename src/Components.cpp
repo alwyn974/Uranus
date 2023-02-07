@@ -2,6 +2,7 @@
 // Created by nicol on 23/01/2023.
 //
 
+#include <iostream>
 #include "Components.hpp"
 
 void delete_position(registry &r, size_t const e)
@@ -41,6 +42,7 @@ void delete_collisionable(registry &r, size_t const e)
 
 void delete_sprite_component(registry &r, size_t const e)
 {
+    std::cout << "delete sprite component: " << e << std::endl;
     r.remove_component<component::sprite>(e);
 }
 

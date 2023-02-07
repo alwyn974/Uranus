@@ -12,11 +12,13 @@
 
 #include "Entity.hpp"
 #include "Registry.hpp"
+#include "Components.hpp"
 
 class Enemy {
 public:
     ~Enemy() = default;
-    explicit Enemy(registry &r);
+    explicit Enemy(registry &r, component::position pos);
+    void loop(registry &r, const size_t);
 
 private:
     Entity _entity;

@@ -27,9 +27,13 @@ public:
     sparse_array<Component> &get_components();
     template<class Component>
     sparse_array<Component> const &get_components() const;
+
     Entity spawn_entity();
+    size_t spawn_entity_id();
+
     Entity entity_from_index(std::size_t idx);
-    void kill_entity(Entity const &e);
+    void kill_entity(const Entity &e);
+//    void kill_entity(Entity &e);
     template<typename Component>
     typename sparse_array<Component>::reference_type add_component(Entity const &to, Component &&c);
     template<typename Component, typename... Params>
@@ -100,12 +104,25 @@ inline Entity registry::spawn_entity()
     }
 }
 
+inline size_t registry::spawn_entity_id()
+{
+    if (free_ids.empty()) {
+        return entity_counter++;
+    } else {
+        size_t id = free_ids.top();
+        free_ids.pop();
+        return id;
+    }
+}
+
+
+
 inline Entity registry::entity_from_index(std::size_t idx)
 {
     return Entity(idx);
 }
 
-inline void registry::kill_entity(Entity const &e)
+inline void registry::kill_entity(const Entity &e)
 {
     free_ids.push(e);
     for (auto &i : _destroy_arrays) { i.second(*this, e._id); }
@@ -139,11 +156,4 @@ void registry::remove_component(size_t const &from)
     components.erase(from);
 }
 
-// template <class ... Components, typename Function>
-// void registry::add_system(Function && f) {
-//     auto const &type_index = std::type_index(typeid(std::tuple<Components...>));
-//     if (_destroy_arrays.find(type_index) != _destroy_arrays.end())
-//         throw std::runtime_error("System already registered");
-//     _systems_array[type_index] = std::forward<Function>(f);
-// }
 #endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_REGISTRY_HPP

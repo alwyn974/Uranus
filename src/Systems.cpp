@@ -18,31 +18,6 @@ void position_system(registry &r)
     }
 }
 
-// void control_system(registry &r) {
-//     auto &velocities = r.get_components<component::velocity>();
-//     auto &controllables = r.get_components<component::controllable>();
-//     for ( size_t i = 0; i < velocities.size() && i < controllables.size(); ++i) {
-//         auto &vel = velocities[i];
-//         auto &controllable = controllables[i];
-//         if (vel && controllable) {
-//             if (sf::Keyboard::isKeyPressed (sf::Keyboard::Key::Left)) {
-//                 vel->x = - 1 ;
-//             } else if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Key::Right ) ) {
-//                 vel->x = 1;
-//             } else {
-//                 vel->x = 0;
-//             }
-//             if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Key::Up ) ) {
-//                 vel->y = - 1 ;
-//             } else if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Key::Down ) ) {
-//                 vel->y = 1;
-//             } else {
-//                 vel->y = 0;
-//             }
-//         }
-//     }
-// }
-
 void draw_system(registry &r)
 {
     auto &positions = r.get_components<component::position>();
@@ -106,20 +81,20 @@ void collision_system(registry &r)
                 auto &pos = positions[j];
                 auto &collision = collisions[j];
                 if (collision.has_value()) {
-                    const sf::FloatRect obj1 {collision->x + pos->x, collision->y + pos->y, collision->width, collision->height};
-                    const sf::FloatRect obj2 {collision_ref->x + pos_ref->x, collision_ref->y + pos_ref->y, collision_ref->width, collision_ref->height};
                     const size_t entity = collisions.get_index(collision_ref);
                     const size_t entity_colliding_with = collisions.get_index(collision);
+                    const sf::FloatRect obj1{collision_ref->rect.left + pos_ref->x, collision_ref->rect.top + pos_ref->y, collision_ref->rect.width, collision_ref->rect.height};
+                    const sf::FloatRect obj2{collision->rect.left + pos->x, collision->rect.top + pos->y, collision->rect.width, collision->rect.height};
                     if (i != j and is_colliding(obj1, obj2)) { collision_ref->callback(r, entity, entity_colliding_with); }
                 }
             }
 
-            sf::Vector2f size(collision_ref->width, collision_ref->height);
+            sf::Vector2f size(collision_ref->rect.width, collision_ref->rect.height);
             sf::RectangleShape rect(size);
             rect.setFillColor(sf::Color::Transparent);
             rect.setOutlineColor(sf::Color::White);
             rect.setOutlineThickness(1);
-            rect.setPosition(pos_ref->x + collision_ref->x, pos_ref->y + collision_ref->y);
+            rect.setPosition(pos_ref->x + collision_ref->rect.left, pos_ref->y + collision_ref->rect.top);
             window->draw(rect);
         }
     }

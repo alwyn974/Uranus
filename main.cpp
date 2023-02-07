@@ -4,15 +4,17 @@
 
 #include "Bullet.hpp"
 #include "Components.hpp"
-#include "Enemy.hpp"
-#include "Player.hpp"
 #include "Systems.hpp"
 #include "Window.hpp"
+
+#include "Enemy.hpp"
+#include "Player.hpp"
+#include "Bullet.hpp"
 
 int main()
 {
     sf::RenderWindow *window = Window::getWindow();
-    window->setFramerateLimit(60);
+    window->setFramerateLimit(30);
 
     registry r;
     std::function<void(registry &, const size_t &)> delete_pos = delete_position;
@@ -34,8 +36,14 @@ int main()
     std::function<void(registry &, const size_t &)> delete_collision = delete_collisionable;
     r.register_component<component::collisionable>(delete_collision);
 
+
+
     Player player(r);
-    Enemy enemy(r);
+//    r.kill_entity(r.entity_from_index(0));
+//    Enemy enemy(r, component::position{200, 200});
+//    r.kill_entity(r.entity_from_index(0));
+
+
 
     while (window->isOpen()) {
         sf::Event event;
