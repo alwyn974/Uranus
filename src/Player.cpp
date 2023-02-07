@@ -23,24 +23,26 @@ void Player::move(registry &r, size_t entity, const sf::Event event)
 {
     auto &pos = r.get_component<component::position>(entity);
     auto &vel = r.get_component<component::velocity>(entity);
-    auto &input = r.get_component<component::inputKeyboard>(entity);
     const int speed = 2;
-    if (vel && input) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+    if (vel) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
             vel->x = -speed;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
             vel->x = speed;
         } else {
             vel->x = 0;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z)) {
             vel->y = -speed;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
             vel->y = speed;
         } else {
             vel->y = 0;
         }
-
-        if (event.type == event.KeyPressed && event.key.code == sf::Keyboard::Key::A) { Bullet bullet(r, component::position {pos->x, pos->y}); }
+    }
+    if (pos) {
+        if (event.type == event.MouseButtonPressed) {
+            Bullet bullet(r, component::position{pos->x, pos->y});
+        }
     }
 }
