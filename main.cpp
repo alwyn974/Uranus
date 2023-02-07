@@ -56,7 +56,7 @@ int main(int ac, char **av)
 
 
     sf::RenderWindow *window = Window::getWindow();
-    window->setFramerateLimit(20);
+    window->setFramerateLimit(60);
 
 
     saturnity::UdpClient *network = Network::getNetwork(ioContext);
@@ -86,12 +86,11 @@ int main(int ac, char **av)
     Player player(r);
     Player player2(r);
 
-    std::string he("p:55:88:99:");
-    std::vector<std::string> li = split(he, ':');
-
-    for (auto &element : li) {
-        std::cout << "element: " << element << std::endl;
-    }
+//    std::vector<std::string> li = split(he, ':');
+//
+//    for (auto &element : li) {
+//        std::cout << "element: " << element << std::endl;
+//    }
 
     network->send("hello");
     while (window->isOpen()) {
@@ -121,10 +120,8 @@ int main(int ac, char **av)
         std::vector<std::string> parsed = split(packet, ':');
 
 //        auto l_front = parsed.begin();
-
 //        std::string str = std::string(*l_front);
         if (parsed.size() > 2) {
-
             std::cout << "packet: " << packet << std::endl;
             std::cout << "p: " << parsed.at(0) << ", x: " << parsed.at(1) << ", y: " << parsed.at(2) << std::endl;
             if (parsed.at(0).compare(std::string("p")) == 0) {
@@ -135,12 +132,11 @@ int main(int ac, char **av)
 
         network->send("p:" + std::to_string(int(pos_1->x)) + ":" + std::to_string(int(pos_1->y)) + ":");
 
-
-
 //        std::string packet2 = network->getBuffer();
 //        std::cout << "packet: *" << packet2 << "*" << lul << std::endl;
-        ioContext.run_one();
-
+//        ioContext.run_one();
+        ioContext.poll();
+//        ioContext.run_one_for(boost::asio::chrono::duration(500));
 
     }
     return 0;
