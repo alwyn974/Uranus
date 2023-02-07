@@ -11,10 +11,57 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-int main()
+
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <iostream>
+
+#include "ByteBuffer.hpp"
+
+#include "Network.hpp"
+
+using namespace saturnity;
+
+size_t lul = 0;
+
+
+
+std::list<std::string> split_str(size_t pos, std::string& s, std::string delimiter)
 {
+    std::string token;
+    std::list<std::string> parsed;
+    while ((pos = s.find(delimiter)) != std::string::npos) {
+        token = s.substr(0, pos);
+        parsed.insert(parsed.cend(), token);
+        //        std::cout << token << std::endl;
+        s.erase(0, pos + delimiter.length());
+    }
+    return parsed;
+}
+
+std::vector<std::string> split(std::string &s, char delim)
+{
+    std::vector<std::string> elems;
+    std::stringstream ss(s);
+    std::string item;
+
+    while (std::getline(ss, item, delim)) elems.push_back(item);
+    return elems;
+}
+
+int main(int ac, char **av)
+{
+    boost::asio::io_context ioContext;
+
+
     sf::RenderWindow *window = Window::getWindow();
-    window->setFramerateLimit(30);
+    window->setFramerateLimit(20);
+
+
+    saturnity::UdpClient *network = Network::getNetwork(ioContext);
+    std::cout << "moula" << std::endl;
+
 
     registry r;
     std::function<void(registry &, const size_t &)> delete_pos = delete_position;
@@ -36,15 +83,17 @@ int main()
     std::function<void(registry &, const size_t &)> delete_collision = delete_collisionable;
     r.register_component<component::collisionable>(delete_collision);
 
-
-
     Player player(r);
-//    r.kill_entity(r.entity_from_index(0));
-//    Enemy enemy(r, component::position{200, 200});
-//    r.kill_entity(r.entity_from_index(0));
+    Player player2(r);
 
+    std::string he("p:55:88:99:");
+    std::vector<std::string> li = split(he, ':');
 
+    for (auto &element : li) {
+        std::cout << "element: " << element << std::endl;
+    }
 
+    network->send("hello");
     while (window->isOpen()) {
         sf::Event event;
         while (window->pollEvent(event)) {
@@ -58,6 +107,41 @@ int main()
         collision_system(r);
         draw_system(r);
         window->display();
+//        network->send("hello");
+
+
+//        std::cout << "packet: *" << packet << "*" << lul << std::endl;
+        network->receive();
+        lul++;
+
+        auto &pos_1 = r.get_component<component::position>(r.entity_from_index(0));
+        auto &pos_2 = r.get_component<component::position>(r.entity_from_index(1));
+
+        std::string packet = network->getBuffer();
+        std::vector<std::string> parsed = split(packet, ':');
+
+//        auto l_front = parsed.begin();
+
+//        std::string str = std::string(*l_front);
+        if (parsed.size() > 2) {
+
+            std::cout << "packet: " << packet << std::endl;
+            std::cout << "p: " << parsed.at(0) << ", x: " << parsed.at(1) << ", y: " << parsed.at(2) << std::endl;
+            if (parsed.at(0).compare(std::string("p")) == 0) {
+                pos_2->x = atof(parsed.at(1).c_str());
+                pos_2->y = atof(parsed.at(2).c_str());
+            }
+        }
+
+        network->send("p:" + std::to_string(int(pos_1->x)) + ":" + std::to_string(int(pos_1->y)) + ":");
+
+
+
+//        std::string packet2 = network->getBuffer();
+//        std::cout << "packet: *" << packet2 << "*" << lul << std::endl;
+        ioContext.run_one();
+
+
     }
     return 0;
 }
