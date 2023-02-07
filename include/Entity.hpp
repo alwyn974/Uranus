@@ -21,7 +21,7 @@ public:
     operator std::size_t &() { return _id; }
 
 private:
-    explicit Entity(size_t id) : _id(id) {std::cout << "constructor entity id: " << _id << std::endl;}
+    explicit Entity(size_t id) : _id(id) {/*std::cout << "constructor entity id: " << _id << std::endl;*/}
 
     size_t _id;
 };

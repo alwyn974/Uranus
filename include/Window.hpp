@@ -6,6 +6,7 @@
 #define URANUS_WINDOW_HPP
 
 #include <SFML/Graphics.hpp>
+#include "client.hpp"
 
 // Singleton window class
 class Window {
@@ -20,6 +21,7 @@ private:
     Window() = default;
 
     static sf::RenderWindow *_window;
+
 };
 
 #endif // URANUS_WINDOW_HPP

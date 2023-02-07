@@ -20,7 +20,12 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Window.cpp
         src/Components.cpp
         src/Systems.cpp
-        include/Sprite.hpp src/Sprite.cpp include/Player.hpp src/Player.cpp include/Enemy.hpp src/Enemy.cpp src/Bullet.cpp include/Bullet.hpp)
+        src/Network.cpp
+        src/client.cpp
+        include/client.hpp
+        include/Core.hpp
+        include/ByteBuffer.hpp
+        include/Sprite.hpp src/Sprite.cpp include/Player.hpp src/Player.cpp include/Enemy.hpp src/Enemy.cpp src/Bullet.cpp include/Bullet.hpp include/Network.hpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE
@@ -31,11 +36,27 @@ target_include_directories(${PROJECT_NAME}
         )
 
 find_package(SFML 2.6 REQUIRED COMPONENTS graphics window)
-
+find_package(Boost 1.81.0 REQUIRED COMPONENTS asio
+        algorithm align array assert bind chrono concept_check config container container_hash context conversion
+        core coroutine date_time describe detail exception function function_types functional fusion integer intrusive
+        io iterator lexical_cast move mp11 mpl numeric/conversion optional pool predef preprocessor range ratio rational
+        regex smart_ptr static_assert system throw_exception tokenizer tuple type_index type_traits typeof unordered
+        utility variant2 winapi
+        )
 # Link all libraries
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
         sfml-graphics sfml-audio sfml-system sfml-window
+        boost_asio # Dependencies of boost asio T_T
+        boost_algorithm boost_align boost_array boost_assert boost_bind boost_chrono boost_concept_check
+        boost_config boost_container boost_container_hash boost_context boost_conversion boost_core
+        boost_coroutine boost_date_time boost_describe boost_detail boost_exception boost_function
+        boost_function_types boost_functional boost_fusion boost_integer boost_intrusive boost_io
+        boost_iterator boost_lexical_cast boost_move boost_mp11 boost_mpl boost_numeric_conversion
+        boost_optional boost_pool boost_predef boost_preprocessor boost_range boost_ratio boost_rational
+        boost_regex boost_smart_ptr boost_static_assert boost_system boost_throw_exception boost_tokenizer
+        boost_tuple boost_type_index boost_type_traits boost_typeof boost_unordered boost_utility
+        boost_variant2 boost_winapi
         )
 
 # Enable warnings, will not work on header only libraries
