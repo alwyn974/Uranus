@@ -1,0 +1,54 @@
+name: Doxygen Action
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  doxygen_files_changed:
+    if: github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    outputs:
+      files_changed: ${{ steps.check_changed_files.outputs.FILES_CHANGED }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get changed files
+        uses: tj-actions/changed-files@v35
+        id: changed_files
+
+      - name: Check changed files
+        id: check_changed_files
+        run: |
+          for file in ${{ steps.changed_files.outputs.all_modified_files }}; do
+            echo ""$file" was changed"
+            if [ ! -z "$(echo $file | grep -E "*.cpp|*.hpp")" ]; then
+              echo "FILES_CHANGED=true" >> $GITHUB_OUTPUT
+              break
+            fi
+          done;
+
+  doxygen:
+    needs: doxygen_files_changed
+    if: always() && (needs.doxygen_files_changed.outputs.files_changed == 'True' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Doxygen Action
+        uses: mattnotmitt/doxygen-action@v1.9.5
+        with:
+          working-directory: "./docs"
+          doxyfile-path: "./Doxyfile"
+          enable-latex: true
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs/doc/html
