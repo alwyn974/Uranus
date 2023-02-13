@@ -9,10 +9,10 @@
 
 #include "Components.hpp"
 
-Enemy::Enemy(registry &r) : _entity(r.spawn_entity())
+Enemy::Enemy(ecs::Registry &r) : _entity(r.spawnEntity())
 {
-    r.add_component(this->_entity, component::position {200, 100});
-    r.add_component(this->_entity, component::sprite {new Sprite("enemy.png")});
-    r.add_component(
-        this->_entity, component::collisionable {0, 0, 30, 30, [&](registry &r, const size_t &entity, const size_t &entity_colliding_with) { return; }});
+    r.addComponent(this->_entity, component::position {200, 100});
+    r.addComponent(this->_entity, component::sprite {new Sprite("enemy.png")});
+    r.addComponent(
+        this->_entity, component::collisionable {0, 0, 30, 30, [&](ecs::Registry &r, const size_t &, const size_t &) { return; }});
 }

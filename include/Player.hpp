@@ -16,13 +16,13 @@
 class Player {
 public:
     ~Player() = default;
-    explicit Player(registry &r);
-    //    void handle_input(registry &r, size_t entity, const sf::Event event);
-    void move(registry &r, size_t entity, const sf::Event event);
+    explicit Player(ecs::Registry &r);
+    //    void handle_input(ecs::Registry &r, size_t entity, const sf::Event event);
+    void move(ecs::Registry &r, size_t entity, const sf::Event event);
     void loop();
 
 private:
-    Entity _entity;
+    ecs::Entity _entity;
 };
 
 #endif // URANUS_PLAYER_HPP

@@ -4,135 +4,142 @@
 
 #include "Systems.hpp"
 
-void position_system(registry &r)
+void position_system(ecs::Registry &r)
 {
-    auto &positions = r.get_components<component::position>();
-    auto &velocities = r.get_components<component::velocity>();
+    auto &positions = r.getComponents<component::position>();
+    auto &velocities = r.getComponents<component::velocity>();
     for (size_t i = 0; i < positions.size() && i < velocities.size(); ++i) {
         auto &pos = positions[i];
         auto &vel = velocities[i];
         if (pos && vel) {
-            pos->x += vel->x;
-            pos->y += vel->y;
+            pos->value().x += vel->value().x;
+            pos->value().y += vel->value().y;
         }
     }
 }
 
-// void control_system(registry &r) {
-//     auto &velocities = r.get_components<component::velocity>();
-//     auto &controllables = r.get_components<component::controllable>();
+// void control_system(ecs::Registry &r) {
+//     auto &velocities = r.getComponents<>()<component::velocity>();
+//     auto &controllables = r.getComponents<>()<component::controllable>();
 //     for ( size_t i = 0; i < velocities.size() && i < controllables.size(); ++i) {
 //         auto &vel = velocities[i];
 //         auto &controllable = controllables[i];
 //         if (vel && controllable) {
 //             if (sf::Keyboard::isKeyPressed (sf::Keyboard::Key::Left)) {
-//                 vel->x = - 1 ;
+//                 vel->value().x = - 1 ;
 //             } else if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Key::Right ) ) {
-//                 vel->x = 1;
+//                 vel->value().x = 1;
 //             } else {
-//                 vel->x = 0;
+//                 vel->value().x = 0;
 //             }
 //             if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Key::Up ) ) {
-//                 vel->y = - 1 ;
+//                 vel->value().y = - 1 ;
 //             } else if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Key::Down ) ) {
-//                 vel->y = 1;
+//                 vel->value().y = 1;
 //             } else {
-//                 vel->y = 0;
+//                 vel->value().y = 0;
 //             }
 //         }
 //     }
 // }
 
-void draw_system(registry &r)
+void draw_system(ecs::Registry &r)
 {
-    auto &positions = r.get_components<component::position>();
-    auto &drawables = r.get_components<component::drawable>();
-    auto &sprites = r.get_components<component::sprite>();
+    auto &positions = r.getComponents<component::position>();
+    auto &drawables = r.getComponents<component::drawable>();
+    auto &sprites = r.getComponents<component::sprite>();
     sf::RenderWindow *window = Window::getWindow();
     for (size_t i = 0; i < positions.size() && i < drawables.size(); ++i) {
         auto &pos = positions[i];
         auto &drawable = drawables[i];
         if (pos && drawable) {
-            drawable->shape->setPosition(pos->x, pos->y);
-            drawable->shape->setFillColor(drawable->color);
-            window->draw(*drawable->shape);
+            drawable->value().shape->setPosition(pos->value().x, pos->value().y);
+            drawable->value().shape->setFillColor(drawable->value().color);
+            window->draw(*drawable->value().shape);
         }
     }
     for (size_t i = 0; i < positions.size() && i < sprites.size(); ++i) {
         auto &pos = positions[i];
         auto &sprite = sprites[i];
         if (pos && sprite) {
-            sprite->sprite->get().setPosition(pos->x, pos->y);
-            window->draw(sprite->sprite->get());
+            sprite->value().sprite->get().setPosition(pos->value().x, pos->value().y);
+            window->draw(sprite->value().sprite->get());
         }
     }
 }
 
-void input_system(registry &r, sf::Event event)
+void input_system(ecs::Registry &r, sf::Event event)
 {
-    auto &inputKeyboards = r.get_components<component::inputKeyboard>();
-    auto &inputMouses = r.get_components<component::inputMouse>();
+    auto &inputKeyboards = r.getComponents<component::inputKeyboard>();
+    auto &inputMouses = r.getComponents<component::inputMouse>();
     for (size_t i = 0; i < inputKeyboards.size(); ++i) {
         auto &inputKeyboard = inputKeyboards[i];
-        const size_t entity = inputKeyboards.get_index(inputKeyboard);
-        if (inputKeyboard) { inputKeyboard->callback(r, entity, event); }
+        if (inputKeyboards.getIndex(inputKeyboard).has_value()) {
+            const size_t entity = inputKeyboards.getIndex(inputKeyboard).value();
+            if (inputKeyboard) { inputKeyboard->value().callback(r, entity, event); }
+        }
     }
     for (size_t i = 0; i < inputMouses.size(); ++i) {
         auto &inputMouse = inputMouses[i];
-        const size_t entity = inputMouses.get_index(inputMouse);
-        if (inputMouse) { inputMouse->callback(r, entity, event); }
+        if (inputMouses.getIndex(inputMouse).has_value()) {
+            const size_t entity = inputMouses.getIndex(inputMouse).value();
+            if (inputMouse) { inputMouse->value().callback(r, entity, event); }
+        }
     }
 }
 
 bool is_colliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2)
 {
-    if (obj1.left >= obj2.left + obj2.width || obj1.left + obj1.width <= obj2.left || obj1.top >= obj2.top + obj2.height ||
-        obj1.top + obj1.height <= obj2.top) {
-        return false;
-    }
-    return true;
+    return obj1.left < obj2.left + obj2.width && obj1.left + obj1.width > obj2.left && obj1.top < obj2.top + obj2.height &&
+        obj1.top + obj1.height > obj2.top;
 }
 
-void collision_system(registry &r)
+void collision_system(ecs::Registry &r)
 {
-    auto &positions = r.get_components<component::position>();
-    auto &collisions = r.get_components<component::collisionable>();
+    auto positions = r.getComponents<component::position>();
+    auto collisions = r.getComponents<component::collisionable>();
     sf::RenderWindow *window = Window::getWindow();
     for (size_t i = 0; i < positions.size() && i < collisions.size(); ++i) {
-        auto &pos_ref = positions[i];
-        auto &collision_ref = collisions[i];
-        if (pos_ref.has_value() && collision_ref.has_value()) {
+        auto pos_ref = r.getComponent<component::position>(i);
+        auto collision_ref = r.getComponent<component::collisionable>(i);
+        if (pos_ref && collision_ref) {
             for (size_t j = 0; j < positions.size() && j < collisions.size(); ++j) {
-                auto &pos = positions[j];
-                auto &collision = collisions[j];
-                if (collision.has_value()) {
-                    const sf::FloatRect obj1 {collision->x + pos->x, collision->y + pos->y, collision->width, collision->height};
-                    const sf::FloatRect obj2 {collision_ref->x + pos_ref->x, collision_ref->y + pos_ref->y, collision_ref->width, collision_ref->height};
-                    const size_t entity = collisions.get_index(collision_ref);
-                    const size_t entity_colliding_with = collisions.get_index(collision);
-                    if (i != j and is_colliding(obj1, obj2)) { collision_ref->callback(r, entity, entity_colliding_with); }
+                auto &pos =  r.getComponent<component::position>(j);
+                auto &collision =  r.getComponent<component::collisionable>(j);
+                if (collision && pos) {
+                    const sf::FloatRect obj1 {collision->value().x + pos->value().x, collision->value().y + pos->value().y, collision->value().width, collision->value().height};
+                    const sf::FloatRect obj2 {collision_ref->value().x + pos_ref->value().x, collision_ref->value().y + pos_ref->value().y, collision_ref->value().width, collision_ref->value().height};
+                    if (collisions.getIndex(collision_ref).has_value() && collisions.getIndex(collision).has_value()) {
+                        const size_t entity = collisions.getIndex(collision_ref).value();
+                        const size_t entity_colliding_with = collisions.getIndex(collision).value();
+                        if (i != j and is_colliding(obj1, obj2)) {
+                            collision_ref->value().callback(r, entity, entity_colliding_with);
+                        }
+                    }
                 }
             }
-
-            sf::Vector2f size(collision_ref->width, collision_ref->height);
+            sf::Vector2f size(collision_ref->value().width, collision_ref->value().height);
             sf::RectangleShape rect(size);
             rect.setFillColor(sf::Color::Transparent);
             rect.setOutlineColor(sf::Color::White);
             rect.setOutlineThickness(1);
-            rect.setPosition(pos_ref->x + collision_ref->x, pos_ref->y + collision_ref->y);
+            rect.setPosition(pos_ref->value().x + collision_ref->value().x,
+                             pos_ref->value().y + collision_ref->value().y);
             window->draw(rect);
         }
     }
 }
 
-void loop_system(registry &r)
+void loop_system(ecs::Registry &r)
 {
-    auto &loops = r.get_components<component::loop>();
+    auto &loops = r.getComponents<component::loop>();
     for (size_t i = 0; i < loops.size(); ++i) {
         auto &loop = loops[i];
         if (loop) {
-            const size_t entity = loops.get_index(loop);
-            loop->update(r, entity);
+            if (loops.getIndex(loop).has_value()) {
+                const size_t entity = loops.getIndex(loop).value();
+                loop->value().update(r, entity);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
 
 #include <any>
 #include <functional>
-#include <stack>
+#include <queue>
 #include <stdexcept>
 #include <typeindex>
 #include <unordered_map>
@@ -15,135 +15,240 @@
 #include "Entity.hpp"
 #include "SparseArray.hpp"
 
-class registry {
-public:
+namespace ecs {
+/**
+ * @brief Registry class, used to store and manage entities and their components
+ */
+    class Registry {
+    public:
+        /**
+         * @brief Register a component type and it's delete function
+         * @tparam Component Type of the component
+         * @param delete_function Function to call when the component is deleted
+         * @return Reference to the SparseArray of the component
+         */
+        template<class Component>
+        SparseArray<Component> &registerComponent(std::function<void(Registry &, const size_t &)> &);
+
+        /**
+         * @brief Get a component from an entity
+         * @tparam Component Type of the component
+         * @param e Entity to get the component from
+         * @return Reference to the component
+         */
+        template<class Component>
+        typename SparseArray<Component>::ReferenceType getComponent(const Entity &e);
+
+        /**
+         * @brief Get a const component from an entity
+         * @tparam Component Type of the component
+         * @param e Entity to get the component from
+         * @return Const reference to the component
+         */
+        template<class Component>
+        typename SparseArray<Component>::ConstReferenceType getComponent(const Entity &e) const;
+
+        /**
+         * @brief Get a component from an index
+         * @tparam Component Type of the component
+         * @param e Index of the entity to get the component from
+         * @return Reference to the component
+         */
+        template<class Component>
+        typename SparseArray<Component>::ReferenceType getComponent(const size_t &e);
+
+        /**
+         * @brief Get a const component from an index
+         * @tparam Component Type of the component
+         * @param e Index of the entity to get the component from
+         * @return Const reference to the component
+         */
+        template<class Component>
+        typename SparseArray<Component>::ConstReferenceType getComponent(const size_t &e) const;
+
+        /**
+         * @brief Get the SparseArray of a component type
+         * @tparam Component Type of the component
+         * @return Reference to the SparseArray of the component type
+         */
+        template<class Component>
+        SparseArray<Component> &getComponents();
+
+        /**
+         * @brief Get the const SparseArray of a component type
+         * @tparam Component Type of the component
+         * @return Const reference to the SparseArray of the component type
+         */
+        template<class Component>
+        SparseArray<Component> const &getComponents() const;
+
+        /**
+         * @brief Spawn a new entity
+         * @return The new entity
+         */
+        Entity spawnEntity();
+
+        /**
+         * @brief Create an entity from an index
+         * @param idx Index of the entity
+         * @return The newly created entity
+         */
+        Entity entityFromIndex(std::size_t idx);
+
+        /**
+         * @brief Destroy an entity
+         * @param e Entity to destroy
+         */
+        void killEntity(const Entity &e);
+
+        /**
+         * @brief Add a component to an entity
+         * @tparam Component Type of the component
+         * @param to Entity to add the component to
+         * @param c Component to add
+         * @return Reference to the component
+         */
+        template<typename Component>
+        typename SparseArray<Component>::ReferenceType addComponent(const Entity &to, Component &&c);
+
+        /**
+         * @brief Emplace a component to an entity
+         * @tparam Component Type of the component
+         * @tparam Params Variadic parameters to pass to the constructor
+         * @param to Entity to add the component to
+         * @param p Parameters to pass to the constructor
+         * @return Reference to the component
+         */
+        template<typename Component, typename... Params>
+        typename SparseArray<Component>::ReferenceType emplaceComponent(const Entity &to, Params &&...p);
+
+        /**
+         * @brief Remove a component from an entity
+         * @tparam Component Type of the component
+         * @param from Entity to remove the component from
+         */
+        template<typename Component>
+        void removeComponent(const Entity &from);
+
+        /**
+         * @brief Remove a component from an entity
+         * @tparam Component Type of the component
+         * @param from Index of the entity to remove the component from
+         */
+        template<typename Component>
+        void removeComponent(const size_t &from);
+
+    private:
+        std::unordered_map<std::type_index, std::any> _components_arrays; /*< Map containing all the components SparseArrays */
+        std::unordered_map<std::type_index, std::function<void(Registry &,
+                                                               size_t const &)>> _destroy_arrays; /*< Map containing all the components delete functions */
+        size_t entity_counter = 0; /*< Counter used to generate new entity ids */
+        std::queue<size_t> _free_ids; /*< Queue containing the ids of the destroyed entities */
+    };
+
     template<class Component>
-    sparse_array<Component> &register_component(std::function<void(registry &, size_t const &)> &);
+    SparseArray<Component> &
+    Registry::registerComponent(std::function<void(Registry &, const size_t &)> &delete_function) {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) != _components_arrays.end())
+            throw std::runtime_error("Component already registered");
+        if (_destroy_arrays.find(type_index) != _destroy_arrays.end())
+            throw std::runtime_error("Delete function already registered");
+        _components_arrays[type_index] = SparseArray<Component>();
+        _destroy_arrays[type_index] = delete_function;
+        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index]);
+    }
+
     template<class Component>
-    typename sparse_array<Component>::reference_type get_component(Entity const &e);
+    typename SparseArray<Component>::ReferenceType Registry::getComponent(const Entity &e) {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) == _components_arrays.end())
+            throw std::runtime_error("Component not registered");
+        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index])[e];
+    }
+
     template<class Component>
-    typename sparse_array<Component>::reference_type get_component(size_t const &e);
+    typename SparseArray<Component>::ReferenceType Registry::getComponent(const size_t &e) {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) == _components_arrays.end())
+            throw std::runtime_error("Component not registered");
+        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index])[e];
+    }
+
     template<class Component>
-    sparse_array<Component> &get_components();
+    typename SparseArray<Component>::ConstReferenceType Registry::getComponent(const Entity &e) const {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) == _components_arrays.end())
+            throw std::runtime_error("Component not registered");
+        return std::any_cast<SparseArray<Component> const &>(_components_arrays.at(type_index))[e];
+    }
+
     template<class Component>
-    sparse_array<Component> const &get_components() const;
-    Entity spawn_entity();
-    Entity entity_from_index(std::size_t idx);
-    void kill_entity(Entity const &e);
+    typename SparseArray<Component>::ConstReferenceType Registry::getComponent(const size_t &e) const {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) == _components_arrays.end())
+            throw std::runtime_error("Component not registered");
+        return std::any_cast<SparseArray<Component> const &>(_components_arrays.at(type_index))[e];
+    }
+
+    template<class Component>
+    SparseArray<Component> &Registry::getComponents() {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) == _components_arrays.end())
+            throw std::runtime_error("Component not registered");
+        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index]);
+    }
+
+    template<class Component>
+    SparseArray<Component> const &Registry::getComponents() const {
+        auto const &type_index = std::type_index(typeid(Component));
+        if (_components_arrays.find(type_index) == _components_arrays.end())
+            throw std::runtime_error("Component not registered");
+        return std::any_cast<SparseArray<Component> const &>(_components_arrays.at(type_index));
+    }
+
+    inline Entity Registry::spawnEntity() {
+        if (_free_ids.empty()) {
+            return Entity(entity_counter++);
+        } else {
+            size_t id = _free_ids.front();
+            _free_ids.pop();
+            return Entity(id);
+        }
+    }
+
+    inline Entity Registry::entityFromIndex(std::size_t idx) {
+        return Entity(idx);
+    }
+
+    inline void Registry::killEntity(const Entity &e) {
+        _free_ids.push(e._id);
+        for (auto &i: _destroy_arrays) { i.second(*this, e._id); }
+    }
+
     template<typename Component>
-    typename sparse_array<Component>::reference_type add_component(Entity const &to, Component &&c);
+    typename SparseArray<Component>::ReferenceType Registry::addComponent(const Entity &to, Component &&c) {
+        auto &components = getComponents<Component>();
+        return components.insertAt(to, std::forward<Component>(c));
+    }
+
     template<typename Component, typename... Params>
-    typename sparse_array<Component>::reference_type emplace_component(Entity const &to, Params &&...p);
+    typename SparseArray<Component>::ReferenceType Registry::emplaceComponent(const Entity &to, Params &&...p) {
+        auto &components = getComponents<Component>();
+        return components.emplaceAt(to, std::forward<Params>(p)...);
+    }
+
     template<typename Component>
-    void remove_component(Entity const &from);
+    void Registry::removeComponent(const Entity &from) {
+        auto &components = getComponents<Component>();
+        components.erase(from);
+    }
+
     template<typename Component>
-    void remove_component(size_t const &from);
-
-private:
-    std::unordered_map<std::type_index, std::any> _components_arrays;
-    std::unordered_map<std::type_index, std::function<void(registry &, size_t const &)>> _destroy_arrays;
-    size_t entity_counter = 0;
-    std::stack<size_t> free_ids;
-};
-
-template<class Component>
-sparse_array<Component> &registry::register_component(std::function<void(registry &, size_t const &)> &delete_function)
-{
-    auto const &type_index = std::type_index(typeid(Component));
-    if (_components_arrays.find(type_index) != _components_arrays.end()) throw std::runtime_error("Component already registered");
-    if (_destroy_arrays.find(type_index) != _destroy_arrays.end()) throw std::runtime_error("Delete function already registered");
-    _components_arrays[type_index] = sparse_array<Component>();
-    _destroy_arrays[type_index] = delete_function;
-    return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index]);
-}
-
-template<class Component>
-typename sparse_array<Component>::reference_type registry::get_component(Entity const &e)
-{
-    auto const &type_index = std::type_index(typeid(Component));
-    if (_components_arrays.find(type_index) == _components_arrays.end()) throw std::runtime_error("Component not registered");
-    return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index])[e];
-}
-
-template<class Component>
-typename sparse_array<Component>::reference_type registry::get_component(size_t const &e)
-{
-    auto const &type_index = std::type_index(typeid(Component));
-    if (_components_arrays.find(type_index) == _components_arrays.end()) throw std::runtime_error("Component not registered");
-    return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index])[e];
-}
-
-template<class Component>
-sparse_array<Component> &registry::get_components()
-{
-    auto const &type_index = std::type_index(typeid(Component));
-    if (_components_arrays.find(type_index) == _components_arrays.end()) throw std::runtime_error("Component not registered");
-    return std::any_cast<sparse_array<Component> &>(_components_arrays[type_index]);
-}
-
-template<class Component>
-sparse_array<Component> const &registry::get_components() const
-{
-    auto const &type_index = std::type_index(typeid(Component));
-    if (_components_arrays.find(type_index) == _components_arrays.end()) throw std::runtime_error("Component not registered");
-    return std::any_cast<sparse_array<Component> const &>(_components_arrays.at(type_index));
-}
-
-inline Entity registry::spawn_entity()
-{
-    if (free_ids.empty()) {
-        return Entity(entity_counter++);
-    } else {
-        size_t id = free_ids.top();
-        free_ids.pop();
-        return Entity(id);
+    void Registry::removeComponent(const size_t &from) {
+        auto &components = getComponents<Component>();
+        components.erase(from);
     }
 }
 
-inline Entity registry::entity_from_index(std::size_t idx)
-{
-    return Entity(idx);
-}
-
-inline void registry::kill_entity(Entity const &e)
-{
-    free_ids.push(e);
-    for (auto &i : _destroy_arrays) { i.second(*this, e._id); }
-}
-
-template<typename Component>
-typename sparse_array<Component>::reference_type registry::add_component(Entity const &to, Component &&c)
-{
-    auto &components = get_components<Component>();
-    return components.insert_at(to, std::forward<Component>(c));
-}
-
-template<typename Component, typename... Params>
-typename sparse_array<Component>::reference_type registry::emplace_component(Entity const &to, Params &&...p)
-{
-    auto &components = get_components<Component>();
-    return components.emplace_at(to, std::forward<Params>(p)...);
-}
-
-template<typename Component>
-void registry::remove_component(Entity const &from)
-{
-    auto &components = get_components<Component>();
-    components.erase(from);
-}
-
-template<typename Component>
-void registry::remove_component(size_t const &from)
-{
-    auto &components = get_components<Component>();
-    components.erase(from);
-}
-
-// template <class ... Components, typename Function>
-// void registry::add_system(Function && f) {
-//     auto const &type_index = std::type_index(typeid(std::tuple<Components...>));
-//     if (_destroy_arrays.find(type_index) != _destroy_arrays.end())
-//         throw std::runtime_error("System already registered");
-//     _systems_array[type_index] = std::forward<Function>(f);
-// }
 #endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_REGISTRY_HPP

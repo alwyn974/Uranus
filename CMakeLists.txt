@@ -20,7 +20,11 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Window.cpp
         src/Components.cpp
         src/Systems.cpp
-        include/Sprite.hpp src/Sprite.cpp include/Player.hpp src/Player.cpp include/Enemy.hpp src/Enemy.cpp src/Bullet.cpp include/Bullet.hpp)
+        src/Sprite.cpp
+        src/Player.cpp
+        src/Enemy.cpp
+        src/Bullet.cpp
+        )
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE

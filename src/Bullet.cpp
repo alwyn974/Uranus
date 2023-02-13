@@ -7,31 +7,34 @@
 
 #include "Bullet.hpp"
 
-Bullet::Bullet(registry &r, component::position pos) : _entity(r.spawn_entity())
+Bullet::Bullet(ecs::Registry &r, component::position pos) : _entity(r.spawnEntity())
 {
-    r.add_component(this->_entity, component::position {pos.x, pos.y});
-    r.add_component(this->_entity, component::velocity {0, 0});
-    r.add_component(this->_entity, component::sprite {new Sprite("bullet.png")});
-    r.add_component(
+    r.addComponent(this->_entity, component::position {pos.x, pos.y});
+    r.addComponent(this->_entity, component::velocity {0, 0});
+    r.addComponent(this->_entity, component::sprite {new Sprite("bullet.png")});
+    r.addComponent(
         this->_entity,
         component::collisionable {
-            0, 0, 18, 15, [&](registry &r, const size_t &entity, const size_t &entity_colliding_with) { this->colliding(r, entity, entity_colliding_with); }});
-    r.add_component(this->_entity, component::loop {.update = [&](registry &r, const size_t entity) { this->loop(r, entity); }});
+            0, 0, 18, 15, [&](ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with) { this->colliding(r, entity, entity_colliding_with); }});
+    r.addComponent(this->_entity, component::loop {.update = [&](ecs::Registry &r, const size_t entity) { this->loop(r, entity); }});
 }
 
-void Bullet::move(registry &r, size_t entity)
+void Bullet::move(ecs::Registry &r, size_t entity)
 {
-    auto &vel = r.get_component<component::velocity>(entity);
-    vel->x = 5;
+    auto &vel = r.getComponent<component::velocity>(entity);
+    vel->value().x = 5;
 }
 
-void Bullet::loop(registry &r, const size_t entity)
+void Bullet::loop(ecs::Registry &r, const size_t entity)
 {
     this->move(r, entity);
+    if (r.getComponent<component::position>(entity)->value().x > 1920) {
+        r.killEntity(r.entityFromIndex(entity));
+    }
 }
 
-void Bullet::colliding(registry &r, const size_t &entity, const size_t &entity_colliding_with)
+void Bullet::colliding(ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with)
 {
-    r.kill_entity(r.entity_from_index(entity));
-    r.kill_entity(r.entity_from_index(entity_colliding_with));
+    r.killEntity(r.entityFromIndex(entity));
+    r.killEntity(r.entityFromIndex(entity_colliding_with));
 }

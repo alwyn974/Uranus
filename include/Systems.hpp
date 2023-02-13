@@ -11,11 +11,11 @@
 #include "Registry.hpp"
 #include "Window.hpp"
 
-void position_system(registry &r);
-void draw_system(registry &r);
-// void control_system(registry &r);
-void input_system(registry &r, sf::Event event);
-void collision_system(registry &r);
-void loop_system(registry &r);
+void position_system(ecs::Registry &r);
+void draw_system(ecs::Registry &r);
+// void control_system(ecs::Registry &r);
+void input_system(ecs::Registry &r, sf::Event event);
+void collision_system(ecs::Registry &r);
+void loop_system(ecs::Registry &r);
 
 #endif // URANUS_SYSTEMS_HPP

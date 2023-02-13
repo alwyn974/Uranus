@@ -36,30 +36,30 @@ namespace component {
         float y;
         float width;
         float height;
-        std::function<void(registry &r, const size_t, const size_t)> callback;
+        std::function<void(ecs::Registry &r, const size_t, const size_t)> callback;
     };
 
     struct inputKeyboard {
-        std::function<void(registry &r, const size_t, const sf::Event)> callback;
+        std::function<void(ecs::Registry &r, const size_t, const sf::Event)> callback;
     };
 
     struct inputMouse {
-        std::function<void(registry &r, const size_t, const sf::Event)> callback;
+        std::function<void(ecs::Registry &r, const size_t, const sf::Event)> callback;
     };
 
     struct loop {
-        std::function<void(registry &r, const size_t)> update;
+        std::function<void(ecs::Registry &r, const size_t)> update;
     };
 } // namespace component
 
-void delete_position(registry &r, size_t e);
-void delete_velocity(registry &r, size_t e);
-void delete_drawable(registry &r, size_t e);
-void delete_controllable(registry &r, size_t e);
-void delete_inputKeyboard(registry &r, size_t e);
-void delete_inputMouse(registry &r, size_t e);
-void delete_sprite_component(registry &r, size_t e);
-void delete_collisionable(registry &r, size_t e);
-void delete_loop_component(registry &r, size_t e);
+void deletePosition(ecs::Registry &r, size_t e);
+void deleteVelocity(ecs::Registry &r, size_t e);
+void deleteDrawable(ecs::Registry &r, size_t e);
+void deleteControllable(ecs::Registry &r, size_t e);
+void deleteInputKeyboard(ecs::Registry &r, size_t e);
+void deleteInputMouse(ecs::Registry &r, size_t e);
+void deleteSpriteComponent(ecs::Registry &r, size_t e);
+void deleteCollisionable(ecs::Registry &r, size_t e);
+void deleteLoopComponent(ecs::Registry &r, size_t e);
 
 #endif // URANUS_COMPONENTS_HPP

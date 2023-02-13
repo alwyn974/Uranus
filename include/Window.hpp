@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 // Singleton window class
+//TODO create real abstraction class
 class Window {
 public:
     ~Window() = default;

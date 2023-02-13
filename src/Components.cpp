@@ -4,47 +4,47 @@
 
 #include "Components.hpp"
 
-void delete_position(registry &r, size_t const e)
+void deletePosition(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::position>(e);
+    r.removeComponent<component::position>(e);
 }
 
-void delete_velocity(registry &r, size_t const e)
+void deleteVelocity(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::velocity>(e);
+    r.removeComponent<component::velocity>(e);
 }
 
-void delete_drawable(registry &r, size_t const e)
+void deleteDrawable(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::drawable>(e);
+    r.removeComponent<component::drawable>(e);
 }
 
-void delete_controllable(registry &r, size_t const e)
+void deleteControllable(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::controllable>(e);
+    r.removeComponent<component::controllable>(e);
 }
 
-void delete_inputKeyboard(registry &r, size_t const e)
+void deleteInputKeyboard(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::inputKeyboard>(e);
+    r.removeComponent<component::inputKeyboard>(e);
 }
 
-void delete_inputMouse(registry &r, size_t const e)
+void deleteInputMouse(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::inputMouse>(e);
+    r.removeComponent<component::inputMouse>(e);
 }
 
-void delete_collisionable(registry &r, size_t const e)
+void deleteCollisionable(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::collisionable>(e);
+    r.removeComponent<component::collisionable>(e);
 }
 
-void delete_sprite_component(registry &r, size_t const e)
+void deleteSpriteComponent(ecs::Registry &r, size_t const e)
 {
-    r.remove_component<component::sprite>(e);
+    r.removeComponent<component::sprite>(e);
 }
 
-void delete_loop_component(registry &r, size_t e)
+void deleteLoopComponent(ecs::Registry &r, size_t e)
 {
-    r.remove_component<component::loop>(e);
+    r.removeComponent<component::loop>(e);
 }

@@ -13,26 +13,25 @@ int main()
 {
     sf::RenderWindow *window = Window::getWindow();
     window->setFramerateLimit(60);
-
-    registry r;
-    std::function<void(registry &, const size_t &)> delete_pos = delete_position;
-    r.register_component<component::position>(delete_pos);
-    std::function<void(registry &, const size_t &)> delete_vel = delete_velocity;
-    r.register_component<component::velocity>(delete_vel);
-    std::function<void(registry &, const size_t &)> delete_draw = delete_drawable;
-    r.register_component<component::drawable>(delete_draw);
-    std::function<void(registry &, const size_t &)> delete_cont = delete_controllable;
-    r.register_component<component::controllable>(delete_cont);
-    std::function<void(registry &, const size_t &)> delete_inputK = delete_inputKeyboard;
-    r.register_component<component::inputKeyboard>(delete_inputK);
-    std::function<void(registry &, const size_t &)> delete_inputM = delete_inputMouse;
-    r.register_component<component::inputMouse>(delete_inputM);
-    std::function<void(registry &, const size_t &)> delete_sprite = delete_sprite_component;
-    r.register_component<component::sprite>(delete_sprite);
-    std::function<void(registry &, const size_t &)> delete_loop = delete_loop_component;
-    r.register_component<component::loop>(delete_loop);
-    std::function<void(registry &, const size_t &)> delete_collision = delete_collisionable;
-    r.register_component<component::collisionable>(delete_collision);
+    ecs::Registry r;
+    std::function<void(ecs::Registry &, const size_t &)> delete_pos = deletePosition;
+    r.registerComponent<component::position>(delete_pos);
+    std::function<void(ecs::Registry &, const size_t &)> delete_vel = deleteVelocity;
+    r.registerComponent<component::velocity>(delete_vel);
+    std::function<void(ecs::Registry &, const size_t &)> delete_draw = deleteDrawable;
+    r.registerComponent<component::drawable>(delete_draw);
+    std::function<void(ecs::Registry &, const size_t &)> delete_cont = deleteControllable;
+    r.registerComponent<component::controllable>(delete_cont);
+    std::function<void(ecs::Registry &, const size_t &)> delete_inputK = deleteInputKeyboard;
+    r.registerComponent<component::inputKeyboard>(delete_inputK);
+    std::function<void(ecs::Registry &, const size_t &)> delete_inputM = deleteInputMouse;
+    r.registerComponent<component::inputMouse>(delete_inputM);
+    std::function<void(ecs::Registry &, const size_t &)> delete_sprite = deleteSpriteComponent;
+    r.registerComponent<component::sprite>(delete_sprite);
+    std::function<void(ecs::Registry &, const size_t &)> delete_loop = deleteLoopComponent;
+    r.registerComponent<component::loop>(delete_loop);
+    std::function<void(ecs::Registry &, const size_t &)> delete_collision = deleteCollisionable;
+    r.registerComponent<component::collisionable>(delete_collision);
 
     Player player(r);
     Enemy enemy(r);

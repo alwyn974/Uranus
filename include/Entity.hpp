@@ -7,22 +7,42 @@
 
 #include <cstddef>
 
-class registry;
+namespace ecs {
 
-class Entity {
-    friend class registry;
+    class Registry;
 
-public:
-    ~Entity() = default;
+/**
+ * @brief Entity class, used to identify entities
+ */
+    class Entity {
+        friend class Registry;
 
-    operator std::size_t() const { return _id; }
+    public:
+        /**
+         * @brief Default destructor
+         */
+        ~Entity() = default;
 
-    operator std::size_t &() { return _id; }
+        /**
+         * @breif Overloading the operator() to get the const id of the entity
+         * @return Const id of the entity
+         */
+        inline operator const std::size_t() const { return _id; };
 
-private:
-    explicit Entity(size_t id) : _id(id) {}
+        /**
+         * @brief Overloading the operator() to get the id of the entity
+         * @return Id of the entity
+         */
+        inline operator std::size_t &() { return _id; }
 
-    size_t _id;
-};
+    private:
+        /**
+         * @brief Constructor of the Entity class
+         */
+        explicit Entity(size_t id) : _id(id) {}
+
+        size_t _id; /*< Id of the entity */
+    };
+}
 
 #endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_ENTITY_HPP

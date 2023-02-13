@@ -16,10 +16,10 @@
 class Enemy {
 public:
     ~Enemy() = default;
-    explicit Enemy(registry &r);
+    explicit Enemy(ecs::Registry &r);
 
 private:
-    Entity _entity;
+    ecs::Entity _entity;
 };
 
 #endif // URANUS_ENEMY_HPP
