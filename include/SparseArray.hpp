@@ -27,12 +27,26 @@ namespace ecs {
         using ConstIterator = typename Container::const_iterator;
 
     public:
+        /**
+         * @brief Default constructor
+         */
         SparseArray() = default;
 
+        /**
+         * @brief Default copy constructor
+         * @param other SparseArray to copy
+         */
         SparseArray(const SparseArray &) = default;
 
+        /**
+         * @brief Default move constructor
+         * @param other SparseArray to move
+         */
         SparseArray(SparseArray &&) noexcept = default;
 
+        /**
+         * @brief Default destructor
+         */
         ~SparseArray() = default;
 
         /**
@@ -137,7 +151,6 @@ namespace ecs {
 
         /**
          * @brief Emplace a component at the given index
-         * @tparam Component Type of the component
          * @tparam Params Types of the parameters to construct the component
          * @param pos Index to emplace the component
          * @param params Parameters to construct the component
@@ -145,7 +158,7 @@ namespace ecs {
          * @note The component is constructed in place or moved into the SparseArray
          */
         template<class... Params>
-        ReferenceType emplaceAt(SizeType pos, Params &&...);
+        ReferenceType emplaceAt(SizeType pos, Params &&...params);
 
         /**
          * @brief Erase the component at the given index
