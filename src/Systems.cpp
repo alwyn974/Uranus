@@ -74,16 +74,16 @@ void input_system(ecs::Registry &r, sf::Event event)
     auto &inputMouses = r.getComponents<component::inputMouse>();
     for (size_t i = 0; i < inputKeyboards.size(); ++i) {
         auto &inputKeyboard = inputKeyboards[i];
-        if (inputKeyboards.getIndex(inputKeyboard).has_value()) {
+        if (inputKeyboard && inputKeyboards.getIndex(inputKeyboard).has_value()) {
             const size_t entity = inputKeyboards.getIndex(inputKeyboard).value();
-            if (inputKeyboard) { inputKeyboard->value().callback(r, entity, event); }
+            inputKeyboard->value().callback(r, entity, event);
         }
     }
     for (size_t i = 0; i < inputMouses.size(); ++i) {
         auto &inputMouse = inputMouses[i];
-        if (inputMouses.getIndex(inputMouse).has_value()) {
+        if (inputMouse && inputMouses.getIndex(inputMouse).has_value()) {
             const size_t entity = inputMouses.getIndex(inputMouse).value();
-            if (inputMouse) { inputMouse->value().callback(r, entity, event); }
+            inputMouse->value().callback(r, entity, event);
         }
     }
 }
