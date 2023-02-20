@@ -17,7 +17,6 @@ class Player {
 public:
     ~Player() = default;
     explicit Player(ecs::Registry &r);
-    //    void handle_input(ecs::Registry &r, size_t entity, const sf::Event event);
     void move(ecs::Registry &r, size_t entity, const sf::Event event);
     void loop();
 

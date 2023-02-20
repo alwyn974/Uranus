@@ -24,7 +24,7 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Player.cpp
         src/Enemy.cpp
         src/Bullet.cpp
-        )
+        src/Button.cpp include/Button.hpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE

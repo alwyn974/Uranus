@@ -8,11 +8,16 @@
 #include "Player.hpp"
 #include "Systems.hpp"
 #include "Window.hpp"
+#include "Button.hpp"
+
+void buttonPressed(ecs::Registry &r, const size_t entity) {
+    std::cout << "pressed!" << std::endl;
+}
 
 int main()
 {
     sf::RenderWindow *window = Window::getWindow();
-    window->setFramerateLimit(60);
+    window->setFramerateLimit(30);
     ecs::Registry r;
     std::function<void(ecs::Registry &, const size_t &)> delete_pos = deletePosition;
     r.registerComponent<component::position>(delete_pos);
@@ -35,6 +40,7 @@ int main()
 
     Player player(r);
     Enemy enemy(r);
+    Button button(r, "icon.png", buttonPressed);
 
     while (window->isOpen()) {
         sf::Event event;

@@ -18,4 +18,6 @@ void input_system(ecs::Registry &r, sf::Event event);
 void collision_system(ecs::Registry &r);
 void loop_system(ecs::Registry &r);
 
+
+bool is_colliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2);
 #endif // URANUS_SYSTEMS_HPP
