@@ -175,6 +175,11 @@ namespace ecs {
          */
         std::optional<SizeType> getIndex(const ValueType &) const;
 
+        /**
+         * @brief Get the _data container
+         * @return Reference to the _data container
+         */
+        Container &getData() const;
     private:
         Container _data; /**< Container of the components */
     };
@@ -278,6 +283,11 @@ namespace ecs {
             }
         }
         return std::nullopt;
+    }
+
+    template<typename Component>
+    typename SparseArray<Component>::Container &SparseArray<Component>::getData() const {
+        return _data;
     }
 }
 #endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_SPARSEARRAY_HPP

@@ -7,10 +7,10 @@
 
 #include "Sprite.hpp"
 
-Sprite::Sprite(const std::string &file_path)
+Sprite::Sprite(std::shared_ptr<sf::Texture> &texture)
 {
-    this->texture.loadFromFile(file_path);
-    this->sprite.setTexture(this->texture);
+    this->texture = texture;
+    this->sprite.setTexture(*this->texture);
 }
 
 sf::Sprite &Sprite::get()

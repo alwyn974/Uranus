@@ -10,11 +10,14 @@
 #include "Bullet.hpp"
 #include "Components.hpp"
 
-Player::Player(ecs::Registry &r) : _entity(r.spawnEntity())
+Player::Player(ecs::Registry &r, std::shared_ptr<sf::Texture> &texture, std::string &&bulletPath) : _entity(r.spawnEntity())
 {
+    sf::Texture bulletTexture;
+    bulletTexture.loadFromFile(bulletPath);
+    this->_bullet_texture = std::make_shared<sf::Texture>(bulletTexture);
     r.addComponent(this->_entity, component::position {0, 0});
     r.addComponent(this->_entity, component::velocity {0, 0});
-    r.addComponent(this->_entity, component::sprite {new Sprite("ship.png")});
+    r.addComponent(this->_entity, component::sprite {new Sprite(texture)});
     r.addComponent(this->_entity, component::inputKeyboard {.callback = [&](ecs::Registry &r, size_t entity, const sf::Event event) { this->move(r, entity, event); }});
 }
 
@@ -41,7 +44,7 @@ void Player::move(ecs::Registry &r, size_t entity, const sf::Event event)
     }
     if (pos) {
         if (event.type == event.MouseButtonPressed) {
-            std::make_shared<Bullet>(r, component::position{pos->value().x, pos->value().y});
+            Bullet(r, component::position{pos->value().x, pos->value().y}, _bullet_texture);
         }
     }
 }

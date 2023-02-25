@@ -21,8 +21,12 @@ namespace component {
     };
 
     struct drawable {
-        sf::Shape *shape = nullptr;
+        sf::Shape *shape;
         sf::Color color = sf::Color::White;
+        ~drawable() {
+            if (shape != nullptr)
+                delete shape;
+        }
     };
 
     struct sprite {

@@ -3,18 +3,13 @@
 //
 
 #include "Systems.hpp"
+#include "View.hpp"
 
 void position_system(ecs::Registry &r)
 {
-    auto &positions = r.getComponents<component::position>();
-    auto &velocities = r.getComponents<component::velocity>();
-    for (size_t i = 0; i < positions.size() && i < velocities.size(); ++i) {
-        auto &pos = positions[i];
-        auto &vel = velocities[i];
-        if (pos && vel) {
-            pos->value().x += vel->value().x;
-            pos->value().y += vel->value().y;
-        }
+    for (auto [idx, pos, vel] : View<component::position, component::velocity>(r)) {
+        pos.x += vel.x;
+        pos.y += vel.y;
     }
 }
 
@@ -45,47 +40,24 @@ void position_system(ecs::Registry &r)
 
 void draw_system(ecs::Registry &r)
 {
-    auto &positions = r.getComponents<component::position>();
-    auto &drawables = r.getComponents<component::drawable>();
-    auto &sprites = r.getComponents<component::sprite>();
     sf::RenderWindow *window = Window::getWindow();
-    for (size_t i = 0; i < positions.size() && i < drawables.size(); ++i) {
-        auto &pos = positions[i];
-        auto &drawable = drawables[i];
-        if (pos && drawable) {
-            drawable->value().shape->setPosition(pos->value().x, pos->value().y);
-            drawable->value().shape->setFillColor(drawable->value().color);
-            window->draw(*drawable->value().shape);
-        }
+    for (auto [idx, pos, drawable] : View<component::position, component::drawable>(r)) {
+        drawable.shape->setPosition(pos.x, pos.y);
+        drawable.shape->setFillColor(drawable.color);
+        window->draw(*drawable.shape);
     }
-    for (size_t i = 0; i < positions.size() && i < sprites.size(); ++i) {
-        auto &pos = positions[i];
-        auto &sprite = sprites[i];
-        if (pos && sprite) {
-            sprite->value().sprite->get().setPosition(pos->value().x, pos->value().y);
-            window->draw(sprite->value().sprite->get());
-        }
+    for (auto [idx, pos, sprite] : View<component::position, component::sprite>(r)) {
+        sprite.sprite->get().setPosition(pos.x, pos.y);
+        window->draw(sprite.sprite->get());
     }
 }
 
 void input_system(ecs::Registry &r, sf::Event event)
 {
-    auto &inputKeyboards = r.getComponents<component::inputKeyboard>();
-    auto &inputMouses = r.getComponents<component::inputMouse>();
-    for (size_t i = 0; i < inputKeyboards.size(); ++i) {
-        auto &inputKeyboard = inputKeyboards[i];
-        if (inputKeyboards.getIndex(inputKeyboard).has_value()) {
-            const size_t entity = inputKeyboards.getIndex(inputKeyboard).value();
-            if (inputKeyboard) { inputKeyboard->value().callback(r, entity, event); }
-        }
-    }
-    for (size_t i = 0; i < inputMouses.size(); ++i) {
-        auto &inputMouse = inputMouses[i];
-        if (inputMouses.getIndex(inputMouse).has_value()) {
-            const size_t entity = inputMouses.getIndex(inputMouse).value();
-            if (inputMouse) { inputMouse->value().callback(r, entity, event); }
-        }
-    }
+    for (auto [idx, inputKeyboard] : View<component::inputKeyboard>(r))
+        inputKeyboard.callback(r, idx, event);
+    for (auto [idx, inputMouse] : View<component::inputMouse>(r))
+        inputMouse.callback(r, idx, event);
 }
 
 bool is_colliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2)
@@ -96,50 +68,28 @@ bool is_colliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2)
 
 void collision_system(ecs::Registry &r)
 {
-    auto positions = r.getComponents<component::position>();
-    auto collisions = r.getComponents<component::collisionable>();
-    sf::RenderWindow *window = Window::getWindow();
-    for (size_t i = 0; i < positions.size() && i < collisions.size(); ++i) {
-        auto pos_ref = r.getComponent<component::position>(i);
-        auto collision_ref = r.getComponent<component::collisionable>(i);
-        if (pos_ref && collision_ref) {
-            for (size_t j = 0; j < positions.size() && j < collisions.size(); ++j) {
-                auto &pos =  r.getComponent<component::position>(j);
-                auto &collision =  r.getComponent<component::collisionable>(j);
-                if (collision && pos) {
-                    const sf::FloatRect obj1 {collision->value().x + pos->value().x, collision->value().y + pos->value().y, collision->value().width, collision->value().height};
-                    const sf::FloatRect obj2 {collision_ref->value().x + pos_ref->value().x, collision_ref->value().y + pos_ref->value().y, collision_ref->value().width, collision_ref->value().height};
-                    if (collisions.getIndex(collision_ref).has_value() && collisions.getIndex(collision).has_value()) {
-                        const size_t entity = collisions.getIndex(collision_ref).value();
-                        const size_t entity_colliding_with = collisions.getIndex(collision).value();
-                        if (i != j and is_colliding(obj1, obj2)) {
-                            collision_ref->value().callback(r, entity, entity_colliding_with);
-                        }
-                    }
-                }
+    static sf::RenderWindow* window = Window::getWindow();
+    for (auto [entity1, pos1, collision1] : View<component::position, component::collisionable>(r)) {
+        sf::Vector2f size(collision1.width, collision1.height);
+        sf::RectangleShape rect(size);
+        rect.setFillColor(sf::Color::Transparent);
+        rect.setOutlineColor(sf::Color::White);
+        rect.setOutlineThickness(1);
+        rect.setPosition(pos1.x + collision1.x, pos1.y + collision1.y);
+        window->draw(rect);
+        for (auto [entity2, pos2, collision2] : View<component::position, component::collisionable>(r)) {
+            if (entity1 == entity2) continue;
+            const sf::FloatRect obj1{collision1.x + pos1.x, collision1.y + pos1.y, collision1.width, collision1.height};
+            const sf::FloatRect obj2{collision2.x + pos2.x, collision2.y + pos2.y, collision2.width, collision2.height};
+            if (is_colliding(obj1, obj2)) {
+                collision1.callback(r, entity1, entity2);
             }
-            sf::Vector2f size(collision_ref->value().width, collision_ref->value().height);
-            sf::RectangleShape rect(size);
-            rect.setFillColor(sf::Color::Transparent);
-            rect.setOutlineColor(sf::Color::White);
-            rect.setOutlineThickness(1);
-            rect.setPosition(pos_ref->value().x + collision_ref->value().x,
-                             pos_ref->value().y + collision_ref->value().y);
-            window->draw(rect);
         }
     }
 }
 
 void loop_system(ecs::Registry &r)
 {
-    auto &loops = r.getComponents<component::loop>();
-    for (size_t i = 0; i < loops.size(); ++i) {
-        auto &loop = loops[i];
-        if (loop) {
-            if (loops.getIndex(loop).has_value()) {
-                const size_t entity = loops.getIndex(loop).value();
-                loop->value().update(r, entity);
-            }
-        }
-    }
+    for (auto [idx, loop] : View<component::loop>(r))
+        loop.update(r, idx);
 }

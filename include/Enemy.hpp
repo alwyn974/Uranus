@@ -9,6 +9,7 @@
 #define URANUS_ENEMY_HPP
 
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Entity.hpp"
 #include "Registry.hpp"
@@ -16,7 +17,7 @@
 class Enemy {
 public:
     ~Enemy() = default;
-    explicit Enemy(ecs::Registry &r);
+    explicit Enemy(ecs::Registry &r, std::shared_ptr<sf::Texture> &texture);
 
 private:
     ecs::Entity _entity;

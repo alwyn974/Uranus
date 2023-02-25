@@ -7,7 +7,7 @@
 
 #include <any>
 #include <functional>
-#include <queue>
+#include <list>
 #include <stdexcept>
 #include <typeindex>
 #include <unordered_map>
@@ -24,11 +24,20 @@ namespace ecs {
         /**
          * @brief Register a component type and it's delete function
          * @tparam Component Type of the component
-         * @param delete_function Function to call when the component is deleted
+         * @param deleteFunction Function to call when the component is deleted
          * @return Reference to the SparseArray of the component
          */
         template<class Component>
         SparseArray<Component> &registerComponent(std::function<void(Registry &, const size_t &)> &);
+
+        /**
+         * @brief Register a component type and it's delete function
+         * @tparam Component Type of the component
+         * @param deleteFunction Function to call when the component is deleted
+         * @return Reference to the SparseArray of the component
+         */
+        template<class Component>
+        SparseArray<Component> &registerComponent(std::function<void(Registry &, const size_t &)> &&);
 
         /**
          * @brief Get a component from an entity
@@ -93,7 +102,7 @@ namespace ecs {
          * @param idx Index of the entity
          * @return The newly created entity
          */
-        Entity entityFromIndex(std::size_t idx);
+        Entity entityFromIndex(std::size_t idx) const;
 
         /**
          * @brief Destroy an entity
@@ -138,92 +147,117 @@ namespace ecs {
         template<typename Component>
         void removeComponent(const size_t &from);
 
+        /**
+         * @brief Get the number of entities alive
+         * @return Number of entities alive
+         */
+        int entitiesAliveCount() const;
+
+        /**
+         * @brief Get the counter used to generate new entity ids
+         * @return Counter used to generate new entity ids
+         */
+        size_t getEntityCounter() const;
+
+        size_t getEntityAliveMaxIndex() const;
     private:
-        std::unordered_map<std::type_index, std::any> _components_arrays; /*< Map containing all the components SparseArrays */
-        std::unordered_map<std::type_index, std::function<void(Registry &,
-                                                               size_t const &)>> _destroy_arrays; /*< Map containing all the components delete functions */
-        size_t entity_counter = 0; /*< Counter used to generate new entity ids */
-        std::queue<size_t> _free_ids; /*< Queue containing the ids of the destroyed entities */
+        std::unordered_map<std::type_index, std::any> _componentsArrays; /*< Map containing all the components SparseArrays */
+        std::unordered_map<std::type_index, std::function<void(Registry &, size_t const &)>> _destroyArrays; /*< Map containing all the components delete functions */
+        size_t _entityCounter = 0; /*< Counter used to generate new entity ids */
+        std::list<size_t> _freeIds; /*< Queue containing the ids of the destroyed entities */
     };
 
     template<class Component>
     SparseArray<Component> &
-    Registry::registerComponent(std::function<void(Registry &, const size_t &)> &delete_function) {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) != _components_arrays.end())
+    Registry::registerComponent(std::function<void(Registry &, const size_t &)> &&deleteFunction) {
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) != _componentsArrays.end())
             throw std::runtime_error("Component already registered");
-        if (_destroy_arrays.find(type_index) != _destroy_arrays.end())
+        if (_destroyArrays.find(typeIndex) != _destroyArrays.end())
             throw std::runtime_error("Delete function already registered");
-        _components_arrays[type_index] = SparseArray<Component>();
-        _destroy_arrays[type_index] = delete_function;
-        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index]);
+        _componentsArrays[typeIndex] = SparseArray<Component>();
+        _destroyArrays[typeIndex] = deleteFunction;
+        return std::any_cast<SparseArray<Component> &>(_componentsArrays[typeIndex]);
+    }
+
+    template<class Component>
+    SparseArray<Component> &
+    Registry::registerComponent(std::function<void(Registry &, const size_t &)> &deleteFunction) {
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) != _componentsArrays.end())
+            throw std::runtime_error("Component already registered");
+        if (_destroyArrays.find(typeIndex) != _destroyArrays.end())
+            throw std::runtime_error("Delete function already registered");
+        _componentsArrays[typeIndex] = SparseArray<Component>();
+        _destroyArrays[typeIndex] = deleteFunction;
+        return std::any_cast<SparseArray<Component> &>(_componentsArrays[typeIndex]);
     }
 
     template<class Component>
     typename SparseArray<Component>::ReferenceType Registry::getComponent(const Entity &e) {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) == _components_arrays.end())
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) == _componentsArrays.end())
             throw std::runtime_error("Component not registered");
-        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index])[e];
+        return std::any_cast<SparseArray<Component> &>(_componentsArrays[typeIndex])[e];
     }
 
     template<class Component>
     typename SparseArray<Component>::ReferenceType Registry::getComponent(const size_t &e) {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) == _components_arrays.end())
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) == _componentsArrays.end())
             throw std::runtime_error("Component not registered");
-        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index])[e];
+        return std::any_cast<SparseArray<Component> &>(_componentsArrays[typeIndex])[e];
     }
 
     template<class Component>
     typename SparseArray<Component>::ConstReferenceType Registry::getComponent(const Entity &e) const {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) == _components_arrays.end())
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) == _componentsArrays.end())
             throw std::runtime_error("Component not registered");
-        return std::any_cast<SparseArray<Component> const &>(_components_arrays.at(type_index))[e];
+        return std::any_cast<SparseArray<Component> const &>(_componentsArrays.at(typeIndex))[e];
     }
 
     template<class Component>
     typename SparseArray<Component>::ConstReferenceType Registry::getComponent(const size_t &e) const {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) == _components_arrays.end())
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) == _componentsArrays.end())
             throw std::runtime_error("Component not registered");
-        return std::any_cast<SparseArray<Component> const &>(_components_arrays.at(type_index))[e];
+        return std::any_cast<SparseArray<Component> const &>(_componentsArrays.at(typeIndex))[e];
     }
 
     template<class Component>
     SparseArray<Component> &Registry::getComponents() {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) == _components_arrays.end())
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) == _componentsArrays.end())
             throw std::runtime_error("Component not registered");
-        return std::any_cast<SparseArray<Component> &>(_components_arrays[type_index]);
+        return std::any_cast<SparseArray<Component> &>(_componentsArrays[typeIndex]);
     }
 
     template<class Component>
     SparseArray<Component> const &Registry::getComponents() const {
-        auto const &type_index = std::type_index(typeid(Component));
-        if (_components_arrays.find(type_index) == _components_arrays.end())
+        auto const &typeIndex = std::type_index(typeid(Component));
+        if (_componentsArrays.find(typeIndex) == _componentsArrays.end())
             throw std::runtime_error("Component not registered");
-        return std::any_cast<SparseArray<Component> const &>(_components_arrays.at(type_index));
+        return std::any_cast<SparseArray<Component> const &>(_componentsArrays.at(typeIndex));
     }
 
     inline Entity Registry::spawnEntity() {
-        if (_free_ids.empty()) {
-            return Entity(entity_counter++);
+        if (_freeIds.empty()) {
+            return Entity(_entityCounter++);
         } else {
-            size_t id = _free_ids.front();
-            _free_ids.pop();
+            size_t id = _freeIds.front();
+            _freeIds.pop_front();
             return Entity(id);
         }
     }
 
-    inline Entity Registry::entityFromIndex(std::size_t idx) {
+    inline Entity Registry::entityFromIndex(std::size_t idx) const {
         return Entity(idx);
     }
 
     inline void Registry::killEntity(const Entity &e) {
-        _free_ids.push(e._id);
-        for (auto &i: _destroy_arrays) { i.second(*this, e._id); }
+        _freeIds.push_back(e._id);
+        for (auto &i: _destroyArrays) { i.second(*this, e._id); }
     }
 
     template<typename Component>
@@ -249,6 +283,23 @@ namespace ecs {
         auto &components = getComponents<Component>();
         components.erase(from);
     }
+
+    inline int Registry::entitiesAliveCount() const {
+        return _entityCounter - _freeIds.size();
+    }
+
+    inline size_t Registry::getEntityCounter() const {
+        return _entityCounter;
+    }
+
+//    //TODO what if there is no entity alive cf view
+//    inline size_t Registry::getEntityAliveMaxIndex() const {
+//        for (long int i = static_cast<int>(_entityCounter); i >= 0; i--) {
+//            if (_freeIds.empty() || *std::max_element(_freeIds.begin(), _freeIds.end()) < i)
+//                return i;
+//        }
+//        return 0;
+//    }
 }
 
 #endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_REGISTRY_HPP

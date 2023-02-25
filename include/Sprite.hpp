@@ -9,16 +9,17 @@
 #define URANUS_SPRITE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class Sprite {
 public:
     ~Sprite() = default;
-    Sprite(const std::string &file_path);
+    explicit Sprite(std::shared_ptr<sf::Texture> &texture);
     sf::Sprite &get();
 
 private:
     sf::Sprite sprite;
-    sf::Texture texture;
+    std::shared_ptr<sf::Texture> texture;
 };
 
 #endif // URANUS_SPRITE_HPP

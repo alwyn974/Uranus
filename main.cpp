@@ -12,43 +12,48 @@
 int main()
 {
     sf::RenderWindow *window = Window::getWindow();
+    sf::Clock clock;
     window->setFramerateLimit(60);
     ecs::Registry r;
-    std::function<void(ecs::Registry &, const size_t &)> delete_pos = deletePosition;
-    r.registerComponent<component::position>(delete_pos);
-    std::function<void(ecs::Registry &, const size_t &)> delete_vel = deleteVelocity;
-    r.registerComponent<component::velocity>(delete_vel);
-    std::function<void(ecs::Registry &, const size_t &)> delete_draw = deleteDrawable;
-    r.registerComponent<component::drawable>(delete_draw);
-    std::function<void(ecs::Registry &, const size_t &)> delete_cont = deleteControllable;
-    r.registerComponent<component::controllable>(delete_cont);
-    std::function<void(ecs::Registry &, const size_t &)> delete_inputK = deleteInputKeyboard;
-    r.registerComponent<component::inputKeyboard>(delete_inputK);
-    std::function<void(ecs::Registry &, const size_t &)> delete_inputM = deleteInputMouse;
-    r.registerComponent<component::inputMouse>(delete_inputM);
-    std::function<void(ecs::Registry &, const size_t &)> delete_sprite = deleteSpriteComponent;
-    r.registerComponent<component::sprite>(delete_sprite);
-    std::function<void(ecs::Registry &, const size_t &)> delete_loop = deleteLoopComponent;
-    r.registerComponent<component::loop>(delete_loop);
-    std::function<void(ecs::Registry &, const size_t &)> delete_collision = deleteCollisionable;
-    r.registerComponent<component::collisionable>(delete_collision);
-
-    Player player(r);
-    Enemy enemy(r);
-
+    r.registerComponent<component::position>(deletePosition);
+    r.registerComponent<component::velocity>(deleteVelocity);
+    r.registerComponent<component::drawable>(deleteDrawable);
+    r.registerComponent<component::controllable>(deleteControllable);
+    r.registerComponent<component::inputKeyboard>(deleteInputKeyboard);
+    r.registerComponent<component::inputMouse>(deleteInputMouse);
+    r.registerComponent<component::sprite>(deleteSpriteComponent);
+    std::function<void(ecs::Registry &, const size_t &)> deleteLoop = deleteLoopComponent;
+    r.registerComponent<component::loop>(deleteLoop);
+    r.registerComponent<component::collisionable>([](ecs::Registry &r, const size_t &entity) {
+        deleteCollisionable(r, entity);
+    });
+    std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+    texture->loadFromFile("ship.png");
+    std::shared_ptr<sf::Texture> texture2 = std::make_shared<sf::Texture>();
+    texture2->loadFromFile("enemy.png");
+    Player player(r, texture, std::string("bullet.png"));
+    Enemy enemy(r, texture2);
+    sf::Font font;
+    font.loadFromFile("LEMONMILK-Regular.otf");
     while (window->isOpen()) {
         sf::Event event;
         while (window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) window->close();
-
             input_system(r, event);
         }
         window->clear();
         loop_system(r);
         position_system(r);
-        collision_system(r);
+//        collision_system(r);
         draw_system(r);
+        float const currentTime = clock.restart().asSeconds();
+        float const fps = 1.F / (currentTime);
+        sf::Text fpss = sf::Text("FPS: " + std::to_string(static_cast<int>(fps)), font);
+        window->draw(fpss);
+        std::cout << "Entities count: " << r.getEntityCounter() << std::endl;
         window->display();
     }
     return 0;
 }
+
+

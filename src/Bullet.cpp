@@ -7,11 +7,11 @@
 
 #include "Bullet.hpp"
 
-Bullet::Bullet(ecs::Registry &r, component::position pos) : _entity(r.spawnEntity())
+Bullet::Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<sf::Texture> &texture) : _entity(r.spawnEntity())
 {
     r.addComponent(this->_entity, component::position {pos.x, pos.y});
     r.addComponent(this->_entity, component::velocity {0, 0});
-    r.addComponent(this->_entity, component::sprite {new Sprite("bullet.png")});
+    r.addComponent(this->_entity, component::sprite {new Sprite(texture)});
     r.addComponent(
         this->_entity,
         component::collisionable {
@@ -28,9 +28,9 @@ void Bullet::move(ecs::Registry &r, size_t entity)
 void Bullet::loop(ecs::Registry &r, const size_t entity)
 {
     this->move(r, entity);
-    if (r.getComponent<component::position>(entity)->value().x > 1920) {
-        r.killEntity(r.entityFromIndex(entity));
-    }
+//    if (r.getComponent<component::position>(entity)->value().x > 600) {
+//        r.killEntity(r.entityFromIndex(entity));
+//    }
 }
 
 void Bullet::colliding(ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with)
