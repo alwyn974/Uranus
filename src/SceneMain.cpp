@@ -10,15 +10,22 @@
 
 #include "Enemy.hpp"
 #include "Player.hpp"
-
+#include "Bullet.hpp"
 
 SceneMain::SceneMain() : Scene("Main")
 {}
 
 void SceneMain::init()
 {
-    auto texture = std::make_shared<engine::Texture>("ship.png");
-    auto texture2 = std::make_shared<engine::Texture>("enemy.png");
-    Player player(texture, std::string("bullet.png"));
-    Enemy enemy(texture2);
+    auto &textureManager = engine::Manager::getTextureManager();
+    textureManager->addTexture("ship.png", "ship");
+    textureManager->addTexture("enemy.png", "enemy");
+    textureManager->addTexture("bullet.png", "bullet");
+
+    auto player = std::make_shared<Player>(textureManager->getTextureByName("ship"), "bullet");
+    auto enemy = std::make_shared<Enemy>(textureManager->getTextureByName("enemy"));
+
+    auto &entityManager = engine::Manager::getEntityManager();
+    entityManager->addPrefab(player);
+    entityManager->addPrefab(enemy);
 }

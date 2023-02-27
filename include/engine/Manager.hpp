@@ -10,6 +10,9 @@
 
 #include "RenderWindow.hpp"
 #include "SceneManager.hpp"
+#include "TextureManager.hpp"
+#include "EntityManager.hpp"
+
 
 namespace engine {
     class Manager {
@@ -26,6 +29,10 @@ namespace engine {
 
         static std::shared_ptr<engine::SceneManager> &getSceneManager();
 
+        static std::shared_ptr<engine::TextureManager> &getTextureManager();
+
+        static std::shared_ptr<engine::EntityManager> &getEntityManager();
+
     private:
         Manager() = default;
 
@@ -34,6 +41,10 @@ namespace engine {
         static std::shared_ptr<ecs::Registry> _registry;
 
         static std::shared_ptr<engine::SceneManager> _sceneManager;
+
+        static std::shared_ptr<engine::TextureManager> _textureManager;
+
+        static std::shared_ptr<engine::EntityManager> _entityManager;
     };
 }
 

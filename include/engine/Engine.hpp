@@ -10,7 +10,7 @@
 
 #include "Systems.hpp"
 
-#include "Manager.hpp"
+#include "Base.hpp"
 #include "Shape.hpp"
 #include "Sprite.hpp"
 #include "Keyboard.hpp"

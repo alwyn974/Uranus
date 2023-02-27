@@ -4,47 +4,50 @@
 
 #include "ecs/Components.hpp"
 
-void deletePosition(ecs::Registry &r, size_t const e)
+void deletePosition(size_t const e)
 {
-    r.removeComponent<component::position>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::position>(e);
 }
 
-void deleteVelocity(ecs::Registry &r, size_t const e)
+void deleteVelocity(size_t const e)
 {
-    r.removeComponent<component::velocity>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::velocity>(e);
 }
 
-void deleteDrawable(ecs::Registry &r, size_t const e)
+void deleteDrawable(size_t const e)
 {
-    r.removeComponent<component::drawable>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::drawable>(e);
 }
 
-void deleteControllable(ecs::Registry &r, size_t const e)
+void deleteInputKeyboard(size_t const e)
 {
-    r.removeComponent<component::controllable>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::inputKeyboard>(e);
 }
 
-void deleteInputKeyboard(ecs::Registry &r, size_t const e)
+void deleteInputMouse(size_t const e)
 {
-    r.removeComponent<component::inputKeyboard>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::inputMouse>(e);
 }
 
-void deleteInputMouse(ecs::Registry &r, size_t const e)
+void deleteCollisionable(size_t const e)
 {
-    r.removeComponent<component::inputMouse>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::collisionable>(e);
 }
 
-void deleteCollisionable(ecs::Registry &r, size_t const e)
+void deleteSpriteComponent(size_t const e)
 {
-    r.removeComponent<component::collisionable>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::sprite>(e);
 }
 
-void deleteSpriteComponent(ecs::Registry &r, size_t const e)
+void deleteLoopComponent(size_t e)
 {
-    r.removeComponent<component::sprite>(e);
-}
-
-void deleteLoopComponent(ecs::Registry &r, size_t e)
-{
-    r.removeComponent<component::loop>(e);
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::loop>(e);
 }

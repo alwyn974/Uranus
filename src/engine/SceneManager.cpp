@@ -26,3 +26,9 @@ void engine::SceneManager::changeScene(const std::string &sceneToSwitch)
 
     this->_actualScene->init();
 }
+
+void engine::SceneManager::changeScene(const std::shared_ptr<engine::Scene> &newScene)
+{
+    this->_actualScene = newScene;
+    this->_actualScene->init();
+}

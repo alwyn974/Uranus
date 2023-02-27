@@ -16,8 +16,8 @@ namespace engine {
     public:
         explicit Sprite(std::shared_ptr<engine::Texture> &texture);
     private:
-        std::shared_ptr<engine::Texture> _texture;
     };
+
 }
 
 

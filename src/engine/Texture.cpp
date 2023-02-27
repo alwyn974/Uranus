@@ -7,7 +7,13 @@
 
 #include "engine/Texture.hpp"
 
-engine::Texture::Texture(const std::string &path)
+engine::Texture::Texture(const std::string &path, const std::string &name)
 {
     loadFromFile(path);
+    this->_name = name;
+}
+
+const std::string &engine::Texture::getName() const
+{
+    return this->_name;
 }

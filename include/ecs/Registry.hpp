@@ -28,7 +28,7 @@ namespace ecs {
          * @return Reference to the SparseArray of the component
          */
         template<class Component>
-        SparseArray<Component> &registerComponent(std::function<void(Registry &, const size_t &)> &);
+        SparseArray<Component> &registerComponent(std::function<void(const size_t &)> &);
 
         /**
          * @brief Register a component type and it's delete function
@@ -37,7 +37,7 @@ namespace ecs {
          * @return Reference to the SparseArray of the component
          */
         template<class Component>
-        SparseArray<Component> &registerComponent(std::function<void(Registry &, const size_t &)> &&);
+        SparseArray<Component> &registerComponent(std::function<void(const size_t &)> &&);
 
         /**
          * @brief Get a component from an entity
@@ -162,14 +162,14 @@ namespace ecs {
         size_t getEntityAliveMaxIndex() const;
     private:
         std::unordered_map<std::type_index, std::any> _componentsArrays; /*< Map containing all the components SparseArrays */
-        std::unordered_map<std::type_index, std::function<void(Registry &, size_t const &)>> _destroyArrays; /*< Map containing all the components delete functions */
+        std::unordered_map<std::type_index, std::function<void(size_t const &)>> _destroyArrays; /*< Map containing all the components delete functions */
         size_t _entityCounter = 0; /*< Counter used to generate new entity ids */
         std::list<size_t> _freeIds; /*< Queue containing the ids of the destroyed entities */
     };
 
     template<class Component>
     SparseArray<Component> &
-    Registry::registerComponent(std::function<void(Registry &, const size_t &)> &&deleteFunction) {
+    Registry::registerComponent(std::function<void(const size_t &)> &&deleteFunction) {
         auto const &typeIndex = std::type_index(typeid(Component));
         if (_componentsArrays.find(typeIndex) != _componentsArrays.end())
             throw std::runtime_error("Component already registered");
@@ -182,7 +182,7 @@ namespace ecs {
 
     template<class Component>
     SparseArray<Component> &
-    Registry::registerComponent(std::function<void(Registry &, const size_t &)> &deleteFunction) {
+    Registry::registerComponent(std::function<void(const size_t &)> &deleteFunction) {
         auto const &typeIndex = std::type_index(typeid(Component));
         if (_componentsArrays.find(typeIndex) != _componentsArrays.end())
             throw std::runtime_error("Component already registered");
@@ -257,7 +257,7 @@ namespace ecs {
 
     inline void Registry::killEntity(const Entity &e) {
         _freeIds.push_back(e._id);
-        for (auto &i: _destroyArrays) { i.second(*this, e._id); }
+        for (auto &i: _destroyArrays) { i.second(e._id); }
     }
 
     template<typename Component>

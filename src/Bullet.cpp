@@ -11,7 +11,7 @@
 Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture)
 {
     auto &r = engine::Manager::getRegistry();
-    ecs::Entity entity = r->spawnEntity();
+    ecs::Entity entity = r->entityFromIndex(this->_entityId);
 
     r->addComponent(entity, component::position {pos.x, pos.y});
     r->addComponent(entity, component::velocity {0, 0});

@@ -8,13 +8,12 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-Player::Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath)
+Player::Player(std::shared_ptr<engine::Texture> &texture, const std::string &bulletTextureName)
 {
-    engine::Texture bulletTexture(bulletPath);
-    this->_bullet_texture = std::make_shared<engine::Texture>(bulletTexture);
+    this->_bulletTextureName = bulletTextureName;
 
     auto &r = engine::Manager::getRegistry();
-    ecs::Entity entity = r->spawnEntity();
+    ecs::Entity entity = r->entityFromIndex(this->_entityId);
 
     r->addComponent(entity, component::position {0, 0});
     r->addComponent(entity, component::velocity {0, 0});
@@ -46,7 +45,8 @@ void Player::move(size_t entity, const engine::Event event)
     }
     if (pos) {
         if (event.type == event.MouseButtonPressed) {
-            Bullet(component::position{pos->value().x, pos->value().y}, _bullet_texture);
+            auto &textureManager = engine::Manager::getTextureManager();
+            Bullet(component::position{pos->value().x, pos->value().y}, textureManager->getTextureByName(this->_bulletTextureName));
         }
     }
 }

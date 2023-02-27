@@ -33,8 +33,6 @@ namespace component {
         std::shared_ptr<engine::Sprite> sprite;
     };
 
-    struct controllable {};
-
     struct collisionable {
         float x;
         float y;
@@ -56,14 +54,14 @@ namespace component {
     };
 } // namespace component
 
-void deletePosition(ecs::Registry &r, size_t e);
-void deleteVelocity(ecs::Registry &r, size_t e);
-void deleteDrawable(ecs::Registry &r, size_t e);
-void deleteControllable(ecs::Registry &r, size_t e);
-void deleteInputKeyboard(ecs::Registry &r, size_t e);
-void deleteInputMouse(ecs::Registry &r, size_t e);
-void deleteSpriteComponent(ecs::Registry &r, size_t e);
-void deleteCollisionable(ecs::Registry &r, size_t e);
-void deleteLoopComponent(ecs::Registry &r, size_t e);
+void deletePosition(size_t e);
+void deleteVelocity(size_t e);
+void deleteDrawable(size_t e);
+void deleteControllable(size_t e);
+void deleteInputKeyboard(size_t e);
+void deleteInputMouse(size_t e);
+void deleteSpriteComponent(size_t e);
+void deleteCollisionable(size_t e);
+void deleteLoopComponent(size_t e);
 
 #endif // URANUS_COMPONENTS_HPP

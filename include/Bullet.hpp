@@ -11,7 +11,7 @@
 #include "engine/Engine.hpp"
 #include "ecs/Components.hpp"
 
-class Bullet {
+class Bullet : public engine::Base {
 public:
     ~Bullet() = default;
     explicit Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture);

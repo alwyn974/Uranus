@@ -9,5 +9,4 @@
 
 engine::Sprite::Sprite(std::shared_ptr<engine::Texture> &texture) : sf::Sprite(*texture)
 {
-    this->_texture = texture;
 }

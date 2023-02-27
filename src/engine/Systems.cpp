@@ -106,7 +106,6 @@ void engine::system::gameInit()
     r->registerComponent<component::position>(deletePosition);
     r->registerComponent<component::velocity>(deleteVelocity);
     r->registerComponent<component::drawable>(deleteDrawable);
-    r->registerComponent<component::controllable>(deleteControllable);
     r->registerComponent<component::inputKeyboard>(deleteInputKeyboard);
     r->registerComponent<component::inputMouse>(deleteInputMouse);
     r->registerComponent<component::sprite>(deleteSpriteComponent);

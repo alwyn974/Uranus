@@ -20,7 +20,9 @@ namespace engine {
 
         void addScene(const std::shared_ptr<engine::Scene> &newScene);
 
-        void changeScene(const std::string& sceneToSwitch);
+        void changeScene(const std::string &sceneToSwitch);
+
+        void changeScene(const std::shared_ptr<engine::Scene> &newScene);
 
     private:
         std::shared_ptr<engine::Scene> _actualScene;

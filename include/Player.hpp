@@ -11,17 +11,13 @@
 #include "engine/Engine.hpp"
 #include "ecs/Components.hpp"
 
-
-class Player {
+class Player : public engine::Base {
 public:
     ~Player() = default;
-    explicit Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath);
-    //    void handle_input(ecs::Registry &r, size_t entity, const sf::Event event);
+    explicit Player(std::shared_ptr<engine::Texture> &texture, const std::string &_bulletTextureName);
     void move(size_t entity, const engine::Event event);
-    void loop();
-
 private:
-    std::shared_ptr<engine::Texture> _bullet_texture;
+    std::string _bulletTextureName;
 };
 
 #endif // URANUS_PLAYER_HPP
