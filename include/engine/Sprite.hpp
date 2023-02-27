@@ -15,7 +15,7 @@ namespace engine {
     class Sprite: public sf::Sprite {
     public:
         explicit Sprite(const engine::Texture &texture);
-
+        explicit Sprite(std::shared_ptr<engine::Texture> &texture);
     };
 }
 
