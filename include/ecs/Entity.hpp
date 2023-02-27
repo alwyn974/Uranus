@@ -27,7 +27,7 @@ namespace ecs {
          * @breif Overloading the operator() to get the const id of the entity
          * @return Const id of the entity
          */
-        inline operator const std::size_t() const { return _id; };
+        inline operator std::size_t() const { return _id; };
 
         /**
          * @brief Overloading the operator() to get the id of the entity

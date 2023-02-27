@@ -17,13 +17,12 @@ option(USE_CLANG_FORMAT "Use clang-format" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 add_executable(${PROJECT_NAME} main.cpp
-        src/Window.cpp
-        src/Components.cpp
-        src/Systems.cpp
+        src/ecs/Components.cpp
+        src/engine/Systems.cpp
         src/Player.cpp
         src/Enemy.cpp
         src/Bullet.cpp
-        include/View.hpp include/engine/Texture.hpp include/engine/Engine.hpp include/engine/Sprite.hpp include/engine/Shape.hpp include/engine/RenderWindow.hpp include/engine/Dependencies.hpp src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp)
+        src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp include/engine/Event.hpp include/engine/Keyboard.hpp include/engine/Manager.hpp src/engine/Manager.cpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE

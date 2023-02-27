@@ -8,9 +8,11 @@
 #ifndef URANUS_ENGINE_HPP
 #define URANUS_ENGINE_HPP
 
+#include "Systems.hpp"
+
+#include "Manager.hpp"
 #include "Shape.hpp"
 #include "Sprite.hpp"
-#include "Texture.hpp"
-#include "RenderWindow.hpp"
+#include "Keyboard.hpp"
 
 #endif //URANUS_ENGINE_HPP

@@ -7,11 +7,12 @@
 
 #include "Bullet.hpp"
 
-Bullet::Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<sf::Texture> &texture) : _entity(r.spawnEntity())
+
+Bullet::Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<engine::Texture> &texture) : _entity(r.spawnEntity())
 {
     r.addComponent(this->_entity, component::position {pos.x, pos.y});
     r.addComponent(this->_entity, component::velocity {0, 0});
-    r.addComponent(this->_entity, component::sprite {new Sprite(texture)});
+    r.addComponent(this->_entity, component::sprite {new engine::Sprite(texture)});
     r.addComponent(
         this->_entity,
         component::collisionable {

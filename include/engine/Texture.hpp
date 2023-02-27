@@ -14,6 +14,7 @@ namespace engine {
 
 class Texture: public sf::Texture {
 public:
+    explicit Texture() = default;
     explicit Texture(const std::string &path);
 };
 

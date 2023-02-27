@@ -2,7 +2,7 @@
 // Created by nicol on 23/01/2023.
 //
 
-#include "Components.hpp"
+#include "ecs/Components.hpp"
 
 void deletePosition(ecs::Registry &r, size_t const e)
 {

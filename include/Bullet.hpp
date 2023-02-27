@@ -8,16 +8,13 @@
 #ifndef URANUS_BULLET_HPP
 #define URANUS_BULLET_HPP
 
-#include <SFML/Window.hpp>
-
-#include "Components.hpp"
-#include "Entity.hpp"
-#include "Registry.hpp"
+#include "engine/Engine.hpp"
+#include "ecs/Components.hpp"
 
 class Bullet {
 public:
     ~Bullet() = default;
-    explicit Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<sf::Texture> &texture);
+    explicit Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<engine::Texture> &texture);
     void move(ecs::Registry &r, size_t entity);
     void colliding(ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with);
     void loop(ecs::Registry &r, const size_t);

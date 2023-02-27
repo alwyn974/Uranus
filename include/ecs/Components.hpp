@@ -44,11 +44,11 @@ namespace component {
     };
 
     struct inputKeyboard {
-        std::function<void(ecs::Registry &r, const size_t, const sf::Event)> callback;
+        std::function<void(ecs::Registry &r, const size_t, const engine::Event)> callback;
     };
 
     struct inputMouse {
-        std::function<void(ecs::Registry &r, const size_t, const sf::Event)> callback;
+        std::function<void(ecs::Registry &r, const size_t, const engine::Event)> callback;
     };
 
     struct loop {

@@ -9,10 +9,8 @@
 
 engine::Sprite::Sprite(const engine::Texture &texture) : sf::Sprite(texture)
 {
-
 }
 
-engine::Sprite::Sprite(std::shared_ptr<engine::Texture> &texture)
+engine::Sprite::Sprite(std::shared_ptr<engine::Texture> &texture) : sf::Sprite(*texture)
 {
-
 }
