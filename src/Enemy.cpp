@@ -9,7 +9,7 @@
 
 Enemy::Enemy(std::shared_ptr<engine::Texture> &texture)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     ecs::Entity entity = r->spawnEntity();
     r->addComponent(entity, component::position {200, 100});
     r->addComponent(entity, component::sprite {new engine::Sprite(texture)});

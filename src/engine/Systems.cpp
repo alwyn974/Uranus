@@ -6,7 +6,7 @@
 
 void engine::system::position()
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     for (auto [idx, pos, vel] : View<component::position, component::velocity>(*r)) {
         pos.x += vel.x;
         pos.y += vel.y;
@@ -15,8 +15,8 @@ void engine::system::position()
 
 void engine::system::draw()
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
-    sf::RenderWindow *window = engine::Manager::getWindow();
+    auto &window = engine::Manager::getWindow();
+    auto &r = engine::Manager::getRegistry();
     for (auto [idx, pos, drawable] : View<component::position, component::drawable>(*r)) {
         drawable.shape->setPosition(pos.x, pos.y);
         drawable.shape->setFillColor(drawable.color);
@@ -30,7 +30,7 @@ void engine::system::draw()
 
 void engine::system::input(engine::Event event)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     for (auto [idx, inputKeyboard] : View<component::inputKeyboard>(*r))
         inputKeyboard.callback(idx, event);
     for (auto [idx, inputMouse] : View<component::inputMouse>(*r))
@@ -45,8 +45,8 @@ bool engine::system::isColliding(const sf::FloatRect &obj1, const sf::FloatRect 
 
 void engine::system::collision()
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
-    static sf::RenderWindow* window = engine::Manager::getWindow();
+    auto &window = engine::Manager::getWindow();
+    auto &r = engine::Manager::getRegistry();
     for (auto [entity1, pos1, collision1] : View<component::position, component::collisionable>(*r)) {
         //start debug
         sf::Vector2f size(collision1.width, collision1.height);
@@ -70,14 +70,14 @@ void engine::system::collision()
 
 void engine::system::loop()
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     for (auto [idx, loop] : View<component::loop>(*r))
         loop.update(idx);
 }
 
 void engine::system::gameLoop()
 {
-    static sf::RenderWindow* window = engine::Manager::getWindow();
+    auto &window = engine::Manager::getWindow();
     while (window->isOpen()) {
         engine::Event event;
         while (window->pollEvent(event)) {
@@ -87,6 +87,7 @@ void engine::system::gameLoop()
         }
 
         window->clear();
+
         engine::system::loop();
         engine::system::position();
         engine::system::collision();
@@ -98,8 +99,8 @@ void engine::system::gameLoop()
 
 void engine::system::gameInit()
 {
-    engine::RenderWindow *window = engine::Manager::getWindow();
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &window = engine::Manager::getWindow();
+    auto &r = engine::Manager::getRegistry();
     window->setFramerateLimit(60);
 
     r->registerComponent<component::position>(deletePosition);

@@ -14,7 +14,7 @@ Player::Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPa
     bulletTexture.loadFromFile(bulletPath);
     this->_bullet_texture = std::make_shared<engine::Texture>(bulletTexture);
 
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     ecs::Entity entity = r->spawnEntity();
 
     r->addComponent(entity, component::position {0, 0});
@@ -25,7 +25,7 @@ Player::Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPa
 
 void Player::move(size_t entity, const engine::Event event)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     auto &pos = r->getComponent<component::position>(entity);
     auto &vel = r->getComponent<component::velocity>(entity);
     const int speed = 2;

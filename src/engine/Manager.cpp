@@ -7,17 +7,24 @@
 
 #include "engine/Manager.hpp"
 
-engine::RenderWindow *engine::Manager::_window = nullptr;
-ecs::Registry *engine::Manager::_registry = nullptr;
+std::shared_ptr<engine::RenderWindow> engine::Manager::_window = nullptr;
+std::shared_ptr<ecs::Registry> engine::Manager::_registry = nullptr;
+std::shared_ptr<engine::SceneManager> engine::Manager::_sceneManager = nullptr;
 
-engine::RenderWindow *engine::Manager::getWindow()
+std::shared_ptr<engine::RenderWindow> &engine::Manager::getWindow()
 {
-    if (!_window) { _window = new engine::RenderWindow(sf::VideoMode(800, 600), "Uranus"); }
+    if (!_window) { _window = std::make_shared<engine::RenderWindow>(sf::VideoMode(800, 600), "Uranus"); }
     return _window;
 }
 
-ecs::Registry *engine::Manager::getRegistry()
+std::shared_ptr<ecs::Registry> &engine::Manager::getRegistry()
 {
-    if (!_registry) { _registry = new ecs::Registry(); }
+    if (!_registry) { _registry = std::make_shared<ecs::Registry>(); }
     return _registry;
+}
+
+std::shared_ptr<engine::SceneManager> &engine::Manager::getSceneManager()
+{
+    if (!_sceneManager) { _sceneManager = std::make_shared<engine::SceneManager>(); }
+    return _sceneManager;
 }

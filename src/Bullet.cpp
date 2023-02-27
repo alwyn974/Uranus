@@ -10,7 +10,7 @@
 
 Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     ecs::Entity entity = r->spawnEntity();
 
     r->addComponent(entity, component::position {pos.x, pos.y});
@@ -23,14 +23,14 @@ Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &textur
 
 void Bullet::move(size_t entity)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = 5;
 }
 
 void Bullet::loop(const size_t entity)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     this->move(entity);
     if (r->getComponent<component::position>(entity)->value().x > 600) {
         r->killEntity(r->entityFromIndex(entity));
@@ -39,7 +39,7 @@ void Bullet::loop(const size_t entity)
 
 void Bullet::colliding(const size_t &entity, const size_t &entity_colliding_with)
 {
-    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &r = engine::Manager::getRegistry();
     r->killEntity(r->entityFromIndex(entity));
     r->killEntity(r->entityFromIndex(entity_colliding_with));
 }

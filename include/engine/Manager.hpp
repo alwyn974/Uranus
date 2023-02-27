@@ -9,6 +9,7 @@
 #define URANUS_MANAGER_HPP
 
 #include "RenderWindow.hpp"
+#include "SceneManager.hpp"
 
 namespace engine {
     class Manager {
@@ -19,16 +20,20 @@ namespace engine {
 
         Manager &operator=(const Manager &) = delete;
 
-        static engine::RenderWindow *getWindow();
+        static std::shared_ptr<engine::RenderWindow> &getWindow();
 
-        static ecs::Registry *getRegistry();
+        static std::shared_ptr<ecs::Registry> &getRegistry();
+
+        static std::shared_ptr<engine::SceneManager> &getSceneManager();
 
     private:
         Manager() = default;
 
-        static engine::RenderWindow *_window;
+        static std::shared_ptr<engine::RenderWindow> _window;
 
-        static ecs::Registry *_registry;
+        static std::shared_ptr<ecs::Registry> _registry;
+
+        static std::shared_ptr<engine::SceneManager> _sceneManager;
     };
 }
 
