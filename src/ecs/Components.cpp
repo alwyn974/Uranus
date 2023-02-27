@@ -51,3 +51,9 @@ void deleteLoopComponent(size_t e)
     auto &r = engine::Manager::getRegistry();
     r->removeComponent<component::loop>(e);
 }
+
+void deleteAnimationComponent(size_t e)
+{
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::animation>(e);
+}

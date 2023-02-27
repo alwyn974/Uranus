@@ -5,8 +5,10 @@
 #ifndef URANUS_COMPONENTS_HPP
 #define URANUS_COMPONENTS_HPP
 
-#include "engine/Engine.hpp"
 #include "engine/Sprite.hpp"
+#include "engine/Clock.hpp"
+#include "engine/Event.hpp"
+#include "engine/Manager.hpp"
 
 namespace component {
 
@@ -52,16 +54,38 @@ namespace component {
     struct loop {
         std::function<void(const size_t)> update;
     };
+
+    struct frameData {
+        float frameTime;
+        int frame;
+    };
+
+    struct animationData {
+        std::string name;
+        bool loop;
+        float length;
+        engine::Clock clock;
+        bool isPlaying;
+        std::vector<component::frameData> frames;
+    };
+
+    struct animation {
+        int hFrame;
+        int vFrame;
+        std::vector<component::animationData> animations;
+    };
+
+
 } // namespace component
 
 void deletePosition(size_t e);
 void deleteVelocity(size_t e);
 void deleteDrawable(size_t e);
-void deleteControllable(size_t e);
 void deleteInputKeyboard(size_t e);
 void deleteInputMouse(size_t e);
 void deleteSpriteComponent(size_t e);
 void deleteCollisionable(size_t e);
 void deleteLoopComponent(size_t e);
+void deleteAnimationComponent(size_t e);
 
 #endif // URANUS_COMPONENTS_HPP

@@ -18,7 +18,7 @@ SceneMain::SceneMain() : Scene("Main")
 void SceneMain::init()
 {
     auto &textureManager = engine::Manager::getTextureManager();
-    textureManager->addTexture("ship.png", "ship");
+    textureManager->addTexture("mario.png", "ship");
     textureManager->addTexture("enemy.png", "enemy");
     textureManager->addTexture("bullet.png", "bullet");
 

@@ -22,6 +22,14 @@ namespace engine::system {
 
         void loop();
 
+        void animation();
+
+        void addNewAnimation(size_t entity, const std::string &name, bool loop, float length);
+
+        void insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame);
+
+        void playAnimation(size_t entity, const std::string &name);
+
         bool isColliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2);
 
         void gameLoop();

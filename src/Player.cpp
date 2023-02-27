@@ -19,6 +19,22 @@ Player::Player(std::shared_ptr<engine::Texture> &texture, const std::string &bul
     r->addComponent(entity, component::velocity {0, 0});
     r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
     r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->move(entity, event); }});
+
+
+    r->addComponent(entity, component::animation{13, 2});
+    engine::system::addNewAnimation(entity, "idle", true, 0.2f);
+    engine::system::insertAnimationFrame(entity, "idle", 0.0, 0);
+    engine::system::insertAnimationFrame(entity, "idle", 0.1, 1);
+
+    engine::system::addNewAnimation(entity, "run", true, 0.4);
+    engine::system::insertAnimationFrame(entity, "run", 0.0, 1);
+    engine::system::insertAnimationFrame(entity, "run", 0.1, 2);
+    engine::system::insertAnimationFrame(entity, "run", 0.2, 3);
+    engine::system::insertAnimationFrame(entity, "run", 0.3, 4);
+
+
+    engine::system::playAnimation(entity, "run");
+
 }
 
 void Player::move(size_t entity, const engine::Event event)

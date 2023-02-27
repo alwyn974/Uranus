@@ -75,6 +75,90 @@ void engine::system::loop()
         loop.update(idx);
 }
 
+sf::IntRect get_animation_rect(int frame, int h_frame, int v_frame, sf::Vector2u size)
+{
+
+    sf::Vector2i frame_size((int)size.x / h_frame, (int)size.y / v_frame);
+
+    sf::Vector2i start{0, 0};
+    for (int i = 0; i < frame; i++) {
+        start.x += frame_size.x;
+        if (start.x >= size.x) {
+            start.x = 0;
+            start.y += frame_size.y;
+        }
+    }
+    sf::IntRect rect{start.x, start.y, frame_size.x, frame_size.y};
+    return rect;
+}
+
+void engine::system::addNewAnimation(size_t entity, const std::string &name, bool loop, float length)
+{
+
+    engine::Clock clock;
+    std::vector<component::frameData> frameList;
+    component::animationData animationNew{name, loop, length, clock, false, frameList};
+    auto &r = engine::Manager::getRegistry();
+    auto &animation = r->getComponent<component::animation>(entity);
+    animation->value().animations.push_back(animationNew);
+}
+
+void engine::system::insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame)
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &animation = r->getComponent<component::animation>(entity);
+    component::frameData frameNew{frameTime, frame};
+    for (component::animationData &animationNew: animation->value().animations) {
+        if (animationNew.name == name) {
+            animationNew.frames.push_back(frameNew);
+            break;
+        }
+    }
+}
+
+void engine::system::playAnimation(size_t entity, const std::string &name)
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &animation = r->getComponent<component::animation>(entity);
+
+    for (component::animationData &animationData: animation->value().animations) {
+
+        animationData.isPlaying = animationData.name == name;
+        std::cout << name << ", " << animationData.name << ", isPlaying: " << animationData.isPlaying << std::endl;
+    }
+}
+
+void engine::system::animation()
+{
+    auto &r = engine::Manager::getRegistry();
+    for (auto [idx, sprite, animation] : View<component::sprite, component::animation>(*r)) {
+        for (component::animationData &animationData: animation.animations) {
+            if (!animationData.isPlaying)
+                continue;
+            if (animationData.clock.getElapsedTime().asSeconds() >= animationData.length) {
+                if (animationData.loop) {
+                    animationData.clock.restart();
+                }
+                else
+                    animationData.isPlaying = false;
+            } else {
+                for (component::frameData &frame: animationData.frames) {
+
+                    if (animationData.clock.getElapsedTime().asSeconds() >= frame.frameTime) {
+                        sf::IntRect rect = get_animation_rect(frame.frame,
+                                                              animation.hFrame,
+                                                              animation.vFrame,
+                                                              sprite.sprite->getTexture()->getSize());
+                        sprite.sprite->setTextureRect(rect);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 void engine::system::gameLoop()
 {
     auto &window = engine::Manager::getWindow();
@@ -91,6 +175,7 @@ void engine::system::gameLoop()
         engine::system::loop();
         engine::system::position();
         engine::system::collision();
+        engine::system::animation();
         engine::system::draw();
 
         window->display();
@@ -111,4 +196,11 @@ void engine::system::gameInit()
     r->registerComponent<component::sprite>(deleteSpriteComponent);
     r->registerComponent<component::loop>(deleteLoopComponent);
     r->registerComponent<component::collisionable>(deleteCollisionable);
+    r->registerComponent<component::animation>(deleteAnimationComponent);
 }
+
+
+
+
+
+

@@ -12,7 +12,6 @@
 
 #include "Base.hpp"
 #include "Shape.hpp"
-#include "Sprite.hpp"
 #include "Keyboard.hpp"
 
 #endif //URANUS_ENGINE_HPP
