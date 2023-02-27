@@ -10,8 +10,7 @@
 
 Player::Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath)
 {
-    engine::Texture bulletTexture;
-    bulletTexture.loadFromFile(bulletPath);
+    engine::Texture bulletTexture(bulletPath);
     this->_bullet_texture = std::make_shared<engine::Texture>(bulletTexture);
 
     auto &r = engine::Manager::getRegistry();
@@ -19,7 +18,7 @@ Player::Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPa
 
     r->addComponent(entity, component::position {0, 0});
     r->addComponent(entity, component::velocity {0, 0});
-    r->addComponent(entity, component::sprite {new engine::Sprite(texture)});
+    r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
     r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->move(entity, event); }});
 }
 

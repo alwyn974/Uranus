@@ -16,7 +16,7 @@ public:
     ~Bullet() = default;
     explicit Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture);
     void move(size_t entity);
-    void colliding(const size_t &entity, const size_t &entity_colliding_with);
+    void colliding(const size_t &entity, const size_t &entityCollidingWith);
     void loop(const size_t);
 
 private:

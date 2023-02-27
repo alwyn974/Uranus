@@ -30,7 +30,7 @@ namespace component {
     };
 
     struct sprite {
-        engine::Sprite *sprite;
+        std::shared_ptr<engine::Sprite> sprite;
     };
 
     struct controllable {};

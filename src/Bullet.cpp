@@ -15,9 +15,9 @@ Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &textur
 
     r->addComponent(entity, component::position {pos.x, pos.y});
     r->addComponent(entity, component::velocity {0, 0});
-    r->addComponent(entity, component::sprite {new engine::Sprite(texture)});
+    r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
     r->addComponent(entity, component::collisionable {
-            0, 0, 18, 15, [&](const size_t &entity, const size_t &entity_colliding_with) { this->colliding(entity, entity_colliding_with); }});
+            0, 0, 18, 15, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
     r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
 }
 
@@ -37,9 +37,9 @@ void Bullet::loop(const size_t entity)
     }
 }
 
-void Bullet::colliding(const size_t &entity, const size_t &entity_colliding_with)
+void Bullet::colliding(const size_t &entity, const size_t &entityCollidingWith)
 {
     auto &r = engine::Manager::getRegistry();
     r->killEntity(r->entityFromIndex(entity));
-    r->killEntity(r->entityFromIndex(entity_colliding_with));
+    r->killEntity(r->entityFromIndex(entityCollidingWith));
 }
