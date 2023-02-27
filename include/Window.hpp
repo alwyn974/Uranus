@@ -2,10 +2,10 @@
 // Created by nicol on 23/01/2023.
 //
 
-#ifndef URANUS_WINDOW_HPP
+#ifndef URANUS_RENDERWINDOW_HPP
 #define URANUS_WINDOW_HPP
 
-#include <SFML/Graphics.hpp>
+#include "engine/Engine.hpp"
 
 // Singleton window class
 //TODO create real abstraction class
@@ -15,12 +15,12 @@ public:
     Window(const Window &) = delete;
     Window &operator=(const Window &) = delete;
 
-    static sf::RenderWindow *getWindow();
+    static engine::RenderWindow *getWindow();
 
 private:
     Window() = default;
 
-    static sf::RenderWindow *_window;
+    static engine::RenderWindow *_window;
 };
 
-#endif // URANUS_WINDOW_HPP
+#endif // URANUS_RENDERWINDOW_HPP

@@ -9,9 +9,11 @@
 #include "Systems.hpp"
 #include "Window.hpp"
 
+#include "engine/Engine.hpp"
+
 int main()
 {
-    sf::RenderWindow *window = Window::getWindow();
+    engine::RenderWindow *window = Window::getWindow();
     sf::Clock clock;
     window->setFramerateLimit(60);
     ecs::Registry r;
@@ -22,11 +24,8 @@ int main()
     r.registerComponent<component::inputKeyboard>(deleteInputKeyboard);
     r.registerComponent<component::inputMouse>(deleteInputMouse);
     r.registerComponent<component::sprite>(deleteSpriteComponent);
-    std::function<void(ecs::Registry &, const size_t &)> deleteLoop = deleteLoopComponent;
-    r.registerComponent<component::loop>(deleteLoop);
-    r.registerComponent<component::collisionable>([](ecs::Registry &r, const size_t &entity) {
-        deleteCollisionable(r, entity);
-    });
+    r.registerComponent<component::loop>(deleteLoopComponent);
+    r.registerComponent<component::collisionable>(deleteCollisionable);
     std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
     texture->loadFromFile("ship.png");
     std::shared_ptr<sf::Texture> texture2 = std::make_shared<sf::Texture>();
@@ -44,7 +43,7 @@ int main()
         window->clear();
         loop_system(r);
         position_system(r);
-//        collision_system(r);
+        collision_system(r);
         draw_system(r);
         float const currentTime = clock.restart().asSeconds();
         float const fps = 1.F / (currentTime);

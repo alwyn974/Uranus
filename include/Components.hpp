@@ -5,8 +5,8 @@
 #ifndef URANUS_COMPONENTS_HPP
 #define URANUS_COMPONENTS_HPP
 
-#include "Registry.hpp"
-#include "Sprite.hpp"
+#include "engine/Engine.hpp"
+#include "engine/Sprite.hpp"
 
 namespace component {
 
@@ -30,7 +30,7 @@ namespace component {
     };
 
     struct sprite {
-        Sprite *sprite;
+        engine::Sprite *sprite;
     };
 
     struct controllable {};

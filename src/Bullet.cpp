@@ -28,9 +28,9 @@ void Bullet::move(ecs::Registry &r, size_t entity)
 void Bullet::loop(ecs::Registry &r, const size_t entity)
 {
     this->move(r, entity);
-//    if (r.getComponent<component::position>(entity)->value().x > 600) {
-//        r.killEntity(r.entityFromIndex(entity));
-//    }
+    if (r.getComponent<component::position>(entity)->value().x > 600) {
+        r.killEntity(r.entityFromIndex(entity));
+    }
 }
 
 void Bullet::colliding(ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with)

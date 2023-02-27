@@ -4,10 +4,10 @@
 
 #include "Window.hpp"
 
-sf::RenderWindow *Window::_window = nullptr;
+engine::RenderWindow *Window::_window = nullptr;
 
-sf::RenderWindow *Window::getWindow()
+engine::RenderWindow *Window::getWindow()
 {
-    if (!_window) { _window = new sf::RenderWindow(sf::VideoMode(800, 600), "Uranus"); }
+    if (!_window) { _window = new engine::RenderWindow(sf::VideoMode(800, 600), "Uranus"); }
     return _window;
 }
