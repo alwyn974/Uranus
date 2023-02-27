@@ -12,21 +12,21 @@
 
 namespace engine::system {
 
-        void position(ecs::Registry &r);
+        void position();
 
-        void draw(ecs::Registry &r);
+        void draw();
 
-        void input(ecs::Registry &r, engine::Event event);
+        void input(engine::Event event);
 
-        void collision(ecs::Registry &r);
+        void collision();
 
-        void loop(ecs::Registry &r);
+        void loop();
 
         bool isColliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2);
 
-        void gameLoop(ecs::Registry &r);
+        void gameLoop();
 
-        void gameInit(ecs::Registry &r);
+        void gameInit();
 }
 
 #endif // URANUS_SYSTEMS_HPP

@@ -14,13 +14,12 @@
 class Bullet {
 public:
     ~Bullet() = default;
-    explicit Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<engine::Texture> &texture);
-    void move(ecs::Registry &r, size_t entity);
-    void colliding(ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with);
-    void loop(ecs::Registry &r, const size_t);
+    explicit Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture);
+    void move(size_t entity);
+    void colliding(const size_t &entity, const size_t &entity_colliding_with);
+    void loop(const size_t);
 
 private:
-    ecs::Entity _entity;
 };
 
 #endif // URANUS_BULLET_HPP

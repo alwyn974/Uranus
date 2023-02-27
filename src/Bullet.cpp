@@ -8,34 +8,38 @@
 #include "Bullet.hpp"
 
 
-Bullet::Bullet(ecs::Registry &r, component::position pos, std::shared_ptr<engine::Texture> &texture) : _entity(r.spawnEntity())
+Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture)
 {
-    r.addComponent(this->_entity, component::position {pos.x, pos.y});
-    r.addComponent(this->_entity, component::velocity {0, 0});
-    r.addComponent(this->_entity, component::sprite {new engine::Sprite(texture)});
-    r.addComponent(
-        this->_entity,
-        component::collisionable {
-            0, 0, 18, 15, [&](ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with) { this->colliding(r, entity, entity_colliding_with); }});
-    r.addComponent(this->_entity, component::loop {.update = [&](ecs::Registry &r, const size_t entity) { this->loop(r, entity); }});
+    ecs::Registry *r = engine::Manager::getRegistry();
+    ecs::Entity entity = r->spawnEntity();
+
+    r->addComponent(entity, component::position {pos.x, pos.y});
+    r->addComponent(entity, component::velocity {0, 0});
+    r->addComponent(entity, component::sprite {new engine::Sprite(texture)});
+    r->addComponent(entity, component::collisionable {
+            0, 0, 18, 15, [&](const size_t &entity, const size_t &entity_colliding_with) { this->colliding(entity, entity_colliding_with); }});
+    r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
 }
 
-void Bullet::move(ecs::Registry &r, size_t entity)
+void Bullet::move(size_t entity)
 {
-    auto &vel = r.getComponent<component::velocity>(entity);
+    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = 5;
 }
 
-void Bullet::loop(ecs::Registry &r, const size_t entity)
+void Bullet::loop(const size_t entity)
 {
-    this->move(r, entity);
-    if (r.getComponent<component::position>(entity)->value().x > 600) {
-        r.killEntity(r.entityFromIndex(entity));
+    ecs::Registry *r = engine::Manager::getRegistry();
+    this->move(entity);
+    if (r->getComponent<component::position>(entity)->value().x > 600) {
+        r->killEntity(r->entityFromIndex(entity));
     }
 }
 
-void Bullet::colliding(ecs::Registry &r, const size_t &entity, const size_t &entity_colliding_with)
+void Bullet::colliding(const size_t &entity, const size_t &entity_colliding_with)
 {
-    r.killEntity(r.entityFromIndex(entity));
-    r.killEntity(r.entityFromIndex(entity_colliding_with));
+    ecs::Registry *r = engine::Manager::getRegistry();
+    r->killEntity(r->entityFromIndex(entity));
+    r->killEntity(r->entityFromIndex(entity_colliding_with));
 }

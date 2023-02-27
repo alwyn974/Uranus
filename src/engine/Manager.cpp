@@ -21,4 +21,3 @@ ecs::Registry *engine::Manager::getRegistry()
     if (!_registry) { _registry = new ecs::Registry(); }
     return _registry;
 }
-

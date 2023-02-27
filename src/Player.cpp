@@ -8,22 +8,26 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-Player::Player(ecs::Registry &r, std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath) : _entity(r.spawnEntity())
+Player::Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath)
 {
     engine::Texture bulletTexture;
     bulletTexture.loadFromFile(bulletPath);
     this->_bullet_texture = std::make_shared<engine::Texture>(bulletTexture);
 
-    r.addComponent(this->_entity, component::position {0, 0});
-    r.addComponent(this->_entity, component::velocity {0, 0});
-    r.addComponent(this->_entity, component::sprite {new engine::Sprite(texture)});
-    r.addComponent(this->_entity, component::inputKeyboard {.callback = [&](ecs::Registry &r, size_t entity, const engine::Event event) { this->move(r, entity, event); }});
+    ecs::Registry *r = engine::Manager::getRegistry();
+    ecs::Entity entity = r->spawnEntity();
+
+    r->addComponent(entity, component::position {0, 0});
+    r->addComponent(entity, component::velocity {0, 0});
+    r->addComponent(entity, component::sprite {new engine::Sprite(texture)});
+    r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->move(entity, event); }});
 }
 
-void Player::move(ecs::Registry &r, size_t entity, const engine::Event event)
+void Player::move(size_t entity, const engine::Event event)
 {
-    auto &pos = r.getComponent<component::position>(entity);
-    auto &vel = r.getComponent<component::velocity>(entity);
+    ecs::Registry *r = engine::Manager::getRegistry();
+    auto &pos = r->getComponent<component::position>(entity);
+    auto &vel = r->getComponent<component::velocity>(entity);
     const int speed = 2;
     if (vel) {
         if (engine::Keyboard::isKeyPressed(engine::Keyboard::Key::Q)) {
@@ -43,7 +47,7 @@ void Player::move(ecs::Registry &r, size_t entity, const engine::Event event)
     }
     if (pos) {
         if (event.type == event.MouseButtonPressed) {
-            Bullet(r, component::position{pos->value().x, pos->value().y}, _bullet_texture);
+            Bullet(component::position{pos->value().x, pos->value().y}, _bullet_texture);
         }
     }
 }

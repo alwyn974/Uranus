@@ -15,13 +15,12 @@
 class Player {
 public:
     ~Player() = default;
-    explicit Player(ecs::Registry &r, std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath);
+    explicit Player(std::shared_ptr<engine::Texture> &texture, std::string &&bulletPath);
     //    void handle_input(ecs::Registry &r, size_t entity, const sf::Event event);
-    void move(ecs::Registry &r, size_t entity, const engine::Event event);
+    void move(size_t entity, const engine::Event event);
     void loop();
 
 private:
-    ecs::Entity _entity;
     std::shared_ptr<engine::Texture> _bullet_texture;
 };
 

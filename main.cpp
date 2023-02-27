@@ -9,15 +9,14 @@
 
 int main()
 {
-    ecs::Registry r;
-    engine::system::gameInit(r);
+    engine::system::gameInit();
 
     std::shared_ptr<engine::Texture> texture = std::make_shared<engine::Texture>("ship.png");
     std::shared_ptr<engine::Texture> texture2 = std::make_shared<engine::Texture>("enemy.png");
-    Player player(r, texture, std::string("bullet.png"));
-    Enemy enemy(r, texture2);
+    Player player(texture, std::string("bullet.png"));
+    Enemy enemy(texture2);
 
-    engine::system::gameLoop(r);
+    engine::system::gameLoop();
     return 0;
 }
 

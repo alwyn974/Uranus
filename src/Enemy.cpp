@@ -7,9 +7,11 @@
 
 #include "Enemy.hpp"
 
-Enemy::Enemy(ecs::Registry &r, std::shared_ptr<engine::Texture> &texture) : _entity(r.spawnEntity())
+Enemy::Enemy(std::shared_ptr<engine::Texture> &texture)
 {
-    r.addComponent(this->_entity, component::position {200, 100});
-    r.addComponent(this->_entity, component::sprite {new engine::Sprite(texture)});
-    r.addComponent(this->_entity, component::collisionable {0, 0, 30, 30, [&](ecs::Registry &r, const size_t &, const size_t &) { return; }});
+    ecs::Registry *r = engine::Manager::getRegistry();
+    ecs::Entity entity = r->spawnEntity();
+    r->addComponent(entity, component::position {200, 100});
+    r->addComponent(entity, component::sprite {new engine::Sprite(texture)});
+    r->addComponent(entity, component::collisionable {0, 0, 30, 30, [&](const size_t &, const size_t &) { return; }});
 }

@@ -14,10 +14,9 @@
 class Enemy {
 public:
     ~Enemy() = default;
-    explicit Enemy(ecs::Registry &r, std::shared_ptr<engine::Texture> &texture);
+    explicit Enemy(std::shared_ptr<engine::Texture> &texture);
 
 private:
-    ecs::Entity _entity;
 };
 
 #endif // URANUS_ENEMY_HPP

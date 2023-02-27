@@ -40,19 +40,19 @@ namespace component {
         float y;
         float width;
         float height;
-        std::function<void(ecs::Registry &r, const size_t, const size_t)> callback;
+        std::function<void(const size_t, const size_t)> callback;
     };
 
     struct inputKeyboard {
-        std::function<void(ecs::Registry &r, const size_t, const engine::Event)> callback;
+        std::function<void(const size_t, const engine::Event)> callback;
     };
 
     struct inputMouse {
-        std::function<void(ecs::Registry &r, const size_t, const engine::Event)> callback;
+        std::function<void(const size_t, const engine::Event)> callback;
     };
 
     struct loop {
-        std::function<void(ecs::Registry &r, const size_t)> update;
+        std::function<void(const size_t)> update;
     };
 } // namespace component
 
