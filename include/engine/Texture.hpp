@@ -12,7 +12,10 @@
 
 namespace engine {
 
-class Texture: public sf::Texture {};
+class Texture: public sf::Texture {
+public:
+    explicit Texture(const std::string &path);
+};
 
 }
 

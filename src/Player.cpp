@@ -15,9 +15,11 @@ Player::Player(ecs::Registry &r, std::shared_ptr<sf::Texture> &texture, std::str
     sf::Texture bulletTexture;
     bulletTexture.loadFromFile(bulletPath);
     this->_bullet_texture = std::make_shared<sf::Texture>(bulletTexture);
+
     r.addComponent(this->_entity, component::position {0, 0});
     r.addComponent(this->_entity, component::velocity {0, 0});
-    r.addComponent(this->_entity, component::sprite {new Sprite(texture)});
+    r.addComponent(this->_entity, component::sprite {new engine::Sprite()});
+
     r.addComponent(this->_entity, component::inputKeyboard {.callback = [&](ecs::Registry &r, size_t entity, const sf::Event event) { this->move(r, entity, event); }});
 }
 

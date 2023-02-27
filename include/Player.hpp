@@ -8,10 +8,7 @@
 #ifndef URANUS_PLAYER_HPP
 #define URANUS_PLAYER_HPP
 
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include "Entity.hpp"
-#include "Registry.hpp"
+#include "engine/Engine.hpp"
 
 class Player {
 public:

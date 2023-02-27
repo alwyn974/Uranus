@@ -8,14 +8,17 @@
 #ifndef URANUS_SPRITE_HPP
 #define URANUS_SPRITE_HPP
 
-#include "Dependencies.hpp"
+#include "Texture.hpp"
 
 namespace engine {
 
     class Sprite: public sf::Sprite {
+    public:
+        explicit Sprite(const engine::Texture &texture);
 
     };
-
 }
+
+
 
 #endif //URANUS_SPRITE_HPP

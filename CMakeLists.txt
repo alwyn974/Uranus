@@ -23,7 +23,7 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Player.cpp
         src/Enemy.cpp
         src/Bullet.cpp
-        include/View.hpp include/engine/Texture.hpp include/engine/Engine.hpp include/engine/Sprite.hpp include/engine/Shape.hpp include/engine/RenderWindow.hpp include/engine/Dependencies.hpp src/engine/RenderWindow.cpp)
+        include/View.hpp include/engine/Texture.hpp include/engine/Engine.hpp include/engine/Sprite.hpp include/engine/Shape.hpp include/engine/RenderWindow.hpp include/engine/Dependencies.hpp src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE
