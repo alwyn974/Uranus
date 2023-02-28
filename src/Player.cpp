@@ -8,7 +8,8 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-Player::Player(std::shared_ptr<engine::Texture> &texture, const std::string &bulletTextureName)
+Player::Player(const std::string &uniqueName, std::shared_ptr<engine::Texture> &texture,
+               const std::string &bulletTextureName) : Base(uniqueName)
 {
     this->_bulletTextureName = bulletTextureName;
 
@@ -47,7 +48,7 @@ void Player::move(size_t entity, const engine::Event event)
         if (event.type == event.MouseButtonPressed) {
             auto &textureManager = engine::Manager::getTextureManager();
             auto &entityManager = engine::Manager::getEntityManager();
-            auto bullet = std::make_shared<Bullet>(component::position{pos->value().x, pos->value().y}, textureManager->getTextureByName(this->_bulletTextureName));
+            auto bullet = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y - 12}, textureManager->getTextureByName(this->_bulletTextureName));
             entityManager->addPrefab(bullet);
         }
     }

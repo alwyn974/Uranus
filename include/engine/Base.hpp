@@ -14,9 +14,12 @@
 namespace engine {
     class Base {
     public:
-        explicit Base();
+        explicit Base(const std::string &uniqueName);
+
+        const std::string &getUniqueName();
 
     protected:
+        std::string _uniqueName;
         size_t _entityId;
     };
 }

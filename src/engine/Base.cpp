@@ -8,8 +8,14 @@
 #include "engine/Base.hpp"
 #include "engine/Manager.hpp"
 
-engine::Base::Base()
+engine::Base::Base(const std::string &uniqueName)
 {
     auto &r = engine::Manager::getRegistry();
     this->_entityId = r->spawnEntity();
+    this->_uniqueName = uniqueName;
+}
+
+const std::string &engine::Base::getUniqueName()
+{
+    return this->_uniqueName;
 }

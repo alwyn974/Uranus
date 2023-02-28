@@ -14,7 +14,7 @@
 class Enemy : public engine::Base {
 public:
     ~Enemy() = default;
-    explicit Enemy(std::shared_ptr<engine::Texture> &texture);
+    explicit Enemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
     void loop(const size_t);
 private:
 };

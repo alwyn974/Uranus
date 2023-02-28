@@ -8,9 +8,10 @@
 #include "Bullet.hpp"
 
 
-Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &texture)
+Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
+    : Base(uniqueName)
 {
-    this->canMove = false;
+    this->_canMove = false;
 
     auto &r = engine::Manager::getRegistry();
     ecs::Entity entity = r->entityFromIndex(this->_entityId);
@@ -23,12 +24,14 @@ Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &textur
     r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
     r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->handleKeyboard(entity, event); }});
 
-    r->addComponent(entity, component::animation{4, 1});
-    engine::system::addNewAnimation(entity, "charge", true, 0.4);
+    r->addComponent(entity, component::animation{6, 1});
+    engine::system::addNewAnimation(entity, "charge", true, 0.6);
     engine::system::insertAnimationFrame(entity, "charge", 0.0, 0);
     engine::system::insertAnimationFrame(entity, "charge", 0.1, 1);
     engine::system::insertAnimationFrame(entity, "charge", 0.2, 2);
-    engine::system::insertAnimationFrame(entity, "charge", 0.2, 3);
+    engine::system::insertAnimationFrame(entity, "charge", 0.3, 3);
+    engine::system::insertAnimationFrame(entity, "charge", 0.4, 4);
+    engine::system::insertAnimationFrame(entity, "charge", 0.5, 5);
 
     engine::system::addNewAnimation(entity, "idle", true, 0.1);
     engine::system::insertAnimationFrame(entity, "idle", 0.0, 1);
@@ -45,7 +48,7 @@ void Bullet::move(size_t entity)
 
 void Bullet::loop(const size_t entity)
 {
-    if (!this->canMove)
+    if (!this->_canMove)
         return;
     auto &r = engine::Manager::getRegistry();
     this->move(entity);
@@ -63,11 +66,10 @@ void Bullet::colliding(const size_t &entity, const size_t &entityCollidingWith)
 
 void Bullet::handleKeyboard(size_t entity, const engine::Event event)
 {
-    if (this->canMove)
+    if (this->_canMove)
         return;
     if (event.type == event.MouseButtonReleased) {
-        this->canMove = true;
+        this->_canMove = true;
         engine::system::playAnimation(this->_entityId, "idle");
-        std::cout << "passed" << std::endl;
     }
 }
