@@ -59,6 +59,7 @@ void engine::system::collision()
         //end debug
 
         for (auto [entity2, pos2, collision2]: View<component::position, component::collisionable>(*r)) {
+
             if (entity1 == entity2)
                 continue;
 
@@ -157,6 +158,9 @@ void engine::system::animation()
             if (!animationData.isPlaying)
                 continue;
             if (animationData.clock.getElapsedTime().asSeconds() >= animationData.length) {
+
+                animation.callback(idx, animationData.name);
+
                 if (animationData.loop) {
                     animationData.clock.restart();
                 }

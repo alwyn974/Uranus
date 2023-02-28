@@ -9,7 +9,6 @@
 #define URANUS_BULLET_HPP
 
 #include "engine/Engine.hpp"
-#include "ecs/Components.hpp"
 
 class Bullet : public engine::Base {
 public:

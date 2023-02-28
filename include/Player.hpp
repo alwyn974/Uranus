@@ -9,7 +9,6 @@
 #define URANUS_PLAYER_HPP
 
 #include "engine/Engine.hpp"
-#include "ecs/Components.hpp"
 
 class Player : public engine::Base {
 public:

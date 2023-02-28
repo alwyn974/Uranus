@@ -74,6 +74,7 @@ namespace component {
     struct animation {
         int hFrame;
         int vFrame;
+        std::function<void(const size_t entity, const std::string &animationName)> callback;
         std::vector<component::animationData> animations;
     };
 

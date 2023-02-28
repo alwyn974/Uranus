@@ -6,6 +6,7 @@
 */
 
 #include "Bullet.hpp"
+#include "Explosion.hpp"
 
 
 Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
@@ -24,10 +25,10 @@ Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shar
     std::array<bool, 4> mask{true, false, false, false};
     r->addComponent(entity, component::collisionable {
             10, 10, 22, 20, layer, mask, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
-    r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
-    r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->handleKeyboard(entity, event); }});
+    r->addComponent(entity, component::loop {[&](const size_t entity) { this->loop(entity); }});
+    r->addComponent(entity, component::inputKeyboard {[&](size_t entity, const engine::Event event) { this->handleKeyboard(entity, event); }});
 
-    r->addComponent(entity, component::animation{6, 1});
+    r->addComponent(entity, component::animation{6, 1, [&](const size_t entity, const std::string &animationName) { return;}});
     engine::system::addNewAnimation(entity, "charge", true, 0.6);
     engine::system::insertAnimationFrame(entity, "charge", 0.0, 0);
     engine::system::insertAnimationFrame(entity, "charge", 0.1, 1);
@@ -63,6 +64,14 @@ void Bullet::loop(const size_t entity)
 void Bullet::colliding(const size_t &entity, const size_t &entityCollidingWith)
 {
     auto &r = engine::Manager::getRegistry();
+    auto &entityManager = engine::Manager::getEntityManager();
+    auto &textureManager = engine::Manager::getTextureManager();
+
+    auto pos = r->getComponent<component::position>(entityCollidingWith);
+
+    auto explosion = std::make_shared<Explosion>("explosion", component::position{pos->value().x, pos->value().y}, textureManager->getTextureByName("explosion"));
+    entityManager->addPrefab(explosion);
+
     r->killEntity(r->entityFromIndex(entity));
     r->killEntity(r->entityFromIndex(entityCollidingWith));
 }

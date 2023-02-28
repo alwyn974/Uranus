@@ -21,6 +21,7 @@ void SceneMain::init()
     textureManager->addTexture("ship.png", "ship");
     textureManager->addTexture("enemy.png", "enemy");
     textureManager->addTexture("bullet2.png", "bullet");
+    textureManager->addTexture("explosion.png", "explosion");
 
     auto &entityManager = engine::Manager::getEntityManager();
 
