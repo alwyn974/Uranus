@@ -22,7 +22,7 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Player.cpp
         src/Enemy.cpp
         src/Bullet.cpp
-        src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp include/engine/Event.hpp include/engine/Keyboard.hpp include/engine/Manager.hpp src/engine/Manager.cpp src/engine/SceneManager.cpp include/engine/SceneManager.hpp include/engine/Scene.hpp src/engine/Scene.cpp src/SceneMain.cpp include/SceneMain.hpp include/engine/TextureManager.hpp src/engine/TextureManager.cpp include/engine/Base.hpp src/engine/Base.cpp include/engine/EntityManager.hpp src/engine/EntityManager.cpp)
+        src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp include/engine/Event.hpp include/engine/Keyboard.hpp include/engine/Manager.hpp src/engine/Manager.cpp src/engine/SceneManager.cpp include/engine/SceneManager.hpp include/engine/Scene.hpp src/engine/Scene.cpp src/SceneMain.cpp include/SceneMain.hpp include/engine/TextureManager.hpp src/engine/TextureManager.cpp include/engine/Base.hpp src/engine/Base.cpp include/engine/EntityManager.hpp src/engine/EntityManager.cpp include/Map.hpp src/Map.cpp include/extern/tileson.hpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE
@@ -33,18 +33,20 @@ target_include_directories(${PROJECT_NAME}
         )
 
 find_package(SFML 2.6 REQUIRED COMPONENTS graphics window)
+find_package(nlohmann_json 3.11.2 REQUIRED)
 
 # Link all libraries
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
         sfml-graphics sfml-audio sfml-system sfml-window
-        )
+        nlohmann_json
+)
 
 # Enable warnings, will not work on header only libraries
 target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>: -Wall -Wextra>
         $<$<CXX_COMPILER_ID:MSVC>: /W4>
-        )
+)
 
 # Set some properties
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})

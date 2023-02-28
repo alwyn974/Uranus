@@ -10,8 +10,6 @@
 
 Player::Player(std::shared_ptr<engine::Texture> &texture, const std::string &bulletTextureName)
 {
-    this->_bulletTextureName = bulletTextureName;
-
     auto &r = engine::Manager::getRegistry();
     ecs::Entity entity = r->entityFromIndex(this->_entityId);
 
