@@ -19,18 +19,21 @@ Bullet::Bullet(component::position pos, std::shared_ptr<engine::Texture> &textur
     r->addComponent(entity, component::velocity {0, 0});
     r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
     r->addComponent(entity, component::collisionable {
-            0, 0, 18, 15, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
+            10, 10, 22, 20, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
     r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
     r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->handleKeyboard(entity, event); }});
 
     r->addComponent(entity, component::animation{4, 1});
-    engine::system::addNewAnimation(entity, "idle", true, 0.4);
-    engine::system::insertAnimationFrame(entity, "idle", 0.0, 0);
-    engine::system::insertAnimationFrame(entity, "idle", 0.1, 1);
-    engine::system::insertAnimationFrame(entity, "idle", 0.2, 2);
-    engine::system::insertAnimationFrame(entity, "idle", 0.2, 3);
+    engine::system::addNewAnimation(entity, "charge", true, 0.4);
+    engine::system::insertAnimationFrame(entity, "charge", 0.0, 0);
+    engine::system::insertAnimationFrame(entity, "charge", 0.1, 1);
+    engine::system::insertAnimationFrame(entity, "charge", 0.2, 2);
+    engine::system::insertAnimationFrame(entity, "charge", 0.2, 3);
 
-    engine::system::playAnimation(entity, "idle");
+    engine::system::addNewAnimation(entity, "idle", true, 0.1);
+    engine::system::insertAnimationFrame(entity, "idle", 0.0, 1);
+
+    engine::system::playAnimation(entity, "charge");
 }
 
 void Bullet::move(size_t entity)
@@ -60,9 +63,11 @@ void Bullet::colliding(const size_t &entity, const size_t &entityCollidingWith)
 
 void Bullet::handleKeyboard(size_t entity, const engine::Event event)
 {
-
+    if (this->canMove)
+        return;
     if (event.type == event.MouseButtonReleased) {
         this->canMove = true;
+        engine::system::playAnimation(this->_entityId, "idle");
         std::cout << "passed" << std::endl;
     }
 }
