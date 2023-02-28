@@ -18,6 +18,7 @@
 #include "ecs/View.hpp"
 
 #include "engine/Engine.hpp"
+#include "engine/map/Map.hpp"
 
 #include "Exceptions.hpp"
 

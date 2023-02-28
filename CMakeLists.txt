@@ -36,7 +36,7 @@ add_library(${PROJECT_NAME}
         src/engine/Base.cpp
         src/engine/EntityManager.cpp
         src/engine/RenderWindow.cpp
-)
+        src/engine/map/Map.cpp)
 
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
