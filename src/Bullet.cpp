@@ -28,17 +28,11 @@ Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shar
     r->addComponent(entity, component::loop {[&](const size_t entity) { this->loop(entity); }});
     r->addComponent(entity, component::inputKeyboard {[&](size_t entity, const engine::Event event) { this->handleKeyboard(entity, event); }});
 
-    r->addComponent(entity, component::animation{6, 1, [&](const size_t entity, const std::string &animationName) { return;}});
-    engine::system::addNewAnimation(entity, "charge", true, 0.6);
+    r->addComponent(entity, component::animation{3, 1, [&](const size_t entity, const std::string &animationName) { return;}});
+    engine::system::addNewAnimation(entity, "charge", false, 3);
     engine::system::insertAnimationFrame(entity, "charge", 0.0, 0);
-    engine::system::insertAnimationFrame(entity, "charge", 0.1, 1);
-    engine::system::insertAnimationFrame(entity, "charge", 0.2, 2);
-    engine::system::insertAnimationFrame(entity, "charge", 0.3, 3);
-    engine::system::insertAnimationFrame(entity, "charge", 0.4, 4);
-    engine::system::insertAnimationFrame(entity, "charge", 0.5, 5);
-
-    engine::system::addNewAnimation(entity, "idle", true, 0.1);
-    engine::system::insertAnimationFrame(entity, "idle", 0.0, 1);
+    engine::system::insertAnimationFrame(entity, "charge", 1, 1);
+    engine::system::insertAnimationFrame(entity, "charge", 2, 2);
 
     engine::system::playAnimation(entity, "charge");
 }
@@ -82,6 +76,6 @@ void Bullet::handleKeyboard(size_t entity, const engine::Event event)
         return;
     if (event.type == event.MouseButtonReleased) {
         this->_canMove = true;
-        engine::system::playAnimation(this->_entityId, "idle");
+        engine::system::stopAnimation(this->_entityId);
     }
 }

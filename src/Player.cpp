@@ -48,7 +48,7 @@ void Player::move(size_t entity, const engine::Event event)
         if (event.type == event.MouseButtonPressed) {
             auto &textureManager = engine::Manager::getTextureManager();
             auto &entityManager = engine::Manager::getEntityManager();
-            auto bullet = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y - 12}, textureManager->getTextureByName(this->_bulletTextureName));
+            auto bullet = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y}, textureManager->getTextureByName(this->_bulletTextureName));
             entityManager->addPrefab(bullet);
         }
     }

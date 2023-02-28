@@ -9,7 +9,7 @@
 
 void Enemy::animationCallback(const size_t entity, const std::string &animationName)
 {
-    std::cout << animationName << std::endl;
+//    std::cout << animationName << std::endl;
 }
 
 Enemy::Enemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture) : Base(uniqueName)
