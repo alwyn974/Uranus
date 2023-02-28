@@ -40,8 +40,8 @@ namespace component {
         float y;
         float width;
         float height;
-        std::array<bool, 4> layer;
-        std::array<bool, 4> mask;
+        std::array<bool, LAYER_SIZE> layer;
+        std::array<bool, MASK_SIZE> mask;
         std::function<void(const size_t, const size_t)> callback;
     };
 

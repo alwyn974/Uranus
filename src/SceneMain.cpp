@@ -9,6 +9,7 @@
 #include "SceneMain.hpp"
 
 #include "Enemy.hpp"
+#include "EnemyShooter.hpp"
 #include "Player.hpp"
 
 
@@ -20,7 +21,9 @@ void SceneMain::init()
     auto &textureManager = engine::Manager::getTextureManager();
     textureManager->addTexture("ship.png", "ship");
     textureManager->addTexture("enemy.png", "enemy");
+    textureManager->addTexture("enemy2.png", "enemyShooter");
     textureManager->addTexture("bullet3.png", "bullet");
+    textureManager->addTexture("bulletEnemy.png", "bulletEnemy");
     textureManager->addTexture("explosion.png", "explosion");
 
     auto player = std::make_shared<Player>("player", textureManager->getTextureByName("ship"), "bullet");
@@ -34,4 +37,7 @@ void SceneMain::init()
         pos.x += 10;
     }
 
+
+    auto enemy = std::make_shared<EnemyShooter>("enemyShooter", component::position{700, 100}, textureManager->getTextureByName("enemyShooter"));
+    entityManager->addPrefab(enemy);
 }

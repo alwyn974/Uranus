@@ -33,8 +33,12 @@ namespace engine::system {
 
         void stopAnimation(size_t entity);
 
+
         bool isColliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2);
 
+        void setLayer(size_t entity, const std::array<bool, LAYER_SIZE> &layer);
+
+        void setMask(size_t entity, const std::array<bool, MASK_SIZE> &mask);
 
 
         void gameLoop();

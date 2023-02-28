@@ -12,13 +12,19 @@
 
 class Bullet : public engine::Base {
 public:
-    ~Bullet() = default;
+    virtual ~Bullet() = default;
+
     explicit Bullet(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
-    void move(size_t entity);
+
+    virtual void move(size_t entity);
+
     void colliding(const size_t &entity, const size_t &entityCollidingWith);
+
     void loop(const size_t);
+
     void handleKeyboard(size_t entity, const engine::Event event);
-private:
+
+protected:
     bool _canMove;
 };
 

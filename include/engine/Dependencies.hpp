@@ -10,6 +10,10 @@
 
 #include <iostream>
 
+#define LAYER_SIZE 4
+#define MASK_SIZE 4
+
+
 #include "../ecs/Registry.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

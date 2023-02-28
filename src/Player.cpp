@@ -14,12 +14,17 @@ Player::Player(const std::string &uniqueName, std::shared_ptr<engine::Texture> &
     this->_bulletTextureName = bulletTextureName;
 
     auto &r = engine::Manager::getRegistry();
-    ecs::Entity entity = r->entityFromIndex(this->_entityId);
+    ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
 
-    r->addComponent(entity, component::position {0, 0});
-    r->addComponent(entity, component::velocity {0, 0});
-    r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
-    r->addComponent(entity, component::inputKeyboard {[&](size_t entity, const engine::Event event) { this->move(entity, event);}});
+    r->addComponent(newEntity, component::position {0, 0});
+    r->addComponent(newEntity, component::velocity {0, 0});
+    r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(texture)});
+    r->addComponent(newEntity, component::inputKeyboard {[&](size_t entity, const engine::Event event) { this->move(entity, event);}});
+
+    std::array<bool, LAYER_SIZE> layer{false, true, false, false};
+    std::array<bool, MASK_SIZE> mask{false, false, false, false};
+    r->addComponent(newEntity, component::collisionable {0, 0, 30, 15, layer, mask, \
+    [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
 }
 
 void Player::move(size_t entity, const engine::Event event)
@@ -52,4 +57,9 @@ void Player::move(size_t entity, const engine::Event event)
             entityManager->addPrefab(bullet);
         }
     }
+}
+
+void Player::colliding(const size_t &entity, const size_t &entityCollidingWith)
+{
+
 }

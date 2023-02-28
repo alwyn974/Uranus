@@ -43,6 +43,20 @@ bool engine::system::isColliding(const sf::FloatRect &obj1, const sf::FloatRect 
         obj1.top + obj1.height > obj2.top;
 }
 
+void engine::system::setLayer(size_t entity, const std::array<bool, LAYER_SIZE> &layer)
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &collision = r->getComponent<component::collisionable>(entity);
+    collision->value().layer = layer;
+}
+
+void engine::system::setMask(size_t entity, const std::array<bool, MASK_SIZE> &mask)
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &collision = r->getComponent<component::collisionable>(entity);
+    collision->value().mask = mask;
+}
+
 void engine::system::collision()
 {
     auto &window = engine::Manager::getWindow();
@@ -135,8 +149,12 @@ void engine::system::playAnimation(size_t entity, const std::string &name)
 
     for (component::animationData &animationData: animation->value().animations) {
 
-        animationData.isPlaying = animationData.name == name;
-//        std::cout << name << ", " << animationData.name << ", isPlaying: " << animationData.isPlaying << std::endl;
+        if (animationData.name == name) {
+            animationData.isPlaying = true;
+            auto &sprite = r->getComponent<component::sprite>(entity);
+            sprite->value().sprite->setTextureRect(get_animation_rect(animationData.frames.data()->frame, animation->value().hFrame, animation->value().vFrame, sprite->value().sprite->getTexture()->getSize()));
+        } else
+            animationData.isPlaying = false;
     }
 }
 
@@ -223,7 +241,6 @@ void engine::system::gameInit()
     r->registerComponent<component::collisionable>(deleteCollisionable);
     r->registerComponent<component::animation>(deleteAnimationComponent);
 }
-
 
 
 
