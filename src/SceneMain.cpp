@@ -18,9 +18,9 @@ SceneMain::SceneMain() : Scene("Main")
 void SceneMain::init()
 {
     auto &textureManager = engine::Manager::getTextureManager();
-    textureManager->addTexture("mario.png", "ship");
+    textureManager->addTexture("ship.png", "ship");
     textureManager->addTexture("enemy.png", "enemy");
-    textureManager->addTexture("bullet.png", "bullet");
+    textureManager->addTexture("bullet2.png", "bullet");
 
     auto player = std::make_shared<Player>(textureManager->getTextureByName("ship"), "bullet");
     auto enemy = std::make_shared<Enemy>(textureManager->getTextureByName("enemy"));

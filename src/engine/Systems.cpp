@@ -78,39 +78,38 @@ void engine::system::loop()
 sf::IntRect get_animation_rect(int frame, int h_frame, int v_frame, sf::Vector2u size)
 {
 
-    sf::Vector2i frame_size((int)size.x / h_frame, (int)size.y / v_frame);
+    sf::Vector2i frameSize(static_cast<int>(size.x) / h_frame, static_cast<int>(size.y) / v_frame);
 
     sf::Vector2i start{0, 0};
     for (int i = 0; i < frame; i++) {
-        start.x += frame_size.x;
+        start.x += frameSize.x;
         if (start.x >= size.x) {
             start.x = 0;
-            start.y += frame_size.y;
+            start.y += frameSize.y;
         }
     }
-    sf::IntRect rect{start.x, start.y, frame_size.x, frame_size.y};
+    sf::IntRect rect{start.x, start.y, frameSize.x, frameSize.y};
     return rect;
 }
 
 void engine::system::addNewAnimation(size_t entity, const std::string &name, bool loop, float length)
 {
-
     engine::Clock clock;
     std::vector<component::frameData> frameList;
-    component::animationData animationNew{name, loop, length, clock, false, frameList};
+    component::animationData animationData{name, loop, length, clock, false, frameList};
     auto &r = engine::Manager::getRegistry();
     auto &animation = r->getComponent<component::animation>(entity);
-    animation->value().animations.push_back(animationNew);
+    animation->value().animations.push_back(animationData);
 }
 
 void engine::system::insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame)
 {
     auto &r = engine::Manager::getRegistry();
     auto &animation = r->getComponent<component::animation>(entity);
-    component::frameData frameNew{frameTime, frame};
-    for (component::animationData &animationNew: animation->value().animations) {
-        if (animationNew.name == name) {
-            animationNew.frames.push_back(frameNew);
+    component::frameData frameData{frameTime, frame};
+    for (component::animationData &animationData: animation->value().animations) {
+        if (animationData.name == name) {
+            animationData.frames.push_back(frameData);
             break;
         }
     }
@@ -124,7 +123,17 @@ void engine::system::playAnimation(size_t entity, const std::string &name)
     for (component::animationData &animationData: animation->value().animations) {
 
         animationData.isPlaying = animationData.name == name;
-        std::cout << name << ", " << animationData.name << ", isPlaying: " << animationData.isPlaying << std::endl;
+//        std::cout << name << ", " << animationData.name << ", isPlaying: " << animationData.isPlaying << std::endl;
+    }
+}
+
+void engine::system::stopAnimation(size_t entity)
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &animation = r->getComponent<component::animation>(entity);
+
+    for (component::animationData &animationData: animation->value().animations) {
+        animationData.isPlaying = false;
     }
 }
 
@@ -198,6 +207,8 @@ void engine::system::gameInit()
     r->registerComponent<component::collisionable>(deleteCollisionable);
     r->registerComponent<component::animation>(deleteAnimationComponent);
 }
+
+
 
 
 

@@ -18,8 +18,9 @@ public:
     void move(size_t entity);
     void colliding(const size_t &entity, const size_t &entityCollidingWith);
     void loop(const size_t);
-
+    void handleKeyboard(size_t entity, const engine::Event event);
 private:
+    bool canMove;
 };
 
 #endif // URANUS_BULLET_HPP
