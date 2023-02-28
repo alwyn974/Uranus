@@ -15,7 +15,10 @@ Enemy::Enemy(const std::string &uniqueName, component::position pos, std::shared
     r->addComponent(entity, component::position{pos.x, pos.y});
     r->addComponent(entity, component::velocity {0, 0});
     r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
-    r->addComponent(entity, component::collisionable {0, 0, 30, 30, [&](const size_t &, const size_t &) { return; }});
+
+    std::array<bool, 4> layer{true, false, false, false};
+    std::array<bool, 4> mask{false, false, false, false};
+    r->addComponent(entity, component::collisionable {0, 0, 30, 30, layer, mask, [&](const size_t &, const size_t &) { return; }});
 
     r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
 
@@ -36,5 +39,5 @@ void Enemy::loop(const size_t entity)
 {
     auto &r = engine::Manager::getRegistry();
     auto &vel = r->getComponent<component::velocity>(entity);
-    vel->value().x = -0.1;
+    vel->value().x = -0.5;
 }

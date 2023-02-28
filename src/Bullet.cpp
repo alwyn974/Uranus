@@ -19,8 +19,11 @@ Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shar
     r->addComponent(entity, component::position {pos.x, pos.y});
     r->addComponent(entity, component::velocity {0, 0});
     r->addComponent(entity, component::sprite {std::make_shared<engine::Sprite>(texture)});
+
+    std::array<bool, 4> layer{false, false, false, false};
+    std::array<bool, 4> mask{true, false, false, false};
     r->addComponent(entity, component::collisionable {
-            10, 10, 22, 20, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
+            10, 10, 22, 20, layer, mask, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
     r->addComponent(entity, component::loop {.update = [&](const size_t entity) { this->loop(entity); }});
     r->addComponent(entity, component::inputKeyboard {.callback = [&](size_t entity, const engine::Event event) { this->handleKeyboard(entity, event); }});
 

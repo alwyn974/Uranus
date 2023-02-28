@@ -57,14 +57,26 @@ void engine::system::collision()
 //        rect.setPosition(pos1.x + collision1.x, pos1.y + collision1.y);
 //        window->draw(rect);
         //end debug
-        for (auto [entity2, pos2, collision2] : View<component::position, component::collisionable>(*r)) {
-            if (entity1 == entity2) continue;
-            const sf::FloatRect obj1{collision1.x + pos1.x, collision1.y + pos1.y, collision1.width, collision1.height};
-            const sf::FloatRect obj2{collision2.x + pos2.x, collision2.y + pos2.y, collision2.width, collision2.height};
-            if (isColliding(obj1, obj2)) {
-                collision1.callback(entity1, entity2);
+
+        for (auto [entity2, pos2, collision2]: View<component::position, component::collisionable>(*r)) {
+            if (entity1 == entity2)
+                continue;
+
+            for (unsigned long i = 0; i < collision1.mask.size(); i++) {
+                if (collision1.mask[i] && collision2.layer[i]) {
+                    const sf::FloatRect obj1{collision1.x + pos1.x, collision1.y + pos1.y, collision1.width,
+                                             collision1.height};
+                    const sf::FloatRect obj2{collision2.x + pos2.x, collision2.y + pos2.y, collision2.width,
+                                             collision2.height};
+                    if (isColliding(obj1, obj2)) {
+                        collision1.callback(entity1, entity2);
+                    }
+                    break;
+                }
             }
+
         }
+
     }
 }
 
