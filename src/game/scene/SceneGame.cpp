@@ -1,12 +1,11 @@
 /*
 ** EPITECH PROJECT, 2023
-** SceneMain.cpp
+** SceneGame.cpp
 ** File description:
-** SceneMain.cpp
+** SceneGame.cpp
 */
 
-
-#include "game/SceneMain.hpp"
+#include "game/scene/SceneGame.hpp"
 
 #include "game/Enemy.hpp"
 #include "game/EnemyShooter.hpp"
@@ -16,21 +15,12 @@
 
 #include "game/ui/Button.hpp"
 
+SceneGame::SceneGame() : Scene("Game"){}
 
-SceneMain::SceneMain() : Scene("Main"){}
-
-void SceneMain::init()
+void SceneGame::init()
 {
     auto &entityManager = engine::Manager::getEntityManager();
     auto &textureManager = engine::Manager::getTextureManager();
-    textureManager->addTexture("ship.png", "ship");
-    textureManager->addTexture("enemy.png", "enemy");
-    textureManager->addTexture("enemy2.png", "enemyShooter");
-    textureManager->addTexture("bullet3.png", "bullet");
-    textureManager->addTexture("bulletEnemy.png", "bulletEnemy");
-    textureManager->addTexture("explosion.png", "explosion");
-    textureManager->addTexture("bonusDouble.png", "bonusDoubleBullet");
-    textureManager->addTexture("button.png", "button");
 
     auto player = std::make_shared<Player>("player", textureManager->getTextureByName("ship"), "bullet");
     entityManager->addPrefab(player);
@@ -48,7 +38,4 @@ void SceneMain::init()
 
     auto bonusDoubleBullet = std::make_shared<bonus::DoubleBullet>("bonusDoubleBullet", component::position{200, 300});
     entityManager->addPrefab(bonusDoubleBullet);
-
-    auto button = std::make_shared<ui::Button>("button", component::position{500, 300}, textureManager->getTextureByName("button"));
-    entityManager->addPrefab(button);
 }

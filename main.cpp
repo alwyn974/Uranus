@@ -5,8 +5,8 @@
 
 #include "engine/Engine.hpp"
 
-#include "game/SceneMain.hpp"
-#include "game/SceneGame.hpp"
+#include "game/scene/SceneMain.hpp"
+#include "game/scene/SceneGame.hpp"
 
 #include "game/Player.hpp"
 #include "game/Enemy.hpp"

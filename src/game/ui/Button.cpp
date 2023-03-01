@@ -7,11 +7,12 @@
 
 #include "game/ui/Button.hpp"
 
-ui::Button::Button(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
+ui::Button::Button(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture, const std::function<void()> &callbackPressed)
     : Base(uniqueName)
 {
     this->_hover = false;
     this->_pressed = false;
+    this->_callbackPressed = callbackPressed;
 
     auto &r = engine::Manager::getRegistry();
     ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
@@ -83,17 +84,9 @@ void ui::Button::handleKeyboard(size_t entity, const engine::Event event)
    if (!this->_hover || this->_pressed)
        return;
     if (event.mouseButton.button == sf::Mouse::Left && event.type == event.MouseButtonPressed) {
-//        std::cout << this->_entityId << ", " << entity << std::endl;
         engine::system::playAnimation(this->_entityId, "pressed");
         this->_pressed = true;
         this->_clockPressed.restart();
-        this->pressed();
-
-        engine::Manager::killAllEntitiesAndPrefabs();
+        this->_callbackPressed();
     }
 }
-
-void ui::Button::pressed()
-{
-}
-
