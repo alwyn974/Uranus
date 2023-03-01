@@ -88,6 +88,8 @@ void ui::Button::handleKeyboard(size_t entity, const engine::Event event)
         this->_pressed = true;
         this->_clockPressed.restart();
         this->pressed();
+
+        engine::Manager::killAllEntitiesAndPrefabs();
     }
 }
 

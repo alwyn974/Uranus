@@ -20,6 +20,8 @@ namespace engine {
 
         void addPrefab(const std::shared_ptr<engine::Base> &prefab);
 
+        void killAllPrefabs();
+
         std::shared_ptr<engine::Base> getPrefabByName(const std::string &prefabName);
 
     private:

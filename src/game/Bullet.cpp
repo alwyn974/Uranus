@@ -44,7 +44,7 @@ void Bullet::move(size_t entity)
     auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = 5;
     if (r->getComponent<component::position>(entity)->value().x > 900) {
-        r->killEntity(r->entityFromIndex(entity));
+        r->killEntity(entity);
     }
 }
 
@@ -68,8 +68,8 @@ void Bullet::colliding(const size_t &entity, const size_t &entityCollidingWith)
     auto explosion = std::make_shared<Explosion>("explosion", component::position{pos->value().x, pos->value().y}, textureManager->getTextureByName("explosion"));
     entityManager->addPrefab(explosion);
 
-    r->killEntity(r->entityFromIndex(entity));
-    r->killEntity(r->entityFromIndex(entityCollidingWith));
+    r->killEntity(entity);
+    r->killEntity(entityCollidingWith);
 }
 
 void Bullet::handleKeyboard(size_t entity, const engine::Event event)

@@ -33,6 +33,8 @@ namespace engine {
 
         static std::shared_ptr<engine::EntityManager> &getEntityManager();
 
+        static void killAllEntitiesAndPrefabs();
+
     private:
         Manager() = default;
 

@@ -33,5 +33,5 @@ Explosion::Explosion(const std::string &uniqueName, component::position pos, std
 void Explosion::animationCallback(const size_t entity, const std::string &animationName)
 {
     auto &r = engine::Manager::getRegistry();
-    r->killEntity(r->entityFromIndex(entity));
+    r->killEntity(entity);
 }

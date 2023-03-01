@@ -20,3 +20,8 @@ std::shared_ptr<engine::Base> engine::EntityManager::getPrefabByName(const std::
         }
     }
 }
+
+void engine::EntityManager::killAllPrefabs()
+{
+    this->_prefabs.clear();
+}

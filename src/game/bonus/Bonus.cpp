@@ -46,7 +46,7 @@ void bonus::Bonus::colliding(size_t entity, size_t entityCollidingWith)
     std::shared_ptr<engine::Base> base = entityManager->getPrefabByName(name->value().uniqueName);
     auto &player = dynamic_cast<Player &>(*base);
 
-    r->killEntity(r->entityFromIndex(entity));
+    r->killEntity(entity);
     this->enable(player);
 }
 

@@ -42,3 +42,11 @@ std::shared_ptr<engine::EntityManager> &engine::Manager::getEntityManager()
     if (!_entityManager) { _entityManager = std::make_shared<engine::EntityManager>(); }
     return _entityManager;
 }
+
+void engine::Manager::killAllEntitiesAndPrefabs()
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &entityManger = engine::Manager::getEntityManager();
+    r->killAllEntities();
+    entityManger->killAllPrefabs();
+}

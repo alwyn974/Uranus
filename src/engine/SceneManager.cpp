@@ -7,6 +7,7 @@
 
 
 #include "engine/SceneManager.hpp"
+#include "engine/Manager.hpp"
 
 void engine::SceneManager::addScene(const std::shared_ptr<engine::Scene> &newScene)
 {
@@ -17,14 +18,14 @@ void engine::SceneManager::changeScene(const std::string &sceneToSwitch)
 {
     for (std::shared_ptr<engine::Scene> &sceneItem : this->_scenes) {
         if (sceneItem->getName() == sceneToSwitch) {
+
+            engine::Manager::killAllEntitiesAndPrefabs();
+
             this->_actualScene = sceneItem;
+            this->_actualScene->init();
             break;
         }
     }
-
-    //TODO: delete all entity
-
-    this->_actualScene->init();
 }
 
 void engine::SceneManager::changeScene(const std::shared_ptr<engine::Scene> &newScene)

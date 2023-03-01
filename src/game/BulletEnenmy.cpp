@@ -22,6 +22,6 @@ void BulletEnemy::move(size_t entity)
     auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = -5;
     if (r->getComponent<component::position>(entity)->value().x < -100) {
-        r->killEntity(r->entityFromIndex(entity));
+        r->killEntity(entity);
     }
 }
