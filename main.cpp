@@ -30,8 +30,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
     auto &textureManager = engine::Manager::getTextureManager();
-    textureManager->addTexture("./assets/r-typesheet8.gif", "Foreground");
-    textureManager->addTexture("./assets/r-typesheet8.gif", "Background");
+
     Map const map("./map.json", textureManager);
 
     while (window.isOpen()) {

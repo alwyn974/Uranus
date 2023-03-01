@@ -11,8 +11,8 @@ Map::Map(std::string path, std::shared_ptr<engine::TextureManager> &textureMng)
 
     this->_map = nlohman.parse(path);
     if (this->_map->getStatus() == tson::ParseStatus::OK) {
-        this->loadMap();
         this->loadTexture(textureMng);
+        this->loadMap();
     } else
         std::cerr << "Error while parsing the map: " << this->_map->getStatusMessage() << std::endl;
 }
@@ -20,9 +20,9 @@ Map::Map(std::string path, std::shared_ptr<engine::TextureManager> &textureMng)
 void Map::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    for (auto &layer : this->_layers) {
-        states.texture = this->_textures.at(layer.first).get();
-        target.draw(layer.second, states);
+    for (auto &tile : this->_tiles) {
+        states.texture = this->_textures.find(tile.first)->second.get();
+        target.draw(tile.second, states);
     }
 }
 
@@ -36,39 +36,57 @@ void Map::loadMap() {
 
 void Map::loadTiles(tson::Layer *layer)
 {
-    sf::VertexArray vertices(sf::Quads,  layer->getSize().x * layer->getSize().y * 4);
-    int i = 0;
     for (int y = 0; y < layer->getSize().y; y++) {
         for (int x = 0; x < layer->getSize().x; x++) {
             tson::Tile *tile = layer->getTileData(x, y);
-            if (!tile)
-                continue;
-            auto tileId = tile->getId();
-            if (tileId != 0) {
-                sf::Vertex *quad = &vertices[i * 4];
-                const sf::Vector2i tileSize(this->_map->getTileSize().x, this->_map->getTileSize().y);
+            if (tile != nullptr) {
+                auto tileset = this->getTilesetByTileId(tile->getId());
+                if (tileset != nullptr) {
+                    auto texture = this->_textures.find(tileset->getName());
+                    if (texture != this->_textures.end()) {
+                        sf::VertexArray quad(sf::Quads, 4);
+                        sf::Vector2i pos = {x * tileset->getTileSize().x, y * tileset->getTileSize().y};
+                        sf::Vector2i size = {tileset->getTileSize().x, tileset->getTileSize().y};
+                        quad[0].position = sf::Vector2f(pos.x, pos.y);
+                        quad[1].position = sf::Vector2f(pos.x + size.x, pos.y);
+                        quad[2].position = sf::Vector2f(pos.x + size.x, pos.y + size.y);
+                        quad[3].position = sf::Vector2f(pos.x, pos.y + size.y);
 
-                quad[0].position = sf::Vector2f(x  * tileSize.x, y * tileSize.y);
-                quad[1].position = sf::Vector2f((x + 1) * tileSize.x, y * tileSize.y);
-                quad[2].position = sf::Vector2f((x + 1) * tileSize.x, (y + 1) * tileSize.y);
-                quad[3].position = sf::Vector2f(x * tileSize.x, (y + 1) * tileSize.y);
+                        auto tilePos = this->getTilePosition(tile->getId(), tileset);
+                        quad[0].texCoords = sf::Vector2f(tilePos.x * size.x, tilePos.y * size.y);
+                        quad[1].texCoords = sf::Vector2f((tilePos.x + 1) * size.x, tilePos.y * size.y);
+                        quad[2].texCoords = sf::Vector2f((tilePos.x + 1) * size.x, (tilePos.y + 1) * size.y);
+                        quad[3].texCoords = sf::Vector2f(tilePos.x * size.x, (tilePos.y + 1) * size.y);
 
-                quad[0].texCoords = sf::Vector2f(tile->getDrawingRect().x, tile->getDrawingRect().y);
-                quad[1].texCoords = sf::Vector2f(tile->getDrawingRect().x + tile->getDrawingRect().width, tile->getDrawingRect().y);
-                quad[2].texCoords = sf::Vector2f(tile->getDrawingRect().x + tile->getDrawingRect().width, tile->getDrawingRect().y + tile->getDrawingRect().height);
-                quad[3].texCoords = sf::Vector2f(tile->getDrawingRect().x, tile->getDrawingRect().y + tile->getDrawingRect().height);
-                i++;
+                        this->_tiles.emplace_back(tileset->getName(), quad);
+                    }
+                }
             }
         }
     }
-    this->_layers.emplace(layer->getName(), vertices);
-
 }
 
 void Map::loadTexture(std::shared_ptr<engine::TextureManager> &textureMng)
 {
-    for (auto &layer : this->_map->getLayers()) {
-        this->_textures.emplace(layer.getName(), textureMng->getTextureByName(layer.getName()));
+    for (auto &tileset : this->_map->getTilesets()) {
+        textureMng->addTexture(tileset.getImagePath(), tileset.getName());
+        this->_textures.emplace(tileset.getName(), textureMng->getTextureByName(tileset.getName()));
     }
+}
+
+tson::Tileset *Map::getTilesetByTileId(uint32_t id)
+{
+    for (auto &tileset : this->_map->getTilesets()) {
+        if (id >= tileset.getFirstgid() && id < tileset.getFirstgid() + tileset.getTileCount())
+            return &tileset;
+    }
+    return nullptr;
+}
+
+sf::Vector2i Map::getTilePosition(uint32_t tileId, tson::Tileset *tileset)
+{
+    int x = (tileId - tileset->getFirstgid()) % tileset->getColumns();
+    int y = (tileId - tileset->getFirstgid()) / tileset->getColumns();
+    return {x, y};
 }
 
