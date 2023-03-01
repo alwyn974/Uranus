@@ -3,6 +3,7 @@
 //
 
 #include "engine/Systems.hpp"
+#include "engine/Rect.hpp"
 
 void engine::system::position()
 {
@@ -79,6 +80,7 @@ void engine::system::collision()
 
             for (unsigned long i = 0; i < collision1.mask.size(); i++) {
                 if (collision1.mask[i] && collision2.layer[i]) {
+
                     const sf::FloatRect obj1{collision1.x + pos1.x, collision1.y + pos1.y, collision1.width,
                                              collision1.height};
                     const sf::FloatRect obj2{collision2.x + pos2.x, collision2.y + pos2.y, collision2.width,
