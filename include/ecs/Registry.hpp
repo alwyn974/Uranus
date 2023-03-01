@@ -111,6 +111,18 @@ namespace ecs {
         void killEntity(const Entity &e);
 
         /**
+         * @brief Destroy an entity
+         * @param e Index of the entity to destroy
+         */
+        void killEntity(const size_t &e);
+
+
+        /**
+         * @brief Destroy all entities
+         */
+        void killAllEntities();
+
+        /**
          * @brief Add a component to an entity
          * @tparam Component Type of the component
          * @param to Entity to add the component to
@@ -159,7 +171,11 @@ namespace ecs {
          */
         size_t getEntityCounter() const;
 
-        size_t getEntityAliveMaxIndex() const;
+        /**
+         * @brief Get the maximum index of an entity
+         * @return Maximum index of an entity
+         */
+//        size_t getEntityAliveMaxIndex() const;
     private:
         std::unordered_map<std::type_index, std::any> _componentsArrays; /*< Map containing all the components SparseArrays */
         std::unordered_map<std::type_index, std::function<void(size_t const &)>> _destroyArrays; /*< Map containing all the components delete functions */
@@ -258,6 +274,19 @@ namespace ecs {
     inline void Registry::killEntity(const Entity &e) {
         _freeIds.push_back(e._id);
         for (auto &i: _destroyArrays) { i.second(e._id); }
+    }
+
+    inline void Registry::killEntity(const size_t &e) {
+        _freeIds.push_back(e);
+        for (auto &i: _destroyArrays) { i.second(e); }
+    }
+
+    inline void Registry::killAllEntities() {
+        for (size_t i = 0; i < _entityCounter; i++) {
+            killEntity(i);
+        }
+        _freeIds.clear();
+        _entityCounter = 0;
     }
 
     template<typename Component>
