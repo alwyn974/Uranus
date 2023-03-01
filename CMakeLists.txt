@@ -19,10 +19,10 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 add_executable(${PROJECT_NAME} main.cpp
         src/ecs/Components.cpp
         src/engine/Systems.cpp
-        src/Player.cpp
-        src/Enemy.cpp
-        src/Bullet.cpp
-        src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp include/engine/Event.hpp include/engine/Keyboard.hpp include/engine/Manager.hpp src/engine/Manager.cpp src/engine/SceneManager.cpp include/engine/SceneManager.hpp include/engine/Scene.hpp src/engine/Scene.cpp src/SceneMain.cpp include/SceneMain.hpp include/engine/TextureManager.hpp src/engine/TextureManager.cpp include/engine/Base.hpp src/engine/Base.cpp include/engine/EntityManager.hpp src/engine/EntityManager.cpp include/engine/Clock.hpp include/Explosion.hpp src/Explosion.cpp include/EnemyShooter.hpp src/EnemyShooter.cpp include/BulletEnemy.hpp src/BulletEnenmy.cpp)
+        src/game/Player.cpp
+        src/game/Enemy.cpp
+        src/game/Bullet.cpp
+        src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp include/engine/Event.hpp include/engine/Keyboard.hpp include/engine/Manager.hpp src/engine/Manager.cpp src/engine/SceneManager.cpp include/engine/SceneManager.hpp include/engine/Scene.hpp src/engine/Scene.cpp src/game/SceneMain.cpp include/game/SceneMain.hpp include/engine/TextureManager.hpp src/engine/TextureManager.cpp include/engine/Base.hpp src/engine/Base.cpp include/engine/EntityManager.hpp src/engine/EntityManager.cpp include/engine/Clock.hpp include/game/Explosion.hpp src/game/Explosion.cpp include/game/EnemyShooter.hpp src/game/EnemyShooter.cpp include/game/BulletEnemy.hpp src/game/BulletEnenmy.cpp include/game/bonus/Bonus.hpp include/game/bonus/DoubleBullet.hpp src/game/bonus/Bonus.cpp src/game/bonus/DoubleBullet.cpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE

@@ -12,8 +12,6 @@
 
 class Enemy : public engine::Base {
 public:
-    virtual ~Enemy() = default;
-
     explicit Enemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
 
     virtual void loop(size_t);

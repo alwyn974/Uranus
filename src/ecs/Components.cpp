@@ -57,3 +57,9 @@ void deleteAnimationComponent(size_t e)
     auto &r = engine::Manager::getRegistry();
     r->removeComponent<component::animation>(e);
 }
+
+void deleteNameComponent(size_t e)
+{
+    auto &r = engine::Manager::getRegistry();
+    r->removeComponent<component::name>(e);
+}

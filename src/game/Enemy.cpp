@@ -5,7 +5,7 @@
 ** Enemy.cpp
 */
 
-#include "Enemy.hpp"
+#include "game/Enemy.hpp"
 
 void Enemy::animationCallback(size_t entity, const std::string &animationName)
 {
@@ -17,6 +17,7 @@ Enemy::Enemy(const std::string &uniqueName, component::position pos, std::shared
     auto &r = engine::Manager::getRegistry();
     ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
 
+    r->addComponent(newEntity, component::name{uniqueName});
     r->addComponent(newEntity, component::position{pos.x, pos.y});
     r->addComponent(newEntity, component::velocity {0, 0});
     r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(texture)});

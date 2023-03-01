@@ -12,7 +12,6 @@
 
 class Explosion : public engine::Base {
 public:
-    ~Explosion() = default;
     explicit Explosion(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
     void animationCallback(const size_t entity, const std::string &animationName);
 };

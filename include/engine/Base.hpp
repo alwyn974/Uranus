@@ -14,6 +14,9 @@
 namespace engine {
     class Base {
     public:
+
+        virtual ~Base() = default;
+
         explicit Base(const std::string &uniqueName);
 
         const std::string &getUniqueName();

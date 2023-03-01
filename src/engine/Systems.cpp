@@ -63,13 +63,13 @@ void engine::system::collision()
     auto &r = engine::Manager::getRegistry();
     for (auto [entity1, pos1, collision1] : View<component::position, component::collisionable>(*r)) {
         //start debug
-//        sf::Vector2f size(collision1.width, collision1.height);
-//        sf::RectangleShape rect(size);
-//        rect.setFillColor(sf::Color::Transparent);
-//        rect.setOutlineColor(sf::Color::White);
-//        rect.setOutlineThickness(1);
-//        rect.setPosition(pos1.x + collision1.x, pos1.y + collision1.y);
-//        window->draw(rect);
+        sf::Vector2f size(collision1.width, collision1.height);
+        sf::RectangleShape rect(size);
+        rect.setFillColor(sf::Color::Transparent);
+        rect.setOutlineColor(sf::Color::White);
+        rect.setOutlineThickness(1);
+        rect.setPosition(pos1.x + collision1.x, pos1.y + collision1.y);
+        window->draw(rect);
         //end debug
 
         for (auto [entity2, pos2, collision2]: View<component::position, component::collisionable>(*r)) {
@@ -223,6 +223,8 @@ void engine::system::gameLoop()
 
         window->display();
     }
+    auto &textureManager = engine::Manager::getTextureManager();
+    textureManager.reset();
 }
 
 void engine::system::gameInit()
@@ -240,6 +242,7 @@ void engine::system::gameInit()
     r->registerComponent<component::loop>(deleteLoopComponent);
     r->registerComponent<component::collisionable>(deleteCollisionable);
     r->registerComponent<component::animation>(deleteAnimationComponent);
+    r->registerComponent<component::name>(deleteNameComponent);
 }
 
 

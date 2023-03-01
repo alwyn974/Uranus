@@ -5,14 +5,13 @@
 ** EnemyShooter.cpp
 */
 
-#include "EnemyShooter.hpp"
-#include "BulletEnemy.hpp"
+#include "game/EnemyShooter.hpp"
+#include "game/BulletEnemy.hpp"
 #include <cmath>
 
 EnemyShooter::EnemyShooter(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
     : Enemy(uniqueName, pos, texture)
 {
-    this->_tick = 0;
 }
 
 void EnemyShooter::loop(size_t entity)
@@ -21,12 +20,9 @@ void EnemyShooter::loop(size_t entity)
     auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = -0.5;
 
-    this->_tick += 0.1;
-    vel->value().y = sin(1 * this->_sineClock.getElapsedTime().asSeconds()) * 3;
+    vel->value().y = sin(1 * this->_movementClock.getElapsedTime().asSeconds()) * 3;
 
-    std::cout << this->_tick << std::endl;
-
-    if (this->_clock.getElapsedTime().asSeconds() > 1) {
+    if (this->_shootClock.getElapsedTime().asSeconds() > 0.5) {
         auto &textureManager = engine::Manager::getTextureManager();
         auto &entityManager = engine::Manager::getEntityManager();
 
@@ -34,6 +30,6 @@ void EnemyShooter::loop(size_t entity)
         auto bullet = std::make_shared<BulletEnemy>("bullet", component::position{pos->value().x - 30, pos->value().y}, textureManager->getTextureByName("bulletEnemy"));
         entityManager->addPrefab(bullet);
 
-        this->_clock.restart();
+        this->_shootClock.restart();
     }
 }

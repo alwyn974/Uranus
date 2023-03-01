@@ -12,6 +12,10 @@
 
 namespace component {
 
+    struct name {
+        std::string uniqueName;
+    };
+
     struct position {
         float x;
         float y;
@@ -90,5 +94,6 @@ void deleteSpriteComponent(size_t e);
 void deleteCollisionable(size_t e);
 void deleteLoopComponent(size_t e);
 void deleteAnimationComponent(size_t e);
+void deleteNameComponent(size_t e);
 
 #endif // URANUS_COMPONENTS_HPP

@@ -4,10 +4,10 @@
 
 
 #include "engine/Engine.hpp"
-#include "SceneMain.hpp"
+#include "game/SceneMain.hpp"
 
-#include "Player.hpp"
-#include "Enemy.hpp"
+#include "game/Player.hpp"
+#include "game/Enemy.hpp"
 
 int main()
 {

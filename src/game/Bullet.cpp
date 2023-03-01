@@ -5,8 +5,8 @@
 ** Bullet.cpp
 */
 
-#include "Bullet.hpp"
-#include "Explosion.hpp"
+#include "game/Bullet.hpp"
+#include "game/Explosion.hpp"
 
 
 Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
@@ -17,6 +17,7 @@ Bullet::Bullet(const std::string &uniqueName, component::position pos, std::shar
     auto &r = engine::Manager::getRegistry();
     ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
 
+    r->addComponent(newEntity, component::name{uniqueName});
     r->addComponent(newEntity, component::position {pos.x, pos.y});
     r->addComponent(newEntity, component::velocity {0, 0});
     r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(texture)});
@@ -42,7 +43,7 @@ void Bullet::move(size_t entity)
     auto &r = engine::Manager::getRegistry();
     auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = 5;
-    if (r->getComponent<component::position>(entity)->value().x > 600) {
+    if (r->getComponent<component::position>(entity)->value().x > 900) {
         r->killEntity(r->entityFromIndex(entity));
     }
 }

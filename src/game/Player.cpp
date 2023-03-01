@@ -5,17 +5,19 @@
 ** Player.cpp
 */
 
-#include "Player.hpp"
-#include "Bullet.hpp"
+#include "game/Player.hpp"
+#include "game/Bullet.hpp"
 
 Player::Player(const std::string &uniqueName, std::shared_ptr<engine::Texture> &texture,
                const std::string &bulletTextureName) : Base(uniqueName)
 {
     this->_bulletTextureName = bulletTextureName;
+    this->_doubleBullet = false;
 
     auto &r = engine::Manager::getRegistry();
     ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
 
+    r->addComponent(newEntity, component::name{uniqueName});
     r->addComponent(newEntity, component::position {0, 0});
     r->addComponent(newEntity, component::velocity {0, 0});
     r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(texture)});
@@ -30,8 +32,8 @@ Player::Player(const std::string &uniqueName, std::shared_ptr<engine::Texture> &
 void Player::move(size_t entity, const engine::Event event)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &pos = r->getComponent<component::position>(entity);
     auto &vel = r->getComponent<component::velocity>(entity);
+    auto &pos = r->getComponent<component::position>(entity);
     const int speed = 2;
     if (vel) {
         if (engine::Keyboard::isKeyPressed(engine::Keyboard::Key::Q)) {
@@ -50,11 +52,8 @@ void Player::move(size_t entity, const engine::Event event)
         }
     }
     if (pos) {
-        if (event.type == event.MouseButtonPressed) {
-            auto &textureManager = engine::Manager::getTextureManager();
-            auto &entityManager = engine::Manager::getEntityManager();
-            auto bullet = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y}, textureManager->getTextureByName(this->_bulletTextureName));
-            entityManager->addPrefab(bullet);
+        if (event.mouseButton.button == sf::Mouse::Left && event.type == event.MouseButtonPressed) {
+           this->shoot();
         }
     }
 }
@@ -62,4 +61,28 @@ void Player::move(size_t entity, const engine::Event event)
 void Player::colliding(const size_t &entity, const size_t &entityCollidingWith)
 {
 
+}
+
+void Player::enableDoubleBullet()
+{
+    this->_doubleBullet = true;
+}
+
+void Player::shoot()
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &textureManager = engine::Manager::getTextureManager();
+    auto &entityManager = engine::Manager::getEntityManager();
+
+    auto &pos = r->getComponent<component::position>(this->_entityId);
+
+    if (this->_doubleBullet) {
+        auto bullet = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y + 10}, textureManager->getTextureByName(this->_bulletTextureName));
+        entityManager->addPrefab(bullet);
+        auto bullet2 = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y - 10}, textureManager->getTextureByName(this->_bulletTextureName));
+        entityManager->addPrefab(bullet2);
+    } else {
+        auto bullet = std::make_shared<Bullet>("bullet", component::position{pos->value().x + 30, pos->value().y}, textureManager->getTextureByName(this->_bulletTextureName));
+        entityManager->addPrefab(bullet);
+    }
 }

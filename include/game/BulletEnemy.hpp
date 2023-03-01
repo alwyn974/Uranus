@@ -13,7 +13,6 @@
 
 class BulletEnemy : public Bullet {
 public:
-    ~BulletEnemy() override = default;
 
     explicit BulletEnemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
 

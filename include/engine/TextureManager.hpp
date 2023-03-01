@@ -16,8 +16,6 @@ namespace engine {
 
         void addTexture(const std::string &path, const std::string &name);
 
-        ~TextureManager() = default;
-
         std::shared_ptr<engine::Texture> &getTextureByName(const std::string& textureName);
 
     private:

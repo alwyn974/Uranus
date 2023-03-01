@@ -6,11 +6,12 @@
 */
 
 
-#include "SceneMain.hpp"
+#include "game/SceneMain.hpp"
 
-#include "Enemy.hpp"
-#include "EnemyShooter.hpp"
-#include "Player.hpp"
+#include "game/Enemy.hpp"
+#include "game/EnemyShooter.hpp"
+#include "game/Player.hpp"
+#include "game/bonus/DoubleBullet.hpp"
 
 
 SceneMain::SceneMain() : Scene("Main"){}
@@ -25,6 +26,7 @@ void SceneMain::init()
     textureManager->addTexture("bullet3.png", "bullet");
     textureManager->addTexture("bulletEnemy.png", "bulletEnemy");
     textureManager->addTexture("explosion.png", "explosion");
+    textureManager->addTexture("bonusDouble.png", "bonusDoubleBullet");
 
     auto player = std::make_shared<Player>("player", textureManager->getTextureByName("ship"), "bullet");
     entityManager->addPrefab(player);
@@ -37,7 +39,9 @@ void SceneMain::init()
         pos.x += 10;
     }
 
-
     auto enemy = std::make_shared<EnemyShooter>("enemyShooter", component::position{700, 100}, textureManager->getTextureByName("enemyShooter"));
     entityManager->addPrefab(enemy);
+
+    auto bonusDoubleBullet = std::make_shared<bonus::DoubleBullet>("bonusDoubleBullet", component::position{200, 300});
+    entityManager->addPrefab(bonusDoubleBullet);
 }

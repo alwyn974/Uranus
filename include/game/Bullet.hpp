@@ -12,7 +12,6 @@
 
 class Bullet : public engine::Base {
 public:
-    virtual ~Bullet() = default;
 
     explicit Bullet(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
 

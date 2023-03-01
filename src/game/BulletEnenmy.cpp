@@ -5,7 +5,7 @@
 ** BulletEnenmy.cpp
 */
 
-#include "BulletEnemy.hpp"
+#include "game/BulletEnemy.hpp"
 
 BulletEnemy::BulletEnemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
     : Bullet(uniqueName, pos, texture)
@@ -21,4 +21,7 @@ void BulletEnemy::move(size_t entity)
     auto &r = engine::Manager::getRegistry();
     auto &vel = r->getComponent<component::velocity>(entity);
     vel->value().x = -5;
+    if (r->getComponent<component::position>(entity)->value().x < -100) {
+        r->killEntity(r->entityFromIndex(entity));
+    }
 }
