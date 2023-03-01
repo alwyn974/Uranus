@@ -23,13 +23,16 @@ bonus::Bonus::Bonus(const std::string &uniqueName, component::position pos, cons
     std::array<bool, LAYER_SIZE> layer{false, false, false, false};
     std::array<bool, MASK_SIZE> mask{false, true, false, false};
     r->addComponent(newEntity, component::collisionable {
-        0, 0, 42, 42, layer, mask, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
+        0, 0, 64, 64, layer, mask, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
     r->addComponent(newEntity, component::loop {[&](const size_t entity) { this->loop(entity); }});
 
-    r->addComponent(newEntity, component::animation{2, 1, [&](const size_t entity, const std::string &animationName) { return;}});
-    engine::system::addNewAnimation(newEntity, "idle", true, 0.4);
+    r->addComponent(newEntity, component::animation{5, 1, [&](const size_t entity, const std::string &animationName) { return;}});
+    engine::system::addNewAnimation(newEntity, "idle", true, 1);
     engine::system::insertAnimationFrame(newEntity, "idle", 0.0, 0);
     engine::system::insertAnimationFrame(newEntity, "idle", 0.2, 1);
+    engine::system::insertAnimationFrame(newEntity, "idle", 0.4, 2);
+    engine::system::insertAnimationFrame(newEntity, "idle", 0.6, 3);
+    engine::system::insertAnimationFrame(newEntity, "idle", 0.8, 4);
 
     engine::system::playAnimation(newEntity, "idle");
 
