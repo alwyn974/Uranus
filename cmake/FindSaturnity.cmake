@@ -15,7 +15,10 @@ endif()
 if (NOT ${LIBRARY_NAME}_FOUND)
     FetchContent_Declare(
             ${LIBRARY_NAME}
-            URL https://github.com/alwyn974/Saturnity/archive/refs/heads/main.zip
+#            URL https://github.com/alwyn974/Saturnity/archive/refs/heads/main.zip
+            GIT_REPOSITORY https://github.com/alwyn974/Saturnity.git
+            GIT_TAG main
+            GIT_SHALLOW 1 # Only fetch the head commit
     )
     FetchContent_MakeAvailable(${LIBRARY_NAME})
     FetchContent_GetProperties(${LIBRARY_NAME})
