@@ -49,7 +49,7 @@ jobs:
 
       - name: Configure CMake
         shell: bash
-        run: cmake -B ./build -S . -DURANUS_BUILD_TESTS=ON
+        run: cmake -B ./build -S . -DSATURNITY_BUILD_TESTS=ON
 
       - name: Build Unit Test
         shell: bash

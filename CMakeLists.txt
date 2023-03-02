@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 project(
         Uranus
-        VERSION 0.0.1.0
+        VERSION 1.0.1.0
         DESCRIPTION "Uranus is a GameEngine written in C++"
         HOMEPAGE_URL "https://github.com/alwyn974/Uranus"
         LANGUAGES CXX
@@ -36,12 +36,13 @@ target_include_directories(${PROJECT_NAME}
 )
 
 find_package(spdlog 1.11.1 REQUIRED)
-
+find_package(Saturnity 1.0.1.0 REQUIRED)
 
 # Link all libraries
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
             spdlog
+            Saturnity
 )
 
 # Enable warnings, will not work on header only libraries
@@ -105,7 +106,7 @@ if (URANUS_INSTALL OR URANUS_CPACK)
     install(EXPORT ${PROJECT_NAME}Targets
             FILE ${PROJECT_NAME}Targets.cmake
             NAMESPACE ${PROJECT_NAME}::
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME} COMPONENT cmake
     )
 
     # Setup the version file
@@ -127,11 +128,10 @@ if (URANUS_INSTALL OR URANUS_CPACK)
     install(FILES
             ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
             ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME} COMPONENT cmake
     )
 
     export(EXPORT ${PROJECT_NAME}Targets FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake")
-
 endif ()
 
 if (URANUS_CPACK)
