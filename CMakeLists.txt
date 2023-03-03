@@ -36,7 +36,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 find_package(spdlog 1.11.1 REQUIRED)
-find_package(Saturnity 1.0.1.0 REQUIRED)
+find_package(Saturnity 1.0.1.7 REQUIRED)
 
 # Link all libraries
 target_link_libraries(${PROJECT_NAME}

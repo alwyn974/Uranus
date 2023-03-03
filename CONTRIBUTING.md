@@ -54,7 +54,7 @@ By participating in this project, you agree to abide by our [Code of Conduct][co
 
 - docs: https://alwyn974.github.io/Uranus/ (Doxygen)
 - bugs: https://github.com/alwyn974/Uranus/issues
-- wiki: https://alwyn974-rtype.gitbook.io/Uranus (Gitbook)
+- wiki: https://alwyn974-rtype.gitbook.io/uranus/ (Gitbook)
 
 ## Questions
 
