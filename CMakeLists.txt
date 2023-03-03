@@ -22,7 +22,29 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Player.cpp
         src/Enemy.cpp
         src/Bullet.cpp
-        src/engine/RenderWindow.cpp src/engine/Texture.cpp src/engine/Sprite.cpp include/engine/Event.hpp include/engine/Keyboard.hpp include/engine/Manager.hpp src/engine/Manager.cpp src/engine/SceneManager.cpp include/engine/SceneManager.hpp include/engine/Scene.hpp src/engine/Scene.cpp src/SceneMain.cpp include/SceneMain.hpp)
+        src/engine/RenderWindow.cpp
+        src/engine/Texture.cpp
+        src/engine/Sprite.cpp
+        include/engine/Event.hpp
+        include/engine/Keyboard.hpp
+        include/engine/Manager.hpp
+        src/engine/Manager.cpp
+        src/engine/SceneManager.cpp
+        include/engine/SceneManager.hpp
+        include/engine/Scene.hpp
+        src/engine/Scene.cpp
+        src/SceneMain.cpp
+        include/SceneMain.hpp
+        include/engine/Transform.hpp
+        include/engine/Transform.cpp
+        include/engine/Color.hpp
+        include/engine/Color.hpp
+        include/engine/Color.cpp
+        include/engine/Vector2.hpp
+        include/engine/Vector2.cpp
+        include/engine/Rect.hpp
+        include/engine/Rect.cpp
+        include/engine/Image.hpp include/engine/Circle.hpp include/engine/Clock.hpp include/engine/Time.hpp include/engine/Convex.hpp include/engine/Cursor.hpp include/engine/Font.hpp include/engine/Glyph.hpp include/engine/Glyph.hpp include/engine/InputSoundFile.hpp include/engine/InputStream.hpp include/engine/Vector3.hpp include/engine/Listener.hpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE
