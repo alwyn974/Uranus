@@ -29,9 +29,9 @@ namespace uranus {
          */
         ~Glyph() = default;
 
-        float advance /*< Advance of the glyph */;
-        FloatRect bounds /*< Bounds of the glyph */;
-        IntRect textureRect /*< Texture rect of the glyph */;
+        float advance /**< Advance of the glyph */;
+        FloatRect bounds /**< Bounds of the glyph */;
+        IntRect textureRect /**< Texture rect of the glyph */;
     };
 }
 

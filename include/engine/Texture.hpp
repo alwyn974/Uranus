@@ -10,6 +10,8 @@
 
 #include "Dependencies.hpp"
 #include "Vector2.hpp"
+#include "Rect.hpp"
+#include "InputStream.hpp"
 
 namespace uranus {
     /**
@@ -60,7 +62,7 @@ public:
      * @param path Path of the texture
      * @return True if the texture is loaded, false otherwise
      */
-    bool loadFromFile(const std::string &path);
+    bool loadFromFile(const std::string &path, const IntRect &area = IntRect());
 
     /**
      * @brief Load the texture from a memory
@@ -68,21 +70,21 @@ public:
      * @param size Size of the data
      * @return True if the texture is loaded, false otherwise
      */
-    bool loadFromMemory(const void *data, std::size_t size);
+    bool loadFromMemory(const void *data, std::size_t size, const IntRect &area = IntRect());
 
     /**
      * @brief Load the texture from a stream
      * @param stream Stream of the texture
      * @return True if the texture is loaded, false otherwise
      */
-    bool loadFromStream(std::istream &stream);
+    bool loadFromStream(InputStream &stream, const IntRect &area = IntRect());
 
     /**
      * @brief Load the texture from an image
      * @param image Image of the texture
      * @return True if the texture is loaded, false otherwise
      */
-    bool loadFromImage(const sf::Image &image);
+    bool loadFromImage(const sf::Image &image, const IntRect &area = IntRect());
 
     /**
      * @brief Get the size of the texture

@@ -252,16 +252,16 @@ namespace uranus {
          */
         void update();
 
-        sf::CircleShape _circle; /*< SFML circle */
-        Color _fillColor; /*< Fill color of the circle */
-        Color _outlineColor; /*< Outline color of the circle */
-        float _outlineThickness; /*< Outline thickness of the circle */
-        float _radius; /*< Radius of the circle */
-        IntRect _textureRect; /*< Texture rect of the circle */
-        std::shared_ptr<uranus::Texture> _texture; /*< Texture of the circle */
-        std::size_t _pointCount; /*< Number of points of the circle */
-        Transform _transform; /*< Transform of the circle */
-        Transform _inverseTransform; /*< Inverse transform of the circle */
+        sf::CircleShape _circle; /**< SFML circle */
+        Color _fillColor; /**< Fill color of the circle */
+        Color _outlineColor; /**< Outline color of the circle */
+        float _outlineThickness; /**< Outline thickness of the circle */
+        float _radius; /**< Radius of the circle */
+        IntRect _textureRect; /**< Texture rect of the circle */
+        std::shared_ptr<uranus::Texture> _texture; /**< Texture of the circle */
+        std::size_t _pointCount; /**< Number of points of the circle */
+        Transform _transform; /**< Transform of the circle */
+        Transform _inverseTransform; /**< Inverse transform of the circle */
     };
 }
 

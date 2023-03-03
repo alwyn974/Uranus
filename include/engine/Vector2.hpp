@@ -44,9 +44,9 @@ namespace uranus {
         ~Vector2() = default;
     };
 
-    typedef Vector2<float> Vector2f; /*< Vector2 of float */
-    typedef Vector2<int> Vector2i; /*< Vector2 of int */
-    typedef Vector2<unsigned int> Vector2u; /*< Vector2 of unsigned int */
+    typedef Vector2<float> Vector2f; /**< Vector2 of float */
+    typedef Vector2<int> Vector2i; /**< Vector2 of int */
+    typedef Vector2<unsigned int> Vector2u; /**< Vector2 of unsigned int */
 }
 
 

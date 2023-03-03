@@ -57,7 +57,7 @@ namespace uranus {
          */
         void loadFromSystem(Type type);
     private:
-        sf::Cursor _cursor /*< SFML cursor */;
+        sf::Cursor _cursor /**< SFML cursor */;
     };
 }
 

@@ -50,15 +50,15 @@ namespace uranus {
          */
         ~Color() = default;
 
-        static const Color BLACK;       /*< Black predefined color*/
-        static const Color WHITE;       /*< White predefined color*/
-        static const Color RED;         /*< Red predefined color*/
-        static const Color GREEN;       /*< Green predefined color*/
-        static const Color BLUE;        /*< Blue predefined color*/
-        static const Color YELLOW;      /*< Yellow predefined color*/
-        static const Color MAGENTA;     /*< Magenta predefined color*/
-        static const Color CYAN;        /*< Cyan predefined color*/
-        static const Color TRANSPARENT; /*< Transparent predefined color*/
+        static const Color BLACK;       /**< Black predefined color*/
+        static const Color WHITE;       /**< White predefined color*/
+        static const Color RED;         /**< Red predefined color*/
+        static const Color GREEN;       /**< Green predefined color*/
+        static const Color BLUE;        /**< Blue predefined color*/
+        static const Color YELLOW;      /**< Yellow predefined color*/
+        static const Color MAGENTA;     /**< Magenta predefined color*/
+        static const Color CYAN;        /**< Cyan predefined color*/
+        static const Color TRANSPARENT; /**< Transparent predefined color*/
     };
 
 

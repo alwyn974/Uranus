@@ -12,6 +12,7 @@ namespace uranus {
      * @brief Time class
      */
     class Time {
+    public:
         /**
          * @brief Default constructor
          */
@@ -40,8 +41,8 @@ namespace uranus {
          */
         long long asMicroseconds() const;
 
-    public:
-        sf::Time _time /*< SFML time */;
+    private:
+        sf::Time _time /**< SFML time */;
     };
 }
 

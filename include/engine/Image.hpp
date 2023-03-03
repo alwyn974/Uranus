@@ -7,6 +7,7 @@
 
 #include "Color.hpp"
 #include "Vector2.hpp"
+#include "InputStream.hpp"
 
 namespace uranus {
     /**
@@ -60,7 +61,7 @@ namespace uranus {
          * @param stream Stream of the image
          * @return True if the image is loaded, false otherwise
          */
-        bool loadFromStream(std::istream &stream);
+        bool loadFromStream(InputStream &stream);
 
         /**
          * @brief Save the image to a file
@@ -123,6 +124,9 @@ namespace uranus {
          * @brief Flip the image vertically
          */
         void flipVertically();
+
+    private:
+        sf::Image _image; /**< SFML image */
     };
 }
 

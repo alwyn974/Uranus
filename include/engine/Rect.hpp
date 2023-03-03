@@ -43,8 +43,8 @@ namespace uranus {
         ~Rect() = default;
     };
 
-    typedef Rect<float> FloatRect; /*< Rect of float */
-    typedef Rect<int> IntRect; /*< Rect of int */
+    typedef Rect<float> FloatRect; /**< Rect of float */
+    typedef Rect<int> IntRect; /**< Rect of int */
 }
 
 

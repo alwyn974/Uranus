@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Glyph.hpp"
+#include "InputStream.hpp"
 
 namespace uranus {
     /**
@@ -18,7 +19,7 @@ namespace uranus {
          * @brief Font info
          */
         struct Info {
-            std::string family /*< Family of the font */;
+            std::string family /**< Family of the font */;
         };
 
         /**
@@ -54,7 +55,7 @@ namespace uranus {
          * @brief Load a font from a stream
          * @param stream Stream of the font
          */
-        void loadFromStream(sf::InputStream &stream);
+        void loadFromStream(InputStream &stream);
 
 
         /**
@@ -115,9 +116,9 @@ namespace uranus {
          */
         Font &operator=(const Font &font);
     private:
-        sf::Font _font /*< SFML font */;
-        Info _info /*< Info of the font */;
-        std::shared_ptr<sf::Texture> _texture /*< Texture of the font */;
+        sf::Font _font /**< SFML font */;
+        Info _info /**< Info of the font */;
+        std::shared_ptr<sf::Texture> _texture /**< Texture of the font */;
     };
 }
 

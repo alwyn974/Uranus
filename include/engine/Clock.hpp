@@ -37,7 +37,7 @@ namespace uranus {
         Time restart();
 
     private:
-        sf::Clock m_clock; /*< SFML clock */
+        sf::Clock m_clock; /**< SFML clock */
     };
 }
 

@@ -7,6 +7,7 @@
 
 #include <SFML/Audio.hpp>
 #include "Time.hpp"
+#include "InputStream.hpp"
 
 namespace uranus {
     /**
@@ -44,7 +45,7 @@ namespace uranus {
          * @param stream Stream of the sound file
          * @return True if the sound file is opened
          */
-        bool openFromStream(sf::InputStream &stream);
+        bool openFromStream(InputStream &stream);
 
         /**
          * @brief Get the total number of samples in the file
@@ -90,7 +91,7 @@ namespace uranus {
          */
         unsigned long long read(sf::Int16 *samples, unsigned long long maxCount);
     private:
-        sf::InputSoundFile _file /*< SFML InputSoundFile */;
+        sf::InputSoundFile _file /**< SFML InputSoundFile */;
     };
 }
 

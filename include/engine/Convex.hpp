@@ -243,18 +243,18 @@ namespace uranus {
          */
         void update();
 
-        sf::ConvexShape _convex; /*< SFML convex */
-        std::shared_ptr<uranus::Texture> _texture; /*< Texture of the convex */
-        IntRect _textureRect; /*< Texture rect of the convex */
-        Color _fillColor; /*< Fill color of the convex */
-        Color _outlineColor; /*< Outline color of the convex */
-        float _outlineThickness; /*< Outline thickness of the convex */
-        Vector2f _position; /*< Position of the convex */
-        float _rotation; /*< Rotation of the convex */
-        Vector2f _scale; /*< Scale of the convex */
-        Vector2f _origin; /*< Origin of the convex */
-        Transform _transform; /*< Transform of the convex */
-        Transform _inverseTransform; /*< Inverse transform of the convex */
+        sf::ConvexShape _convex; /**< SFML convex */
+        std::shared_ptr<uranus::Texture> _texture; /**< Texture of the convex */
+        IntRect _textureRect; /**< Texture rect of the convex */
+        Color _fillColor; /**< Fill color of the convex */
+        Color _outlineColor; /**< Outline color of the convex */
+        float _outlineThickness; /**< Outline thickness of the convex */
+        Vector2f _position; /**< Position of the convex */
+        float _rotation; /**< Rotation of the convex */
+        Vector2f _scale; /**< Scale of the convex */
+        Vector2f _origin; /**< Origin of the convex */
+        Transform _transform; /**< Transform of the convex */
+        Transform _inverseTransform; /**< Inverse transform of the convex */
     };
 }
 
