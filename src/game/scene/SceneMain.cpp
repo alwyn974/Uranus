@@ -40,17 +40,23 @@ void SceneMain::init()
 
     auto &r = engine::Manager::getRegistry();
 
-    textureManager->addTexture("ship.png", "ship");
-    textureManager->addTexture("enemy.png", "enemy");
-    textureManager->addTexture("enemy2.png", "enemyShooter");
-    textureManager->addTexture("bullet3.png", "bullet");
-    textureManager->addTexture("bulletEnemy.png", "bulletEnemy");
-    textureManager->addTexture("explosion.png", "explosion");
-    textureManager->addTexture("bonusDouble.png", "bonusDoubleBullet");
-    textureManager->addTexture("button.png", "button");
-    textureManager->addTexture("buttonPlay.png", "buttonPlay");
-    textureManager->addTexture("buttonQuit.png", "buttonQuit");
-    textureManager->addTexture("logo.png", "logo");
+    textureManager->addTexture("assets/ship.png", "ship");
+    textureManager->addTexture("assets/enemy.png", "enemy");
+    textureManager->addTexture("assets/enemy2.png", "enemyShooter");
+    textureManager->addTexture("assets/bullet3.png", "bullet");
+    textureManager->addTexture("assets/bulletEnemy.png", "bulletEnemy");
+    textureManager->addTexture("assets/explosion.png", "explosion");
+    textureManager->addTexture("assets/bonusDouble.png", "bonusDoubleBullet");
+    textureManager->addTexture("assets/button.png", "button");
+    textureManager->addTexture("assets/buttonPlay.png", "buttonPlay");
+    textureManager->addTexture("assets/buttonQuit.png", "buttonQuit");
+    textureManager->addTexture("assets/logo2.png", "logo");
+    textureManager->addTexture("assets/background2.png", "background");
+
+    ecs::Entity newEntity2 = r->spawnEntity();
+    r->addComponent(newEntity2, component::name{"background"});
+    r->addComponent(newEntity2, component::position {0, 0});
+    r->addComponent(newEntity2, component::sprite {std::make_shared<engine::Sprite>(textureManager->getTextureByName("background"))});
 
     auto buttonPlay = std::make_shared<ui::Button>("buttonPlay", component::position{300, 300}, textureManager->getTextureByName("buttonPlay"), pressedPlay);
     entityManager->addPrefab(buttonPlay);
@@ -60,6 +66,8 @@ void SceneMain::init()
 
     ecs::Entity newEntity = r->spawnEntity();
     r->addComponent(newEntity, component::name{"logo"});
-    r->addComponent(newEntity, component::position {260, 50});
+    r->addComponent(newEntity, component::position {220, 50});
     r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(textureManager->getTextureByName("logo"))});
+
+
 }
