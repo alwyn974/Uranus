@@ -13,7 +13,7 @@
 class Bullet : public engine::Base {
 public:
 
-    explicit Bullet(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
+    explicit Bullet(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture);
 
     virtual void move(size_t entity);
 

@@ -8,7 +8,7 @@
 void engine::system::position()
 {
     auto &r = engine::Manager::getRegistry();
-    for (auto [idx, pos, vel] : View<component::position, component::velocity>(*r)) {
+    for (auto [idx, pos, vel] : View<uranus::ecs::component::Position, uranus::ecs::component::Velocity>(*r)) {
         pos.x += vel.x;
         pos.y += vel.y;
     }
@@ -18,23 +18,23 @@ void engine::system::draw()
 {
     auto &window = engine::Manager::getWindow();
     auto &r = engine::Manager::getRegistry();
-    for (auto [idx, pos, drawable] : View<component::position, component::drawable>(*r)) {
+    for (auto [idx, pos, drawable] : View<uranus::ecs::component::Position, uranus::ecs::component::Drawable>(*r)) {
         drawable.shape->setPosition(pos.x, pos.y);
         drawable.shape->setFillColor(drawable.color);
         window->draw(*drawable.shape);
     }
-    for (auto [idx, pos, sprite] : View<component::position, component::sprite>(*r)) {
-        sprite.sprite->setPosition(pos.x, pos.y);
-        window->draw(*sprite.sprite);
+    for (auto [idx, pos, sprite] : View<uranus::ecs::component::Position, uranus::ecs::component::Sprite>(*r)) {
+        sprite.Sprite->setPosition(pos.x, pos.y);
+        window->draw(*sprite.Sprite);
     }
 }
 
 void engine::system::input(engine::Event event)
 {
     auto &r = engine::Manager::getRegistry();
-    for (auto [idx, inputKeyboard] : View<component::inputKeyboard>(*r))
+    for (auto [idx, inputKeyboard] : View<uranus::ecs::component::InputKeyboard>(*r))
         inputKeyboard.callback(idx, event);
-    for (auto [idx, inputMouse] : View<component::inputMouse>(*r))
+    for (auto [idx, inputMouse] : View<uranus::ecs::component::InputMouse>(*r))
         inputMouse.callback(idx, event);
 }
 
@@ -47,14 +47,14 @@ bool engine::system::isColliding(const sf::FloatRect &obj1, const sf::FloatRect 
 void engine::system::setLayer(size_t entity, const std::array<bool, LAYER_SIZE> &layer)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &collision = r->getComponent<component::collisionable>(entity);
+    auto &collision = r->getComponent<uranus::ecs::component::Sollisionable>(entity);
     collision->value().layer = layer;
 }
 
 void engine::system::setMask(size_t entity, const std::array<bool, MASK_SIZE> &mask)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &collision = r->getComponent<component::collisionable>(entity);
+    auto &collision = r->getComponent<uranus::ecs::component::Sollisionable>(entity);
     collision->value().mask = mask;
 }
 
@@ -62,7 +62,7 @@ void engine::system::collision()
 {
     auto &window = engine::Manager::getWindow();
     auto &r = engine::Manager::getRegistry();
-    for (auto [entity1, pos1, collision1] : View<component::position, component::collisionable>(*r)) {
+    for (auto [entity1, pos1, collision1] : View<uranus::ecs::component::Position, uranus::ecs::component::Sollisionable>(*r)) {
         //start debug
 //        sf::Vector2f size(collision1.width, collision1.height);
 //        sf::RectangleShape rect(size);
@@ -73,7 +73,7 @@ void engine::system::collision()
 //        window->draw(rect);
         //end debug
 
-        for (auto [entity2, pos2, collision2]: View<component::position, component::collisionable>(*r)) {
+        for (auto [entity2, pos2, collision2]: View<uranus::ecs::component::Position, uranus::ecs::component::Sollisionable>(*r)) {
 
             if (entity1 == entity2)
                 continue;
@@ -100,7 +100,7 @@ void engine::system::collision()
 void engine::system::loop()
 {
     auto &r = engine::Manager::getRegistry();
-    for (auto [idx, loop] : View<component::loop>(*r))
+    for (auto [idx, loop] : View<uranus::ecs::component::Loop>(*r))
         loop.update(idx);
 }
 
@@ -124,19 +124,19 @@ sf::IntRect get_animation_rect(int frame, int h_frame, int v_frame, sf::Vector2u
 void engine::system::addNewAnimation(size_t entity, const std::string &name, bool loop, float length)
 {
     engine::Clock clock;
-    std::vector<component::frameData> frameList;
-    component::animationData animationData{name, loop, length, clock, false, frameList};
+    std::vector<uranus::ecs::component::FrameData> frameList;
+    uranus::ecs::component::AnimationData animationData{name, loop, length, clock, false, frameList};
     auto &r = engine::Manager::getRegistry();
-    auto &animation = r->getComponent<component::animation>(entity);
+    auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
     animation->value().animations.push_back(animationData);
 }
 
 void engine::system::insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &animation = r->getComponent<component::animation>(entity);
-    component::frameData frameData{frameTime, frame};
-    for (component::animationData &animationData: animation->value().animations) {
+    auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
+    uranus::ecs::component::FrameData frameData{frameTime, frame};
+    for (uranus::ecs::component::AnimationData &animationData: animation->value().animations) {
         if (animationData.name == name) {
             animationData.frames.push_back(frameData);
             break;
@@ -147,13 +147,13 @@ void engine::system::insertAnimationFrame(size_t entity, const std::string &name
 void engine::system::playAnimation(size_t entity, const std::string &name)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &animation = r->getComponent<component::animation>(entity);
+    auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
 
-    for (component::animationData &animationData: animation->value().animations) {
+    for (uranus::ecs::component::AnimationData &animationData: animation->value().animations) {
 
         if (animationData.name == name) {
             animationData.isPlaying = true;
-            auto &sprite = r->getComponent<component::sprite>(entity);
+            auto &sprite = r->getComponent<uranus::ecs::component::Sprite>(entity);
             sprite->value().sprite->setTextureRect(get_animation_rect(animationData.frames.data()->frame, animation->value().hFrame, animation->value().vFrame, sprite->value().sprite->getTexture()->getSize()));
         } else
             animationData.isPlaying = false;
@@ -163,9 +163,9 @@ void engine::system::playAnimation(size_t entity, const std::string &name)
 void engine::system::stopAnimation(size_t entity)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &animation = r->getComponent<component::animation>(entity);
+    auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
 
-    for (component::animationData &animationData: animation->value().animations) {
+    for (uranus::ecs::component::AnimationData &animationData: animation->value().animations) {
         animationData.isPlaying = false;
     }
 }
@@ -173,8 +173,8 @@ void engine::system::stopAnimation(size_t entity)
 void engine::system::animation()
 {
     auto &r = engine::Manager::getRegistry();
-    for (auto [idx, sprite, animation] : View<component::sprite, component::animation>(*r)) {
-        for (component::animationData &animationData: animation.animations) {
+    for (auto [idx, sprite, animation] : View<uranus::ecs::component::Sprite, uranus::ecs::component::Animation>(*r)) {
+        for (uranus::ecs::component::AnimationData &animationData: animation.animations) {
             if (!animationData.isPlaying)
                 continue;
             if (animationData.clock.getElapsedTime().asSeconds() >= animationData.length) {
@@ -187,14 +187,14 @@ void engine::system::animation()
                 else
                     animationData.isPlaying = false;
             } else {
-                for (component::frameData &frame: animationData.frames) {
+                for (uranus::ecs::component::FrameData &frame: animationData.frames) {
 
                     if (animationData.clock.getElapsedTime().asSeconds() >= frame.frameTime) {
                         sf::IntRect rect = get_animation_rect(frame.frame,
                                                               animation.hFrame,
                                                               animation.vFrame,
-                                                              sprite.sprite->getTexture()->getSize());
-                        sprite.sprite->setTextureRect(rect);
+                                                              sprite.Sprite->getTexture()->getSize());
+                        sprite.Sprite->setTextureRect(rect);
                     }
                 }
             }
@@ -235,16 +235,16 @@ void engine::system::gameInit()
     auto &r = engine::Manager::getRegistry();
     window->setFramerateLimit(60);
 
-    r->registerComponent<component::position>(deletePosition);
-    r->registerComponent<component::velocity>(deleteVelocity);
-    r->registerComponent<component::drawable>(deleteDrawable);
-    r->registerComponent<component::inputKeyboard>(deleteInputKeyboard);
-    r->registerComponent<component::inputMouse>(deleteInputMouse);
-    r->registerComponent<component::sprite>(deleteSpriteComponent);
-    r->registerComponent<component::loop>(deleteLoopComponent);
-    r->registerComponent<component::collisionable>(deleteCollisionable);
-    r->registerComponent<component::animation>(deleteAnimationComponent);
-    r->registerComponent<component::name>(deleteNameComponent);
+    r->registerComponent<uranus::ecs::component::Position>(deletePosition);
+    r->registerComponent<uranus::ecs::component::Velocity>(deleteVelocity);
+    r->registerComponent<uranus::ecs::component::Drawable>(deleteDrawable);
+    r->registerComponent<uranus::ecs::component::InputKeyboard>(deleteInputKeyboard);
+    r->registerComponent<uranus::ecs::component::InputMouse>(deleteInputMouse);
+    r->registerComponent<uranus::ecs::component::Sprite>(deleteSpriteComponent);
+    r->registerComponent<uranus::ecs::component::Loop>(deleteLoopComponent);
+    r->registerComponent<uranus::ecs::component::Sollisionable>(deleteCollisionable);
+    r->registerComponent<uranus::ecs::component::Animation>(deleteAnimationComponent);
+    r->registerComponent<uranus::ecs::component::Name>(deleteNameComponent);
 }
 
 

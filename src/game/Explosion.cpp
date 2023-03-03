@@ -5,19 +5,19 @@
 ** Explosion.cpp
 */
 
-#include "uranus/game/Explosion.hpp"
+#include "game/Explosion.hpp"
 
-Explosion::Explosion(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
+Explosion::Explosion(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture)
     : Base(uniqueName)
 {
     auto &r = engine::Manager::getRegistry();
-    ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
+    uranus::ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
 
-    r->addComponent(newEntity, component::name{uniqueName});
-    r->addComponent(newEntity, component::position{pos.x, pos.y});
-    r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(texture)});
+    r->addComponent(newEntity, uranus::ecs::component::name{uniqueName});
+    r->addComponent(newEntity, uranus::ecs::component::Position{pos.x, pos.y});
+    r->addComponent(newEntity, uranus::ecs::component::sprite {std::make_shared<engine::Sprite>(texture)});
 
-    r->addComponent(newEntity, component::animation{5, 1, \
+    r->addComponent(newEntity, uranus::ecs::component::Animation{5, 1, \
     [&](const size_t entity, const std::string &animationName) { this->animationCallback(entity, animationName);}});
 
     engine::system::addNewAnimation(newEntity, "idle", true, 0.25);

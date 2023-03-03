@@ -5,9 +5,9 @@
 ** BulletEnenmy.cpp
 */
 
-#include "uranus/game/BulletEnemy.hpp"
+#include "game/BulletEnemy.hpp"
 
-BulletEnemy::BulletEnemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
+BulletEnemy::BulletEnemy(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture)
     : Bullet(uniqueName, pos, texture)
 {
     std::array<bool, MASK_SIZE> mask{false, true, false, false};
@@ -19,9 +19,9 @@ BulletEnemy::BulletEnemy(const std::string &uniqueName, component::position pos,
 void BulletEnemy::move(size_t entity)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &vel = r->getComponent<component::velocity>(entity);
+    auto &vel = r->getComponent<uranus::ecs::component::Velocity>(entity);
     vel->value().x = -5;
-    if (r->getComponent<component::position>(entity)->value().x < -100) {
+    if (r->getComponent<uranus::ecs::component::Position>(entity)->value().x < -100) {
         r->killEntity(entity);
     }
 }

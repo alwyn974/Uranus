@@ -6,15 +6,15 @@
 */
 
 
-#include "uranus/game/scene/SceneMain.hpp"
+#include "game/scene/SceneMain.hpp"
 
-#include "uranus/game/Enemy.hpp"
-#include "uranus/game/EnemyShooter.hpp"
-#include "uranus/game/Player.hpp"
+#include "game/Enemy.hpp"
+#include "game/EnemyShooter.hpp"
+#include "game/Player.hpp"
 
-#include "uranus/game/bonus/DoubleBullet.hpp"
+#include "game/bonus/DoubleBullet.hpp"
 
-#include "uranus/game/ui/Button.hpp"
+#include "game/ui/Button.hpp"
 
 
 SceneMain::SceneMain() : Scene("Main"){}
@@ -53,21 +53,21 @@ void SceneMain::init()
     textureManager->addTexture("assets/logo2.png", "logo");
     textureManager->addTexture("assets/background2.png", "background");
 
-    ecs::Entity newEntity2 = r->spawnEntity();
-    r->addComponent(newEntity2, component::name{"background"});
-    r->addComponent(newEntity2, component::position {0, 0});
-    r->addComponent(newEntity2, component::sprite {std::make_shared<engine::Sprite>(textureManager->getTextureByName("background"))});
+    uranus::ecs::Entity newEntity2 = r->spawnEntity();
+    r->addComponent(newEntity2, uranus::ecs::component::name{"background"});
+    r->addComponent(newEntity2, uranus::ecs::component::Position {0, 0});
+    r->addComponent(newEntity2, uranus::ecs::component::sprite {std::make_shared<engine::Sprite>(textureManager->getTextureByName("background"))});
 
-    auto buttonPlay = std::make_shared<ui::Button>("buttonPlay", component::position{300, 300}, textureManager->getTextureByName("buttonPlay"), pressedPlay);
+    auto buttonPlay = std::make_shared<ui::Button>("buttonPlay", uranus::ecs::component::Position{300, 300}, textureManager->getTextureByName("buttonPlay"), pressedPlay);
     entityManager->addPrefab(buttonPlay);
 
-    auto buttonQuit = std::make_shared<ui::Button>("buttonQuit", component::position{300, 380}, textureManager->getTextureByName("buttonQuit"), pressedQuit);
+    auto buttonQuit = std::make_shared<ui::Button>("buttonQuit", uranus::ecs::component::Position{300, 380}, textureManager->getTextureByName("buttonQuit"), pressedQuit);
     entityManager->addPrefab(buttonQuit);
 
-    ecs::Entity newEntity = r->spawnEntity();
-    r->addComponent(newEntity, component::name{"logo"});
-    r->addComponent(newEntity, component::position {220, 50});
-    r->addComponent(newEntity, component::sprite {std::make_shared<engine::Sprite>(textureManager->getTextureByName("logo"))});
+    uranus::ecs::Entity newEntity = r->spawnEntity();
+    r->addComponent(newEntity, uranus::ecs::component::name{"logo"});
+    r->addComponent(newEntity, uranus::ecs::component::Position {220, 50});
+    r->addComponent(newEntity, uranus::ecs::component::sprite {std::make_shared<engine::Sprite>(textureManager->getTextureByName("logo"))});
 
 
 }

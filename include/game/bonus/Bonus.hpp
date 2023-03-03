@@ -9,13 +9,13 @@
 #define URANUS_BONUS_HPP
 
 #include "uranus/engine/Engine.hpp"
-#include "uranus/game/Player.hpp"
+#include "game/Player.hpp"
 
 namespace bonus {
     class Bonus : public engine::Base {
     public:
 
-        explicit Bonus(const std::string &uniqueName, component::position pos, const std::string &textureName);
+        explicit Bonus(const std::string &uniqueName, uranus::ecs::component::Position pos, const std::string &textureName);
 
         void colliding(size_t entity, size_t entityCollidingWith);
 

@@ -1,13 +1,16 @@
-//
-// Created by nicol on 09/01/2023.
-//
+/*
+** EPITECH PROJECT, 2023
+** Components.hpp
+** File description:
+** Components.hpp
+*/
 
-#ifndef B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_ENTITY_HPP
-#define B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_ENTITY_HPP
+#ifndef URANUS_ENTITY_HPP
+#define URANUS_ENTITY_HPP
 
 #include <cstddef>
 
-namespace ecs {
+namespace uranus::ecs {
 
     class Registry;
 
@@ -27,13 +30,13 @@ namespace ecs {
          * @breif Overloading the operator() to get the const id of the entity
          * @return Const id of the entity
          */
-        inline operator std::size_t() const { return _id; };
+        inline explicit operator std::size_t() const { return _id; };
 
         /**
          * @brief Overloading the operator() to get the id of the entity
          * @return Id of the entity
          */
-        inline operator std::size_t &() { return _id; }
+        inline explicit operator std::size_t &() { return _id; }
 
     private:
         /**
@@ -41,8 +44,8 @@ namespace ecs {
          */
         explicit Entity(size_t id) : _id(id) {}
 
-        size_t _id; /*< Id of the entity */
+        size_t _id; /**< Id of the entity */
     };
 }
 
-#endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_ENTITY_HPP
+#endif // URANUS_ENTITY_HPP

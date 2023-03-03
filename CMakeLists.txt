@@ -37,7 +37,8 @@ add_library(${PROJECT_NAME}
         src/engine/Base.cpp
         src/engine/EntityManager.cpp
         src/engine/RenderWindow.cpp
-
+)
+add_executable(${PROJECT_NAME}-exe main.cpp
         src/game/Player.cpp
         src/game/Enemy.cpp
         src/game/Bullet.cpp
@@ -50,7 +51,6 @@ add_library(${PROJECT_NAME}
         src/game/ui/Button.cpp
         src/game/scene/SceneGame.cpp
 )
-add_executable(${PROJECT_NAME}-exe main.cpp)
 target_link_libraries(${PROJECT_NAME}-exe PRIVATE ${PROJECT_NAME}) # TODO: remove this later
 
 # Include all headers directories

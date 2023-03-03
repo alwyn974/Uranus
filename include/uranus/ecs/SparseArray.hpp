@@ -1,15 +1,18 @@
-//
-// Created by nicol on 09/01/2023.
-//
+/*
+** EPITECH PROJECT, 2023
+** SparseArray.hpp
+** File description:
+** SparseArray.hpp
+*/
 
-#ifndef B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_SPARSEARRAY_HPP
-#define B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_SPARSEARRAY_HPP
+#ifndef URANUS_SPARSEARRAY_HPP
+#define URANUS_SPARSEARRAY_HPP
 
 #include <optional>
 #include <vector>
 #include <memory>
 
-namespace ecs {
+namespace uranus::ecs {
 
 /**
  * @brief SparseArray class, used to store components in a sparse way
@@ -26,7 +29,6 @@ namespace ecs {
         using Iterator = typename Container::iterator;
         using ConstIterator = typename Container::const_iterator;
 
-    public:
         /**
          * @brief Default constructor
          */
@@ -290,4 +292,4 @@ namespace ecs {
         return _data;
     }
 }
-#endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_SPARSEARRAY_HPP
+#endif // URANUS_SPARSEARRAY_HPP

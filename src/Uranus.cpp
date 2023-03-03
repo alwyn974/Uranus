@@ -9,8 +9,8 @@
 
 #include "uranus/engine/Engine.hpp"
 
-#include "uranus/game/scene/SceneMain.hpp"
-#include "uranus/game/scene/SceneGame.hpp"
+#include "game/scene/SceneMain.hpp"
+#include "game/scene/SceneGame.hpp"
 
 int main()
 {

@@ -14,7 +14,7 @@ namespace ui {
 
     class Button : public engine::Base {
     public:
-        Button(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture, const std::function<void()> &callbackPressed);
+        Button(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture, const std::function<void()> &callbackPressed);
 
         void loop(size_t);
 

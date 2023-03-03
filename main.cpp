@@ -8,10 +8,10 @@
 #include "uranus/Uranus.hpp"
 
 #include "uranus/engine/Engine.hpp"
-#include "uranus/game/scene/SceneMain.hpp"
-#include "uranus/game/scene/SceneGame.hpp"
-#include "uranus/game/Player.hpp"
-#include "uranus/game/Enemy.hpp"
+#include "game/scene/SceneMain.hpp"
+#include "game/scene/SceneGame.hpp"
+#include "game/Player.hpp"
+#include "game/Enemy.hpp"
 
 int main()
 {

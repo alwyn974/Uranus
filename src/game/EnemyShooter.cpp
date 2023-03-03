@@ -5,11 +5,11 @@
 ** EnemyShooter.cpp
 */
 
-#include "uranus/game/EnemyShooter.hpp"
-#include "uranus/game/BulletEnemy.hpp"
+#include "game/EnemyShooter.hpp"
+#include "game/BulletEnemy.hpp"
 #include <cmath>
 
-EnemyShooter::EnemyShooter(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
+EnemyShooter::EnemyShooter(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture)
     : Enemy(uniqueName, pos, texture)
 {
 }
@@ -17,7 +17,7 @@ EnemyShooter::EnemyShooter(const std::string &uniqueName, component::position po
 void EnemyShooter::loop(size_t entity)
 {
     auto &r = engine::Manager::getRegistry();
-    auto &vel = r->getComponent<component::velocity>(entity);
+    auto &vel = r->getComponent<uranus::ecs::component::Velocity>(entity);
     vel->value().x = -0.5;
 
     vel->value().y = sin(1 * this->_movementClock.getElapsedTime().asSeconds()) * 3;
@@ -26,8 +26,8 @@ void EnemyShooter::loop(size_t entity)
         auto &textureManager = engine::Manager::getTextureManager();
         auto &entityManager = engine::Manager::getEntityManager();
 
-        auto &pos = r->getComponent<component::position>(entity);
-        auto bullet = std::make_shared<BulletEnemy>("bullet", component::position{pos->value().x - 30, pos->value().y}, textureManager->getTextureByName("bulletEnemy"));
+        auto &pos = r->getComponent<uranus::ecs::component::Position>(entity);
+        auto bullet = std::make_shared<BulletEnemy>("bullet", uranus::ecs::component::Position{pos->value().x - 30, pos->value().y}, textureManager->getTextureByName("bulletEnemy"));
         entityManager->addPrefab(bullet);
 
         this->_shootClock.restart();

@@ -13,7 +13,7 @@
 namespace bonus {
     class DoubleBullet : public Bonus {
     public:
-        DoubleBullet(const std::string &uniqueName, component::position pos);
+        DoubleBullet(const std::string &uniqueName, uranus::ecs::component::Position pos);
 
         void enable(Player &player) override;
 

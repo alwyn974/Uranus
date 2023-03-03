@@ -12,7 +12,7 @@
 
 class Enemy : public engine::Base {
 public:
-    explicit Enemy(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture);
+    explicit Enemy(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture);
 
     virtual void loop(size_t);
 

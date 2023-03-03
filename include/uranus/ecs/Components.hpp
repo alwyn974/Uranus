@@ -1,6 +1,9 @@
-//
-// Created by nicol on 23/01/2023.
-//
+/*
+** EPITECH PROJECT, 2023
+** Components.hpp
+** File description:
+** Components.hpp
+*/
 
 #ifndef URANUS_COMPONENTS_HPP
 #define URANUS_COMPONENTS_HPP
@@ -10,36 +13,34 @@
 #include "uranus/engine/Event.hpp"
 #include "uranus/engine/Manager.hpp"
 
-namespace component {
+namespace uranus::ecs::component {
 
-    struct name {
+    struct Name {
         std::string uniqueName;
     };
 
-    struct position {
+    struct Position {
         float x;
         float y;
     };
 
-    struct velocity {
+    struct Velocity {
         float x;
         float y;
     };
 
-    struct drawable {
-        sf::Shape *shape;
+    struct Drawable {
+        sf::Shape *shape = nullptr;
         sf::Color color = sf::Color::White;
-        ~drawable() {
-            if (shape != nullptr)
-                delete shape;
-        }
+
+        ~Drawable() { if (shape != nullptr) delete shape; }
     };
 
-    struct sprite {
+    struct Sprite {
         std::shared_ptr<engine::Sprite> sprite;
     };
 
-    struct collisionable {
+    struct Sollisionable {
         float x;
         float y;
         float width;
@@ -49,51 +50,51 @@ namespace component {
         std::function<void(const size_t, const size_t)> callback;
     };
 
-    struct inputKeyboard {
+    struct InputKeyboard {
         std::function<void(const size_t, const engine::Event)> callback;
     };
 
-    struct inputMouse {
+    struct InputMouse {
         std::function<void(const size_t, const engine::Event)> callback;
     };
 
-    struct loop {
+    struct Loop {
         std::function<void(const size_t)> update;
     };
 
-    struct frameData {
+    struct FrameData {
         float frameTime;
         int frame;
     };
 
-    struct animationData {
+    struct AnimationData {
         std::string name;
         bool loop;
         float length;
         engine::Clock clock;
         bool isPlaying;
-        std::vector<component::frameData> frames;
+        std::vector<component::FrameData> frames;
     };
 
-    struct animation {
+    struct Animation {
         int hFrame;
         int vFrame;
         std::function<void(const size_t entity, const std::string &animationName)> callback;
-        std::vector<component::animationData> animations;
+        std::vector<component::AnimationData> animations;
     };
 
 
 } // namespace component
 
-void deletePosition(size_t e);
-void deleteVelocity(size_t e);
-void deleteDrawable(size_t e);
-void deleteInputKeyboard(size_t e);
-void deleteInputMouse(size_t e);
-void deleteSpriteComponent(size_t e);
-void deleteCollisionable(size_t e);
-void deleteLoopComponent(size_t e);
-void deleteAnimationComponent(size_t e);
-void deleteNameComponent(size_t e);
+void deletePosition(size_t entity);
+void deleteVelocity(size_t entity);
+void deleteDrawable(size_t entity);
+void deleteInputKeyboard(size_t entity);
+void deleteInputMouse(size_t entity);
+void deleteSpriteComponent(size_t entity);
+void deleteCollisionable(size_t entity);
+void deleteLoopComponent(size_t entity);
+void deleteAnimationComponent(size_t entity);
+void deleteNameComponent(size_t entity);
 
 #endif // URANUS_COMPONENTS_HPP

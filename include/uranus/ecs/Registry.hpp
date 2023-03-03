@@ -1,9 +1,12 @@
-//
-// Created by nicol on 20/01/2023.
-//
+/*
+** EPITECH PROJECT, 2023
+** Registry.hpp
+** File description:
+** Registry.hpp
+*/
 
-#ifndef B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_REGISTRY_HPP
-#define B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_REGISTRY_HPP
+#ifndef URANUS_REGISTRY_HPP
+#define URANUS_REGISTRY_HPP
 
 #include <any>
 #include <functional>
@@ -15,7 +18,7 @@
 #include "Entity.hpp"
 #include "SparseArray.hpp"
 
-namespace ecs {
+namespace uranus::ecs {
 /**
  * @brief Registry class, used to store and manage entities and their components
  */
@@ -331,4 +334,4 @@ namespace ecs {
 //    }
 }
 
-#endif // B_CPP_500_RUN_5_2_BSRTYPE_NICOLAS_REBOULE_REGISTRY_HPP
+#endif // URANUS_REGISTRY_HPP
