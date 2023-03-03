@@ -5,7 +5,7 @@
 ** Uranus.cpp
 */
 
-#include "uranus/Uranus.hpp"
+//#include "uranus/Uranus.hpp"
 
 #include "uranus/engine/Engine.hpp"
 
