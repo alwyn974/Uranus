@@ -13,4 +13,4 @@
  * @file Uranus.hpp
  */
 
-#endif //URANUS_URANUS_HPP
+#endif // URANUS_URANUS_HPP
