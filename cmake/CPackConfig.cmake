@@ -69,9 +69,21 @@ cpack_add_component(library
         GROUP "Software"
         INSTALL_TYPES Developer Full Software
 )
+cpack_add_component(devel # sfml, sol2
+        DISPLAY_NAME "Devel"
+        DESCRIPTION "Development files (dependencies)"
+        GROUP "Development"
+        INSTALL_TYPES Developer Full
+)
 cpack_add_component(runtime
         DISPLAY_NAME "Runtime"
         DESCRIPTION "Runtime files"
+        GROUP "Software"
+        INSTALL_TYPES Full Software
+)
+cpack_add_component(bin
+        DISPLAY_NAME "Binaries"
+        DESCRIPTION "Executable files (dependencies)"
         GROUP "Software"
         INSTALL_TYPES Full Software
 )
