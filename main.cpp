@@ -6,24 +6,22 @@
 */
 
 #include "uranus/Uranus.hpp"
-#include <SFML/Graphics.hpp>
 
-int main(int ac, char **av)
+#include "uranus/engine/Engine.hpp"
+#include "uranus/game/scene/SceneMain.hpp"
+#include "uranus/game/scene/SceneGame.hpp"
+#include "uranus/game/Player.hpp"
+#include "uranus/game/Enemy.hpp"
+
+int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
-    sf::CircleShape shape(100);
-    shape.setFillColor(sf::Color::Green);
+    engine::system::gameInit();
 
-    while (window.isOpen()) {
-        sf::Event event = {};
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+    auto &sceneManager = engine::Manager::getSceneManager();
+    sceneManager->addScene(std::make_shared<SceneMain>());
+    sceneManager->addScene(std::make_shared<SceneGame>());
+    sceneManager->changeScene("Main");
 
+    engine::system::gameLoop();
     return 0;
 }
