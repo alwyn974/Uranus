@@ -25,7 +25,30 @@ if(WIN32)
 endif()
 
 add_library(${PROJECT_NAME}
-        src/uranus/Uranus.cpp
+        src/Uranus.cpp
+        src/ecs/Components.cpp
+        src/engine/Systems.cpp
+        src/engine/Texture.cpp
+        src/engine/Sprite.cpp
+        src/engine/Manager.cpp
+        src/engine/SceneManager.cpp
+        src/engine/Scene.cpp
+        src/engine/TextureManager.cpp
+        src/engine/Base.cpp
+        src/engine/EntityManager.cpp
+        src/engine/RenderWindow.cpp
+
+        src/game/Player.cpp
+        src/game/Enemy.cpp
+        src/game/Bullet.cpp
+        src/game/scene/SceneMain.cpp
+        src/game/Explosion.cpp
+        src/game/EnemyShooter.cpp
+        src/game/BulletEnenmy.cpp
+        src/game/bonus/Bonus.cpp
+        src/game/bonus/DoubleBullet.cpp
+        src/game/ui/Button.cpp
+        src/game/scene/SceneGame.cpp
 )
 add_executable(${PROJECT_NAME}-exe main.cpp)
 target_link_libraries(${PROJECT_NAME}-exe PRIVATE ${PROJECT_NAME}) # TODO: remove this later
