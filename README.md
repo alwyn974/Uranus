@@ -43,7 +43,7 @@
   <p align="center">
     Uranus is a GameEngine written in C++. <br />
     <br />
-    <a href="https://alwyn974-rtype.gitbook.io/uranus"><strong>Explore the source code docs »</strong></a>
+    <a href="https://alwyn974.github.io/Uranus"><strong>Explore the source code docs »</strong></a>
     <br />
     <a href="https://alwyn974-rtype.gitbook.io/uranus"><strong>Explore the project docs »</strong></a>
     <br />
