@@ -1,0 +1,35 @@
+/*
+** EPITECH PROJECT, 2023
+** EnemyShooter.cpp
+** File description:
+** EnemyShooter.cpp
+*/
+
+#include "uranus/game/EnemyShooter.hpp"
+#include "uranus/game/BulletEnemy.hpp"
+#include <cmath>
+
+EnemyShooter::EnemyShooter(const std::string &uniqueName, component::position pos, std::shared_ptr<engine::Texture> &texture)
+    : Enemy(uniqueName, pos, texture)
+{
+}
+
+void EnemyShooter::loop(size_t entity)
+{
+    auto &r = engine::Manager::getRegistry();
+    auto &vel = r->getComponent<component::velocity>(entity);
+    vel->value().x = -0.5;
+
+    vel->value().y = sin(1 * this->_movementClock.getElapsedTime().asSeconds()) * 3;
+
+    if (this->_shootClock.getElapsedTime().asSeconds() > 0.5) {
+        auto &textureManager = engine::Manager::getTextureManager();
+        auto &entityManager = engine::Manager::getEntityManager();
+
+        auto &pos = r->getComponent<component::position>(entity);
+        auto bullet = std::make_shared<BulletEnemy>("bullet", component::position{pos->value().x - 30, pos->value().y}, textureManager->getTextureByName("bulletEnemy"));
+        entityManager->addPrefab(bullet);
+
+        this->_shootClock.restart();
+    }
+}
