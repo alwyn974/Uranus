@@ -20,10 +20,14 @@ option(USE_CLANG_TIDY_WITH_ERRORS "Use clang tidy but all warnings are errors" O
 option(USE_CLANG_TIDY_WITH_FIX "Use clang-tidy with fix" OFF) # Used by the CI
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF) # Fix dll issues on Windows
 
+if(WIN32)
+    set(${PROJECT_NAME}_ICON ${CMAKE_CURRENT_SOURCE_DIR}/assets/app.rc)
+endif()
+
 add_library(${PROJECT_NAME}
         src/Uranus.cpp
 )
-add_executable(${PROJECT_NAME}-exe main.cpp)
+add_executable(${PROJECT_NAME} main.cpp src/Uranus.cpp)
 target_link_libraries(${PROJECT_NAME}-exe PRIVATE ${PROJECT_NAME}) # TODO: remove this later
 
 # Include all headers directories
