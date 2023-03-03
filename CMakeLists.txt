@@ -27,7 +27,7 @@ endif()
 add_library(${PROJECT_NAME}
         src/Uranus.cpp
 )
-add_executable(${PROJECT_NAME} main.cpp src/Uranus.cpp)
+add_executable(${PROJECT_NAME}-exe main.cpp)
 target_link_libraries(${PROJECT_NAME}-exe PRIVATE ${PROJECT_NAME}) # TODO: remove this later
 
 # Include all headers directories
