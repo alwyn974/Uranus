@@ -7,10 +7,10 @@
 
 #include "game/BulletEnemy.hpp"
 
-BulletEnemy::BulletEnemy(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture)
-    : Bullet(uniqueName, pos, texture)
+BulletEnemy::BulletEnemy(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture) :
+    Bullet(uniqueName, pos, texture)
 {
-    std::array<bool, MASK_SIZE> mask{false, true, false, false};
+    std::array<bool, MASK_SIZE> mask {false, true, false, false};
     engine::system::setMask(this->_entityId, mask);
     this->_canMove = true;
     engine::system::stopAnimation(this->_entityId);

@@ -9,7 +9,7 @@
 
 void Enemy::animationCallback(size_t entity, const std::string &animationName)
 {
-//    std::cout << animationName << std::endl;
+    //    std::cout << animationName << std::endl;
 }
 
 Enemy::Enemy(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture) : Base(uniqueName)
@@ -17,20 +17,22 @@ Enemy::Enemy(const std::string &uniqueName, uranus::ecs::component::Position pos
     auto &r = engine::Manager::getRegistry();
     uranus::ecs::Entity newEntity = r->entityFromIndex(this->_entityId);
 
-    r->addComponent(newEntity, uranus::ecs::component::name{uniqueName});
-    r->addComponent(newEntity, uranus::ecs::component::Position{pos.x, pos.y});
+    r->addComponent(newEntity, uranus::ecs::component::Name {uniqueName});
+    r->addComponent(newEntity, uranus::ecs::component::Position {pos.x, pos.y});
     r->addComponent(newEntity, uranus::ecs::component::Velocity {0, 0});
-    r->addComponent(newEntity, uranus::ecs::component::sprite {std::make_shared<engine::Sprite>(texture)});
+    r->addComponent(newEntity, uranus::ecs::component::Sprite {std::make_shared<engine::Sprite>(texture)});
 
-    std::array<bool, LAYER_SIZE> layer{true, false, false, false};
-    std::array<bool, MASK_SIZE> mask{false, false, false, false};
-    r->addComponent(newEntity, uranus::ecs::component::Sollisionable {0, 0, 30, 30, layer, mask, \
-    [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
+    std::array<bool, LAYER_SIZE> layer {true, false, false, false};
+    std::array<bool, MASK_SIZE> mask {false, false, false, false};
+    r->addComponent(
+        newEntity,
+        uranus::ecs::component::Collisionable {
+            0, 0, 30, 30, layer, mask, [&](const size_t &entity, const size_t &entityCollidingWith) { this->colliding(entity, entityCollidingWith); }});
 
-    r->addComponent(newEntity, uranus::ecs::component::loop {[&](const size_t entity) { this->loop(entity); }});
+    r->addComponent(newEntity, uranus::ecs::component::Loop {[&](const size_t entity) { this->loop(entity); }});
 
-    r->addComponent(newEntity, uranus::ecs::component::Animation{6, 1, \
-    [&](const size_t entity, const std::string &animationName) { this->animationCallback(entity, animationName);}});
+    r->addComponent(newEntity, uranus::ecs::component::Animation {
+                                   6, 1, [&](const size_t entity, const std::string &animationName) { this->animationCallback(entity, animationName); }});
 
     engine::system::addNewAnimation(newEntity, "idle", true, 0.6);
     engine::system::insertAnimationFrame(newEntity, "idle", 0.0, 0);

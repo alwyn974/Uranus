@@ -12,7 +12,6 @@
 
 class EnemyShooter : public Enemy {
 public:
-
     explicit EnemyShooter(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture);
 
     void loop(size_t entity) override;
@@ -22,4 +21,4 @@ private:
     engine::Clock _movementClock;
 };
 
-#endif //URANUS_ENEMYSHOOTER_HPP
+#endif // URANUS_ENEMYSHOOTER_HPP

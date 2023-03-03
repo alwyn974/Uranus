@@ -7,6 +7,4 @@
 
 #include "uranus/engine/RenderWindow.hpp"
 
-engine::RenderWindow::RenderWindow(sf::VideoMode mode, const std::string &title) : sf::RenderWindow(mode, title)
-{
-}
+engine::RenderWindow::RenderWindow(sf::VideoMode mode, const std::string &title) : sf::RenderWindow(mode, title) {}

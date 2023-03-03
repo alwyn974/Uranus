@@ -11,7 +11,7 @@
 #include "Dependencies.hpp"
 
 namespace engine {
-class Event : public sf::Event{};
-}
+    class Event : public sf::Event {};
+} // namespace engine
 
-#endif //URANUS_EVENT_HPP
+#endif // URANUS_EVENT_HPP

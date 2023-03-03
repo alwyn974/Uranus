@@ -13,7 +13,8 @@ namespace uranus::ecs {
     template<typename... Components>
     class View {
     public:
-        using Tuple = std::tuple<size_t, Components&...>;
+        using Tuple = std::tuple<size_t, Components &...>;
+
         explicit View(ecs::Registry &registry) : _registry(registry) {}
 
         class Iterator {
@@ -24,34 +25,23 @@ namespace uranus::ecs {
                 skipInvalidEntities<Components...>();
             }
 
-            Iterator& operator++()
+            Iterator &operator++()
             {
                 idx++;
                 skipInvalidEntities<Components...>();
                 return *this;
             }
 
-            Tuple operator->()
-            {
-                return Tuple(idx, (_registry.getComponent<Components>(idx).get()->value())...);
-            }
+            Tuple operator->() { return Tuple(idx, (_registry.getComponent<Components>(idx).get()->value())...); }
 
-            Tuple operator*()
-            {
-                return Tuple(idx, (_registry.getComponent<Components>(idx).get()->value())...);
-            }
+            Tuple operator*() { return Tuple(idx, (_registry.getComponent<Components>(idx).get()->value())...); }
 
-            bool operator==(const Iterator &other) const
-            {
-                return idx == other.idx;
-            }
+            bool operator==(const Iterator &other) const { return idx == other.idx; }
 
-            bool operator!=(const Iterator &other) const
-            {
-                return !(other == *this);
-            }
+            bool operator!=(const Iterator &other) const { return !(other == *this); }
 
             std::size_t idx;
+
         private:
             ecs::Registry _registry;
 
@@ -72,17 +62,13 @@ namespace uranus::ecs {
                     if (hasAllComponents) {
                         return;
                     }
-                    if (idx == _registry.getEntityCounter())
-                        break;
+                    if (idx == _registry.getEntityCounter()) break;
                     idx++;
                 }
             }
         };
 
-        Iterator begin()
-        {
-            return Iterator(_registry);
-        }
+        Iterator begin() { return Iterator(_registry); }
 
         Iterator end()
         {
@@ -90,9 +76,10 @@ namespace uranus::ecs {
             it.idx = _registry.getEntityCounter();
             return it;
         }
+
     private:
         Registry _registry;
     };
-}
+} // namespace uranus::ecs
 
-#endif //URANUS_VIEW_HPP
+#endif // URANUS_VIEW_HPP

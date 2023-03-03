@@ -14,7 +14,8 @@ namespace ui {
 
     class Button : public engine::Base {
     public:
-        Button(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture, const std::function<void()> &callbackPressed);
+        Button(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture,
+               const std::function<void()> &callbackPressed);
 
         void loop(size_t);
 
@@ -27,7 +28,6 @@ namespace ui {
         bool _pressed;
     };
 
+} // namespace ui
 
-}
-
-#endif //URANUS_BUTTON_HPP
+#endif // URANUS_BUTTON_HPP

@@ -7,40 +7,50 @@
 
 #include "uranus/engine/Manager.hpp"
 
-std::shared_ptr<engine::RenderWindow> engine::Manager::_window = nullptr;
-std::shared_ptr<ecs::Registry> engine::Manager::_registry = nullptr;
-std::shared_ptr<engine::SceneManager> engine::Manager::_sceneManager = nullptr;
-std::shared_ptr<engine::TextureManager> engine::Manager::_textureManager = nullptr;
-std::shared_ptr<engine::EntityManager> engine::Manager::_entityManager = nullptr;
+std::shared_ptr<engine::RenderWindow> engine::Manager::window = nullptr;
+std::shared_ptr<uranus::ecs::Registry> engine::Manager::registry = nullptr;
+std::shared_ptr<engine::SceneManager> engine::Manager::sceneManager = nullptr;
+std::shared_ptr<engine::TextureManager> engine::Manager::textureManager = nullptr;
+std::shared_ptr<engine::EntityManager> engine::Manager::entityManager = nullptr;
 
 std::shared_ptr<engine::RenderWindow> &engine::Manager::getWindow()
 {
-    if (!_window) { _window = std::make_shared<engine::RenderWindow>(sf::VideoMode(800, 600), "Uranus"); }
-    return _window;
+    if (!window) {
+        window = std::make_shared<engine::RenderWindow>(sf::VideoMode(800, 600), "Uranus");
+    }
+    return window;
 }
 
-std::shared_ptr<ecs::Registry> &engine::Manager::getRegistry()
+std::shared_ptr<uranus::ecs::Registry> &engine::Manager::getRegistry()
 {
-    if (!_registry) { _registry = std::make_shared<ecs::Registry>(); }
-    return _registry;
+    if (!registry) {
+        registry = std::make_shared<uranus::ecs::Registry>();
+    }
+    return registry;
 }
 
 std::shared_ptr<engine::SceneManager> &engine::Manager::getSceneManager()
 {
-    if (!_sceneManager) { _sceneManager = std::make_shared<engine::SceneManager>(); }
-    return _sceneManager;
+    if (!sceneManager) {
+        sceneManager = std::make_shared<engine::SceneManager>();
+    }
+    return sceneManager;
 }
 
 std::shared_ptr<engine::TextureManager> &engine::Manager::getTextureManager()
 {
-    if (!_textureManager) { _textureManager = std::make_shared<engine::TextureManager>(); }
-    return _textureManager;
+    if (!textureManager) {
+        textureManager = std::make_shared<engine::TextureManager>();
+    }
+    return textureManager;
 }
 
 std::shared_ptr<engine::EntityManager> &engine::Manager::getEntityManager()
 {
-    if (!_entityManager) { _entityManager = std::make_shared<engine::EntityManager>(); }
-    return _entityManager;
+    if (!entityManager) {
+        entityManager = std::make_shared<engine::EntityManager>();
+    }
+    return entityManager;
 }
 
 void engine::Manager::killAllEntitiesAndPrefabs()

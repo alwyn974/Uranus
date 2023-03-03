@@ -13,16 +13,14 @@
 namespace engine {
     class TextureManager {
     public:
-
         void addTexture(const std::string &path, const std::string &name);
 
-        std::shared_ptr<engine::Texture> &getTextureByName(const std::string& textureName);
+        std::shared_ptr<engine::Texture> &getTextureByName(const std::string &textureName);
 
     private:
         std::vector<std::shared_ptr<engine::Texture>> _textures;
     };
 
+} // namespace engine
 
-}
-
-#endif //URANUS_TEXTUREMANAGER_HPP
+#endif // URANUS_TEXTUREMANAGER_HPP

@@ -12,10 +12,12 @@
 
 namespace engine {
 
-    template<typename T> class Rect : public sf::Rect<T> {};
-    typedef Rect<int>   IntRect;
+    template<typename T>
+    class Rect : public sf::Rect<T> {};
+
+    typedef Rect<int> IntRect;
     typedef Rect<float> FloatRect;
 
-}
+} // namespace engine
 
-#endif //URANUS_RECT_HPP
+#endif // URANUS_RECT_HPP

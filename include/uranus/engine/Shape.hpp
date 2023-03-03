@@ -12,8 +12,8 @@
 
 namespace engine {
 
-    class Shape: public sf::Shape {};
+    class Shape : public sf::Shape {};
 
-}
+} // namespace engine
 
-#endif //URANUS_SHAPE_HPP
+#endif // URANUS_SHAPE_HPP

@@ -12,13 +12,11 @@
 
 namespace engine {
 
-    class RenderWindow: public sf::RenderWindow {
+    class RenderWindow : public sf::RenderWindow {
     public:
         RenderWindow(sf::VideoMode mode, const std::string &title);
     };
 
-}
+} // namespace engine
 
-#endif //URANUS_RENDERWINDOW_HPP
-
-
+#endif // URANUS_RENDERWINDOW_HPP

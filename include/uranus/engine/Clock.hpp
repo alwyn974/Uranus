@@ -11,7 +11,7 @@
 #include "Dependencies.hpp"
 
 namespace engine {
-    class Clock : public sf::Clock{};
-}
+    class Clock : public sf::Clock {};
+} // namespace engine
 
-#endif //URANUS_CLOCK_HPP
+#endif // URANUS_CLOCK_HPP

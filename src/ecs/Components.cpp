@@ -37,7 +37,7 @@ void deleteInputMouse(size_t const e)
 void deleteCollisionable(size_t const e)
 {
     auto &r = engine::Manager::getRegistry();
-    r->removeComponent<uranus::ecs::component::Sollisionable>(e);
+    r->removeComponent<uranus::ecs::component::Collisionable>(e);
 }
 
 void deleteSpriteComponent(size_t const e)

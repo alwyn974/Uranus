@@ -11,12 +11,11 @@
 #include <iostream>
 
 #define LAYER_SIZE 4
-#define MASK_SIZE 4
-
+#define MASK_SIZE  4
 
 #include "uranus/ecs/Registry.hpp"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
-#endif //URANUS_DEPENDENCIES_HPP
+#endif // URANUS_DEPENDENCIES_HPP

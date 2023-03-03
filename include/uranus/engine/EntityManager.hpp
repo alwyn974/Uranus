@@ -13,7 +13,6 @@
 namespace engine {
     class EntityManager {
     public:
-
         explicit EntityManager() = default;
 
         ~EntityManager() = default;
@@ -27,6 +26,6 @@ namespace engine {
     private:
         std::vector<std::shared_ptr<engine::Base>> _prefabs;
     };
-}
+} // namespace engine
 
-#endif //URANUS_ENTITYMANAGER_HPP
+#endif // URANUS_ENTITYMANAGER_HPP

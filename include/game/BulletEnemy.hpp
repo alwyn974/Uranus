@@ -5,7 +5,6 @@
 ** BulletEnemy.hpp
 */
 
-
 #ifndef URANUS_BULLETENEMY_HPP
 #define URANUS_BULLETENEMY_HPP
 
@@ -13,7 +12,6 @@
 
 class BulletEnemy : public Bullet {
 public:
-
     explicit BulletEnemy(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture);
 
     void move(size_t entity) override;
@@ -21,5 +19,4 @@ public:
 private:
 };
 
-#endif //URANUS_BULLETENEMY_HPP
-
+#endif // URANUS_BULLETENEMY_HPP

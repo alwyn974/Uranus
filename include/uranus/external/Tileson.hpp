@@ -2908,7 +2908,7 @@ namespace tson {
             #define TILESON_LAYER_HPP
 
             #include <set>
-            // #include "../external/json.hpp"
+  // #include "../external/json.hpp"
 
             /*** Start of inlined file: Chunk.hpp ***/
             //
@@ -5885,7 +5885,8 @@ bool tson::Tile::parse(IJson &json, tson::Tileset *tileset, tson::Map *map)
 
     if (json.count("objectgroup") > 0) m_objectgroup = tson::Layer(json["objectgroup"], m_map); // Optional
 
-    if (json.count("imagewidth") > 0 && json.count("imageheight") > 0) m_imageSize = {json["imagewidth"].get<int>(), json["imageheight"].get<int>()}; // Optional
+    if (json.count("imagewidth") > 0 && json.count("imageheight") > 0)
+        m_imageSize = {json["imagewidth"].get<int>(), json["imageheight"].get<int>()}; // Optional
 
     m_subRect = {0, 0, m_imageSize.x, m_imageSize.y};
     if (json.count("x") > 0) m_subRect.x = json["x"].get<int>(); // Optional

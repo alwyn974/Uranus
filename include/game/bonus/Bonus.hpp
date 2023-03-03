@@ -8,13 +8,12 @@
 #ifndef URANUS_BONUS_HPP
 #define URANUS_BONUS_HPP
 
-#include "uranus/engine/Engine.hpp"
 #include "game/Player.hpp"
+#include "uranus/engine/Engine.hpp"
 
 namespace bonus {
     class Bonus : public engine::Base {
     public:
-
         explicit Bonus(const std::string &uniqueName, uranus::ecs::component::Position pos, const std::string &textureName);
 
         void colliding(size_t entity, size_t entityCollidingWith);
@@ -23,8 +22,6 @@ namespace bonus {
 
         virtual void enable(Player &player) = 0;
     };
-}
+} // namespace bonus
 
-
-
-#endif //URANUS_BASE_HPP
+#endif // URANUS_BASE_HPP

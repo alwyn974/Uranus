@@ -5,7 +5,6 @@
 ** SceneManager.cpp
 */
 
-
 #include "uranus/engine/SceneManager.hpp"
 #include "uranus/engine/Manager.hpp"
 
@@ -18,7 +17,6 @@ void engine::SceneManager::changeScene(const std::string &sceneToSwitch)
 {
     for (std::shared_ptr<engine::Scene> &sceneItem : this->_scenes) {
         if (sceneItem->getName() == sceneToSwitch) {
-
             engine::Manager::killAllEntitiesAndPrefabs();
 
             this->_actualScene = sceneItem;

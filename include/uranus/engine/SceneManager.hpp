@@ -28,6 +28,6 @@ namespace engine {
         std::shared_ptr<engine::Scene> _actualScene;
         std::vector<std::shared_ptr<engine::Scene>> _scenes;
     };
-}
+} // namespace engine
 
-#endif //URANUS_SCENEMANAGER_HPP
+#endif // URANUS_SCENEMANAGER_HPP

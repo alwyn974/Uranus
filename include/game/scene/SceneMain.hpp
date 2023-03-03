@@ -17,7 +17,8 @@ public:
     ~SceneMain() override = default;
 
     void init() override;
+
 private:
 };
 
-#endif //URANUS_SCENEMAIN_HPP
+#endif // URANUS_SCENEMAIN_HPP

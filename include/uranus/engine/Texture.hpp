@@ -12,15 +12,17 @@
 
 namespace engine {
 
-class Texture: public sf::Texture {
-public:
-    explicit Texture(const std::string &path, const std::string &name);
+    class Texture : public sf::Texture {
+    public:
+        explicit Texture(const std::string &path, const std::string &name);
 
-    [[nodiscard]] const std::string &getName() const;
-private:
-    std::string _name;
-};
+        [[nodiscard]]
+        const std::string &getName() const;
 
-}
+    private:
+        std::string _name;
+    };
 
-#endif //URANUS_TEXTURE_HPP
+} // namespace engine
+
+#endif // URANUS_TEXTURE_HPP

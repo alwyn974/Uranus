@@ -14,6 +14,7 @@ std::shared_ptr<engine::Texture> &engine::TextureManager::getTextureByName(const
             return textureItem;
         }
     }
+    throw std::runtime_error("Texture not found"); // TODO: change this, by fallback texture
 }
 
 void engine::TextureManager::addTexture(const std::string &path, const std::string &textureName)

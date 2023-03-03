@@ -11,7 +11,7 @@
 #include "Dependencies.hpp"
 
 namespace engine {
-class Keyboard : public sf::Keyboard{};
-}
+    class Keyboard : public sf::Keyboard {};
+} // namespace engine
 
-#endif //URANUS_KEYBOARD_HPP
+#endif // URANUS_KEYBOARD_HPP

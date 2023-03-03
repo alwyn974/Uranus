@@ -14,7 +14,7 @@ void engine::EntityManager::addPrefab(const std::shared_ptr<engine::Base> &prefa
 
 std::shared_ptr<engine::Base> engine::EntityManager::getPrefabByName(const std::string &prefabName)
 {
-    for (std::shared_ptr<engine::Base> &prefab: this->_prefabs) {
+    for (std::shared_ptr<engine::Base> &prefab : this->_prefabs) {
         if (prefab->getUniqueName() == prefabName) {
             return prefab;
         }

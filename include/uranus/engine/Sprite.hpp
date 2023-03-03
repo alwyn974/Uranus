@@ -12,14 +12,13 @@
 
 namespace engine {
 
-    class Sprite: public sf::Sprite {
+    class Sprite : public sf::Sprite {
     public:
         explicit Sprite(std::shared_ptr<engine::Texture> &texture);
+
     private:
     };
 
-}
+} // namespace engine
 
-
-
-#endif //URANUS_SPRITE_HPP
+#endif // URANUS_SPRITE_HPP

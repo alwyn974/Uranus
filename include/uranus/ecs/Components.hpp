@@ -8,10 +8,10 @@
 #ifndef URANUS_COMPONENTS_HPP
 #define URANUS_COMPONENTS_HPP
 
-#include "uranus/engine/Sprite.hpp"
 #include "uranus/engine/Clock.hpp"
 #include "uranus/engine/Event.hpp"
 #include "uranus/engine/Manager.hpp"
+#include "uranus/engine/Sprite.hpp"
 
 namespace uranus::ecs::component {
 
@@ -33,14 +33,17 @@ namespace uranus::ecs::component {
         sf::Shape *shape = nullptr;
         sf::Color color = sf::Color::White;
 
-        ~Drawable() { if (shape != nullptr) delete shape; }
+        ~Drawable()
+        {
+            if (shape != nullptr) delete shape;
+        }
     };
 
     struct Sprite {
         std::shared_ptr<engine::Sprite> sprite;
     };
 
-    struct Sollisionable {
+    struct Collisionable {
         float x;
         float y;
         float width;
@@ -83,8 +86,7 @@ namespace uranus::ecs::component {
         std::vector<component::AnimationData> animations;
     };
 
-
-} // namespace component
+} // namespace uranus::ecs::component
 
 void deletePosition(size_t entity);
 void deleteVelocity(size_t entity);

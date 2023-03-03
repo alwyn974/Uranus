@@ -16,5 +16,4 @@ public:
     void animationCallback(const size_t entity, const std::string &animationName);
 };
 
-
-#endif //URANUS_EXPLOSION_HPP
+#endif // URANUS_EXPLOSION_HPP

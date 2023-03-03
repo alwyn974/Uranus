@@ -5,7 +5,6 @@
 ** SceneGame.hpp
 */
 
-
 #ifndef URANUS_SCENEGAME_HPP
 #define URANUS_SCENEGAME_HPP
 
@@ -18,7 +17,8 @@ public:
     ~SceneGame() override = default;
 
     void init() override;
+
 private:
 };
 
-#endif //URANUS_SCENEGAME_HPP
+#endif // URANUS_SCENEGAME_HPP

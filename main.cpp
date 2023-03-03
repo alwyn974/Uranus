@@ -5,13 +5,12 @@
 ** main.cpp
 */
 
-#include "uranus/Uranus.hpp"
-
-#include "uranus/engine/Engine.hpp"
-#include "game/scene/SceneMain.hpp"
-#include "game/scene/SceneGame.hpp"
-#include "game/Player.hpp"
 #include "game/Enemy.hpp"
+#include "game/Player.hpp"
+#include "game/scene/SceneGame.hpp"
+#include "game/scene/SceneMain.hpp"
+#include "uranus/engine/Engine.hpp"
+#include "uranus/Uranus.hpp"
 
 int main()
 {

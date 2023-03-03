@@ -9,10 +9,9 @@
 #include "game/BulletEnemy.hpp"
 #include <cmath>
 
-EnemyShooter::EnemyShooter(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture)
-    : Enemy(uniqueName, pos, texture)
-{
-}
+EnemyShooter::EnemyShooter(const std::string &uniqueName, uranus::ecs::component::Position pos, std::shared_ptr<engine::Texture> &texture) :
+    Enemy(uniqueName, pos, texture)
+{}
 
 void EnemyShooter::loop(size_t entity)
 {
@@ -27,7 +26,8 @@ void EnemyShooter::loop(size_t entity)
         auto &entityManager = engine::Manager::getEntityManager();
 
         auto &pos = r->getComponent<uranus::ecs::component::Position>(entity);
-        auto bullet = std::make_shared<BulletEnemy>("bullet", uranus::ecs::component::Position{pos->value().x - 30, pos->value().y}, textureManager->getTextureByName("bulletEnemy"));
+        auto bullet = std::make_shared<BulletEnemy>(
+            "bullet", uranus::ecs::component::Position {pos->value().x - 30, pos->value().y}, textureManager->getTextureByName("bulletEnemy"));
         entityManager->addPrefab(bullet);
 
         this->_shootClock.restart();

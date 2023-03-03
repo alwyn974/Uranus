@@ -20,11 +20,12 @@ namespace engine {
 
         virtual void init() = 0;
 
-        [[nodiscard]] const std::string &getName() const;
+        [[nodiscard]]
+        const std::string &getName() const;
 
     private:
         std::string _name;
     };
-}
+} // namespace engine
 
-#endif //URANUS_SCENE_HPP
+#endif // URANUS_SCENE_HPP

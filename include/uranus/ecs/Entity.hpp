@@ -14,9 +14,9 @@ namespace uranus::ecs {
 
     class Registry;
 
-/**
- * @brief Entity class, used to identify entities
- */
+    /**
+     * @brief Entity class, used to identify entities
+     */
     class Entity {
         friend class Registry;
 
@@ -30,13 +30,13 @@ namespace uranus::ecs {
          * @breif Overloading the operator() to get the const id of the entity
          * @return Const id of the entity
          */
-        inline explicit operator std::size_t() const { return _id; };
+        inline operator std::size_t() const { return _id; };
 
         /**
          * @brief Overloading the operator() to get the id of the entity
          * @return Id of the entity
          */
-        inline explicit operator std::size_t &() { return _id; }
+        inline operator std::size_t&() { return _id; }
 
     private:
         /**
@@ -46,6 +46,6 @@ namespace uranus::ecs {
 
         size_t _id; /**< Id of the entity */
     };
-}
+} // namespace uranus::ecs
 
 #endif // URANUS_ENTITY_HPP

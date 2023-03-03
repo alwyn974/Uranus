@@ -5,46 +5,44 @@
 #ifndef URANUS_SYSTEMS_HPP
 #define URANUS_SYSTEMS_HPP
 
-#include "Manager.hpp"
 #include "Event.hpp"
-#include "uranus/ecs/View.hpp"
+#include "Manager.hpp"
 #include "uranus/ecs/Components.hpp"
+#include "uranus/ecs/View.hpp"
 
 namespace engine::system {
 
-        void position();
+    void position();
 
-        void draw();
+    void draw();
 
-        void input(engine::Event event);
+    void input(engine::Event event);
 
-        void collision();
+    void collision();
 
-        void loop();
+    void loop();
 
-        void animation();
+    void animation();
 
-        //TODO: move tha non "system" functions -----------------------------------
-        void addNewAnimation(size_t entity, const std::string &name, bool loop, float length);
+    // TODO: move tha non "system" functions -----------------------------------
+    void addNewAnimation(size_t entity, const std::string &name, bool loop, float length);
 
-        void insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame);
+    void insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame);
 
-        void playAnimation(size_t entity, const std::string &name);
+    void playAnimation(size_t entity, const std::string &name);
 
-        void stopAnimation(size_t entity);
+    void stopAnimation(size_t entity);
 
+    bool isColliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2);
 
-        bool isColliding(const sf::FloatRect &obj1, const sf::FloatRect &obj2);
+    void setLayer(size_t entity, const std::array<bool, LAYER_SIZE> &layer);
 
-        void setLayer(size_t entity, const std::array<bool, LAYER_SIZE> &layer);
+    void setMask(size_t entity, const std::array<bool, MASK_SIZE> &mask);
 
-        void setMask(size_t entity, const std::array<bool, MASK_SIZE> &mask);
+    void gameLoop();
 
-
-        void gameLoop();
-
-        void gameInit();
-        //--------------------------------------------------------------------------
-}
+    void gameInit();
+    //--------------------------------------------------------------------------
+} // namespace engine::system
 
 #endif // URANUS_SYSTEMS_HPP

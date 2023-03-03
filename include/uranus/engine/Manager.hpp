@@ -8,11 +8,10 @@
 #ifndef URANUS_MANAGER_HPP
 #define URANUS_MANAGER_HPP
 
+#include "EntityManager.hpp"
 #include "RenderWindow.hpp"
 #include "SceneManager.hpp"
 #include "TextureManager.hpp"
-#include "EntityManager.hpp"
-
 
 namespace engine {
     class Manager {
@@ -25,7 +24,7 @@ namespace engine {
 
         static std::shared_ptr<engine::RenderWindow> &getWindow();
 
-        static std::shared_ptr<ecs::Registry> &getRegistry();
+        static std::shared_ptr<uranus::ecs::Registry> &getRegistry();
 
         static std::shared_ptr<engine::SceneManager> &getSceneManager();
 
@@ -38,16 +37,12 @@ namespace engine {
     private:
         Manager() = default;
 
-        static std::shared_ptr<engine::RenderWindow> _window;
-
-        static std::shared_ptr<ecs::Registry> _registry;
-
-        static std::shared_ptr<engine::SceneManager> _sceneManager;
-
-        static std::shared_ptr<engine::TextureManager> _textureManager;
-
-        static std::shared_ptr<engine::EntityManager> _entityManager;
+        static std::shared_ptr<engine::RenderWindow> window;
+        static std::shared_ptr<uranus::ecs::Registry> registry;
+        static std::shared_ptr<engine::SceneManager> sceneManager;
+        static std::shared_ptr<engine::TextureManager> textureManager;
+        static std::shared_ptr<engine::EntityManager> entityManager;
     };
-}
+} // namespace engine
 
-#endif //URANUS_MANAGER_HPP
+#endif // URANUS_MANAGER_HPP

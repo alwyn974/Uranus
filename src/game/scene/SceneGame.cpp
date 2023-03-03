@@ -6,16 +6,13 @@
 */
 
 #include "game/scene/SceneGame.hpp"
-
+#include "game/bonus/DoubleBullet.hpp"
 #include "game/Enemy.hpp"
 #include "game/EnemyShooter.hpp"
 #include "game/Player.hpp"
-
-#include "game/bonus/DoubleBullet.hpp"
-
 #include "game/ui/Button.hpp"
 
-SceneGame::SceneGame() : Scene("Game"){}
+SceneGame::SceneGame() : Scene("Game") {}
 
 void SceneGame::init()
 {
@@ -25,7 +22,7 @@ void SceneGame::init()
     auto player = std::make_shared<Player>("player", textureManager->getTextureByName("ship"), "bullet");
     entityManager->addPrefab(player);
 
-    uranus::ecs::component::Position pos{500, 20};
+    uranus::ecs::component::Position pos {500, 20};
     for (int i = 0; i < 10; i++) {
         auto enemy = std::make_shared<Enemy>("enemy", pos, textureManager->getTextureByName("enemy"));
         entityManager->addPrefab(enemy);
@@ -33,9 +30,9 @@ void SceneGame::init()
         pos.x += 10;
     }
 
-    auto enemy = std::make_shared<EnemyShooter>("enemyShooter", uranus::ecs::component::Position{700, 100}, textureManager->getTextureByName("enemyShooter"));
+    auto enemy = std::make_shared<EnemyShooter>("enemyShooter", uranus::ecs::component::Position {700, 100}, textureManager->getTextureByName("enemyShooter"));
     entityManager->addPrefab(enemy);
 
-    auto bonusDoubleBullet = std::make_shared<bonus::DoubleBullet>("bonusDoubleBullet", uranus::ecs::component::Position{200, 300});
+    auto bonusDoubleBullet = std::make_shared<bonus::DoubleBullet>("bonusDoubleBullet", uranus::ecs::component::Position {200, 300});
     entityManager->addPrefab(bonusDoubleBullet);
 }

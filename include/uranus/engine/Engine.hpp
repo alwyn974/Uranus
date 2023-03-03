@@ -8,11 +8,10 @@
 #ifndef URANUS_ENGINE_HPP
 #define URANUS_ENGINE_HPP
 
+#include "Base.hpp"
+#include "Keyboard.hpp"
+#include "Rect.hpp"
+#include "Shape.hpp"
 #include "Systems.hpp"
 
-#include "Rect.hpp"
-#include "Base.hpp"
-#include "Shape.hpp"
-#include "Keyboard.hpp"
-
-#endif //URANUS_ENGINE_HPP
+#endif // URANUS_ENGINE_HPP

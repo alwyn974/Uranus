@@ -8,16 +8,16 @@
 #ifndef URANUS_SPARSEARRAY_HPP
 #define URANUS_SPARSEARRAY_HPP
 
+#include <memory>
 #include <optional>
 #include <vector>
-#include <memory>
 
 namespace uranus::ecs {
 
-/**
- * @brief SparseArray class, used to store components in a sparse way
- * @tparam Component Type of the component to store
- */
+    /**
+     * @brief SparseArray class, used to store components in a sparse way
+     * @tparam Component Type of the component to store
+     */
     template<typename Component>
     class SparseArray {
     public:
@@ -182,103 +182,117 @@ namespace uranus::ecs {
          * @return Reference to the _data container
          */
         Container &getData() const;
+
     private:
         Container _data; /**< Container of the components */
     };
 
     template<typename Component>
-    SparseArray<Component> &SparseArray<Component>::operator=(const SparseArray<Component> &other) {
+    SparseArray<Component> &SparseArray<Component>::operator=(const SparseArray<Component> &other)
+    {
         _data = other._data;
         return *this;
     }
 
     template<typename Component>
-    SparseArray<Component> &SparseArray<Component>::operator=(SparseArray<Component> &&other) noexcept {
+    SparseArray<Component> &SparseArray<Component>::operator=(SparseArray<Component> &&other) noexcept
+    {
         _data = std::move(other._data);
         return *this;
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ReferenceType SparseArray<Component>::operator[](std::size_t idx) {
+    typename SparseArray<Component>::ReferenceType SparseArray<Component>::operator[](std::size_t idx)
+    {
         if (idx >= _data.size()) _data.resize(idx + 1);
         return _data[idx];
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ConstReferenceType SparseArray<Component>::operator[](std::size_t idx) const {
+    typename SparseArray<Component>::ConstReferenceType SparseArray<Component>::operator[](std::size_t idx) const
+    {
         if (idx >= _data.size()) return nullptr;
         return _data[idx];
     }
 
     template<typename Component>
-    typename SparseArray<Component>::Iterator SparseArray<Component>::begin() {
+    typename SparseArray<Component>::Iterator SparseArray<Component>::begin()
+    {
         return _data.begin();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ConstIterator SparseArray<Component>::begin() const {
+    typename SparseArray<Component>::ConstIterator SparseArray<Component>::begin() const
+    {
         return _data.begin();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ConstIterator SparseArray<Component>::cbegin() const {
+    typename SparseArray<Component>::ConstIterator SparseArray<Component>::cbegin() const
+    {
         return _data.cbegin();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::Iterator SparseArray<Component>::end() {
+    typename SparseArray<Component>::Iterator SparseArray<Component>::end()
+    {
         return _data.end();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ConstIterator SparseArray<Component>::end() const {
+    typename SparseArray<Component>::ConstIterator SparseArray<Component>::end() const
+    {
         return _data.end();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ConstIterator SparseArray<Component>::cend() const {
+    typename SparseArray<Component>::ConstIterator SparseArray<Component>::cend() const
+    {
         return _data.cend();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::SizeType SparseArray<Component>::size() const {
+    typename SparseArray<Component>::SizeType SparseArray<Component>::size() const
+    {
         return _data.size();
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ReferenceType
-    SparseArray<Component>::insertAt(SizeType pos, const Component &component) {
+    typename SparseArray<Component>::ReferenceType SparseArray<Component>::insertAt(SizeType pos, const Component &component)
+    {
         if (pos >= _data.size()) _data.resize(pos + 1);
         _data[pos] = std::make_shared<std::optional<Component>>(std::make_optional<Component>(component));
         return _data[pos];
     }
 
     template<typename Component>
-    typename SparseArray<Component>::ReferenceType
-    SparseArray<Component>::insertAt(SizeType pos, Component &&component) {
+    typename SparseArray<Component>::ReferenceType SparseArray<Component>::insertAt(SizeType pos, Component &&component)
+    {
         if (pos >= _data.size()) _data.resize(pos + 1);
         _data[pos] = std::move(std::make_shared<std::optional<Component>>(std::make_optional<Component>(component)));
         return _data[pos];
     }
 
-    //TODO test this function
+    // TODO test this function
     template<typename Component>
     template<class... Params>
-    typename SparseArray<Component>::ReferenceType SparseArray<Component>::emplaceAt(SizeType pos, Params &&...params) {
+    typename SparseArray<Component>::ReferenceType SparseArray<Component>::emplaceAt(SizeType pos, Params &&...params)
+    {
         if (pos >= _data.size()) _data.resize(pos + 1);
-        _data[pos] = std::make_shared<std::optional<Component>>(
-                std::make_optional<Component>(std::forward<Params>(params)...));
+        _data[pos] = std::make_shared<std::optional<Component>>(std::make_optional<Component>(std::forward<Params>(params)...));
         return _data[pos];
     }
 
     template<typename Component>
-    void SparseArray<Component>::erase(SizeType pos) {
+    void SparseArray<Component>::erase(SizeType pos)
+    {
         if (pos >= _data.size()) return;
         _data[pos] = nullptr;
     }
 
     template<typename Component>
-    std::optional<typename SparseArray<Component>::SizeType> SparseArray<Component>::getIndex(const ValueType &ptr) const {
+    std::optional<typename SparseArray<Component>::SizeType> SparseArray<Component>::getIndex(const ValueType &ptr) const
+    {
         for (SizeType i = 0; i < _data.size(); i++) {
             if (_data[i] && _data[i]->has_value() && ptr->has_value()) {
                 if (std::addressof(_data[i]->value()) == std::addressof(ptr->value())) return i;
@@ -288,8 +302,9 @@ namespace uranus::ecs {
     }
 
     template<typename Component>
-    typename SparseArray<Component>::Container &SparseArray<Component>::getData() const {
+    typename SparseArray<Component>::Container &SparseArray<Component>::getData() const
+    {
         return _data;
     }
-}
+} // namespace uranus::ecs
 #endif // URANUS_SPARSEARRAY_HPP

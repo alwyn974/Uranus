@@ -18,8 +18,7 @@ namespace bonus {
         void enable(Player &player) override;
 
         void loop(size_t entity) override;
-
     };
-}
+} // namespace bonus
 
-#endif //URANUS_DOUBLEBULLET_HPP
+#endif // URANUS_DOUBLEBULLET_HPP
