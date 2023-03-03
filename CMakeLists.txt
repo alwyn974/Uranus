@@ -20,6 +20,10 @@ option(USE_CLANG_TIDY_WITH_ERRORS "Use clang tidy but all warnings are errors" O
 option(USE_CLANG_TIDY_WITH_FIX "Use clang-tidy with fix" OFF) # Used by the CI
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF) # Fix dll issues on Windows
 
+if(WIN32)
+    set(${PROJECT_NAME}_ICON ${CMAKE_CURRENT_SOURCE_DIR}/assets/app.rc)
+endif()
+
 add_library(${PROJECT_NAME}
         src/uranus/Uranus.cpp
 )
@@ -37,12 +41,18 @@ target_include_directories(${PROJECT_NAME}
 
 find_package(spdlog 1.11.1 REQUIRED)
 find_package(Saturnity 1.0.1.7 REQUIRED)
+find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system)
+find_package(nlohmann_json 3.11.2 REQUIRED)
+find_package(sol2 3.3.0 REQUIRED)
 
 # Link all libraries
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
             spdlog
             Saturnity
+            sfml-graphics sfml-audio sfml-system sfml-window
+            nlohmann_json
+            sol2
 )
 
 # Enable warnings, will not work on header only libraries
