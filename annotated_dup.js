@@ -1,0 +1,116 @@
+var annotated_dup =
+[
+    [ "bonus", null, [
+      [ "Bonus", "classbonus_1_1_bonus.html", null ],
+      [ "DoubleBullet", "classbonus_1_1_double_bullet.html", null ]
+    ] ],
+    [ "engine", null, [
+      [ "Base", "classengine_1_1_base.html", null ],
+      [ "Clock", "classengine_1_1_clock.html", null ],
+      [ "EntityManager", "classengine_1_1_entity_manager.html", null ],
+      [ "Event", "classengine_1_1_event.html", null ],
+      [ "Keyboard", "classengine_1_1_keyboard.html", null ],
+      [ "Manager", "classengine_1_1_manager.html", null ],
+      [ "Rect", "classengine_1_1_rect.html", null ],
+      [ "RenderWindow", "classengine_1_1_render_window.html", null ],
+      [ "Scene", "classengine_1_1_scene.html", null ],
+      [ "SceneManager", "classengine_1_1_scene_manager.html", null ],
+      [ "Shape", "classengine_1_1_shape.html", null ],
+      [ "Sprite", "classengine_1_1_sprite.html", null ],
+      [ "Texture", "classengine_1_1_texture.html", null ],
+      [ "TextureManager", "classengine_1_1_texture_manager.html", null ]
+    ] ],
+    [ "json11", null, [
+      [ "anonymous_namespace{Tileson.hpp}", "namespacejson11_1_1anonymous__namespace_02_tileson_8hpp_03.html", [
+        [ "JsonParser", "structjson11_1_1anonymous__namespace_02_tileson_8hpp_03_1_1_json_parser.html", null ]
+      ] ],
+      [ "Json", "classjson11_1_1_json.html", null ],
+      [ "JsonArray", "classjson11_1_1_json_array.html", null ],
+      [ "JsonBoolean", "classjson11_1_1_json_boolean.html", null ],
+      [ "JsonDouble", "classjson11_1_1_json_double.html", null ],
+      [ "JsonInt", "classjson11_1_1_json_int.html", null ],
+      [ "JsonNull", "classjson11_1_1_json_null.html", null ],
+      [ "JsonObject", "classjson11_1_1_json_object.html", null ],
+      [ "JsonString", "classjson11_1_1_json_string.html", null ],
+      [ "JsonValue", "classjson11_1_1_json_value.html", null ],
+      [ "NullStruct", "structjson11_1_1_null_struct.html", null ],
+      [ "Statics", "structjson11_1_1_statics.html", null ],
+      [ "Value", "classjson11_1_1_value.html", null ]
+    ] ],
+    [ "tson", null, [
+      [ "Animation", "classtson_1_1_animation.html", "classtson_1_1_animation" ],
+      [ "Base64Decompressor", "classtson_1_1_base64_decompressor.html", "classtson_1_1_base64_decompressor" ],
+      [ "Chunk", "classtson_1_1_chunk.html", "classtson_1_1_chunk" ],
+      [ "Color", "classtson_1_1_color.html", "classtson_1_1_color" ],
+      [ "DecompressorContainer", "classtson_1_1_decompressor_container.html", "classtson_1_1_decompressor_container" ],
+      [ "EnableBitMaskOperators", "structtson_1_1_enable_bit_mask_operators.html", null ],
+      [ "EnumDefinition", "classtson_1_1_enum_definition.html", null ],
+      [ "EnumValue", "classtson_1_1_enum_value.html", "classtson_1_1_enum_value" ],
+      [ "FlaggedTile", "classtson_1_1_flagged_tile.html", "classtson_1_1_flagged_tile" ],
+      [ "Frame", "classtson_1_1_frame.html", "classtson_1_1_frame" ],
+      [ "Grid", "classtson_1_1_grid.html", "classtson_1_1_grid" ],
+      [ "IDecompressor", "classtson_1_1_i_decompressor.html", "classtson_1_1_i_decompressor" ],
+      [ "IJson", "classtson_1_1_i_json.html", "classtson_1_1_i_json" ],
+      [ "Json11", "classtson_1_1_json11.html", "classtson_1_1_json11" ],
+      [ "Layer", "classtson_1_1_layer.html", "classtson_1_1_layer" ],
+      [ "Map", "classtson_1_1_map.html", "classtson_1_1_map" ],
+      [ "MemoryBuffer", "classtson_1_1_memory_buffer.html", null ],
+      [ "MemoryStream", "classtson_1_1_memory_stream.html", null ],
+      [ "Object", "classtson_1_1_object.html", "classtson_1_1_object" ],
+      [ "Project", "classtson_1_1_project.html", "classtson_1_1_project" ],
+      [ "ProjectData", "classtson_1_1_project_data.html", null ],
+      [ "ProjectFolder", "classtson_1_1_project_folder.html", "classtson_1_1_project_folder" ],
+      [ "ProjectPropertyTypes", "classtson_1_1_project_property_types.html", null ],
+      [ "Property", "classtson_1_1_property.html", "classtson_1_1_property" ],
+      [ "PropertyCollection", "classtson_1_1_property_collection.html", "classtson_1_1_property_collection" ],
+      [ "Rect", "classtson_1_1_rect.html", null ],
+      [ "Terrain", "classtson_1_1_terrain.html", "classtson_1_1_terrain" ],
+      [ "Text", "classtson_1_1_text.html", "classtson_1_1_text" ],
+      [ "Tile", "classtson_1_1_tile.html", "classtson_1_1_tile" ],
+      [ "TiledClass", "classtson_1_1_tiled_class.html", "classtson_1_1_tiled_class" ],
+      [ "TileObject", "classtson_1_1_tile_object.html", "classtson_1_1_tile_object" ],
+      [ "Tileset", "classtson_1_1_tileset.html", "classtson_1_1_tileset" ],
+      [ "Tileson", "classtson_1_1_tileson.html", "classtson_1_1_tileson" ],
+      [ "Tools", "classtson_1_1_tools.html", "classtson_1_1_tools" ],
+      [ "Transformations", "classtson_1_1_transformations.html", "classtson_1_1_transformations" ],
+      [ "Vector2", "classtson_1_1_vector2.html", "classtson_1_1_vector2" ],
+      [ "WangColor", "classtson_1_1_wang_color.html", "classtson_1_1_wang_color" ],
+      [ "WangSet", "classtson_1_1_wang_set.html", "classtson_1_1_wang_set" ],
+      [ "WangTile", "classtson_1_1_wang_tile.html", "classtson_1_1_wang_tile" ],
+      [ "World", "classtson_1_1_world.html", "classtson_1_1_world" ],
+      [ "WorldMapData", "classtson_1_1_world_map_data.html", null ]
+    ] ],
+    [ "ui", null, [
+      [ "Button", "classui_1_1_button.html", null ]
+    ] ],
+    [ "uranus", null, [
+      [ "ecs", null, [
+        [ "component", null, [
+          [ "Animation", "structuranus_1_1ecs_1_1component_1_1_animation.html", null ],
+          [ "AnimationData", "structuranus_1_1ecs_1_1component_1_1_animation_data.html", null ],
+          [ "Collisionable", "structuranus_1_1ecs_1_1component_1_1_collisionable.html", null ],
+          [ "Drawable", "structuranus_1_1ecs_1_1component_1_1_drawable.html", null ],
+          [ "FrameData", "structuranus_1_1ecs_1_1component_1_1_frame_data.html", null ],
+          [ "InputKeyboard", "structuranus_1_1ecs_1_1component_1_1_input_keyboard.html", null ],
+          [ "InputMouse", "structuranus_1_1ecs_1_1component_1_1_input_mouse.html", null ],
+          [ "Loop", "structuranus_1_1ecs_1_1component_1_1_loop.html", null ],
+          [ "Name", "structuranus_1_1ecs_1_1component_1_1_name.html", null ],
+          [ "Position", "structuranus_1_1ecs_1_1component_1_1_position.html", null ],
+          [ "Sprite", "structuranus_1_1ecs_1_1component_1_1_sprite.html", null ],
+          [ "Velocity", "structuranus_1_1ecs_1_1component_1_1_velocity.html", null ]
+        ] ],
+        [ "Entity", "classuranus_1_1ecs_1_1_entity.html", "classuranus_1_1ecs_1_1_entity" ],
+        [ "Registry", "classuranus_1_1ecs_1_1_registry.html", "classuranus_1_1ecs_1_1_registry" ],
+        [ "SparseArray", "classuranus_1_1ecs_1_1_sparse_array.html", "classuranus_1_1ecs_1_1_sparse_array" ],
+        [ "View", "classuranus_1_1ecs_1_1_view.html", "classuranus_1_1ecs_1_1_view" ]
+      ] ]
+    ] ],
+    [ "Bullet", "class_bullet.html", null ],
+    [ "BulletEnemy", "class_bullet_enemy.html", null ],
+    [ "Enemy", "class_enemy.html", null ],
+    [ "EnemyShooter", "class_enemy_shooter.html", null ],
+    [ "Explosion", "class_explosion.html", null ],
+    [ "Player", "class_player.html", null ],
+    [ "SceneGame", "class_scene_game.html", null ],
+    [ "SceneMain", "class_scene_main.html", null ]
+];

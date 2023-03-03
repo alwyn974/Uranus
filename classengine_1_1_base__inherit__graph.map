@@ -1,0 +1,12 @@
+<map id="engine::Base" name="engine::Base">
+<area shape="rect" id="node1" title=" " alt="" coords="258,5,354,31"/>
+<area shape="rect" id="node2" href="$class_bullet.html" title=" " alt="" coords="47,79,101,104"/>
+<area shape="rect" id="node4" href="$class_enemy.html" title=" " alt="" coords="137,79,198,104"/>
+<area shape="rect" id="node6" href="$class_explosion.html" title=" " alt="" coords="222,79,299,104"/>
+<area shape="rect" id="node7" href="$class_player.html" title=" " alt="" coords="323,79,382,104"/>
+<area shape="rect" id="node8" href="$classbonus_1_1_bonus.html" title=" " alt="" coords="407,79,507,104"/>
+<area shape="rect" id="node10" href="$classui_1_1_button.html" title=" " alt="" coords="531,79,607,104"/>
+<area shape="rect" id="node3" href="$class_bullet_enemy.html" title=" " alt="" coords="5,152,100,177"/>
+<area shape="rect" id="node5" href="$class_enemy_shooter.html" title=" " alt="" coords="125,152,231,177"/>
+<area shape="rect" id="node9" href="$classbonus_1_1_double_bullet.html" title=" " alt="" coords="389,152,525,177"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="uranus::ecs::component::Animation" name="uranus::ecs::component::Animation">
+<area shape="rect" id="node1" title=" " alt="" coords="108,431,267,471"/>
+<area shape="rect" id="node2" title=" " alt="" coords="96,313,279,368"/>
+<area shape="rect" id="node3" href="$structuranus_1_1ecs_1_1component_1_1_animation_data.html" title=" " alt="" coords="108,211,267,251"/>
+<area shape="rect" id="node4" title=" " alt="" coords="32,115,111,141"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,5,129,45"/>
+<area shape="rect" id="node6" href="$classengine_1_1_clock.html" title=" " alt="" coords="138,115,237,141"/>
+<area shape="rect" id="node7" title=" " alt="" coords="154,13,226,38"/>
+<area shape="rect" id="node8" title=" " alt="" coords="261,108,461,148"/>
+<area shape="rect" id="node9" href="$structuranus_1_1ecs_1_1component_1_1_frame_data.html" title=" " alt="" coords="281,5,440,45"/>
+</map>

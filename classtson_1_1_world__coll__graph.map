@@ -1,0 +1,73 @@
+<map id="tson::World" name="tson::World">
+<area shape="rect" id="node1" title=" " alt="" coords="1962,439,2049,464"/>
+<area shape="rect" id="node29" href="$classtson_1_1_project_folder.html" title=" " alt="" coords="2464,552,2595,577"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1966,311,2109,351"/>
+<area shape="rect" id="node27" href="$classtson_1_1_project.html" title=" " alt="" coords="2079,789,2174,814"/>
+<area shape="rect" id="node3" href="$classtson_1_1_i_json.html" title=" " alt="" coords="1995,205,2080,230"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1818,311,1942,351"/>
+<area shape="rect" id="node5" href="$classtson_1_1_world_map_data.html" title=" " alt="" coords="1811,205,1949,230"/>
+<area shape="rect" id="node6" title=" " alt="" coords="2173,95,2251,120"/>
+<area shape="rect" id="node11" href="$classtson_1_1_map.html" title=" " alt="" coords="1310,1663,1389,1689"/>
+<area shape="rect" id="node14" href="$classtson_1_1_layer.html" title=" " alt="" coords="1184,2008,1269,2033"/>
+<area shape="rect" id="node16" href="$classtson_1_1_chunk.html" title=" " alt="" coords="417,205,508,230"/>
+<area shape="rect" id="node20" href="$classtson_1_1_object.html" title=" " alt="" coords="924,1781,1015,1806"/>
+<area shape="rect" id="node24" href="$classtson_1_1_property_collection.html" title=" " alt="" coords="2167,1279,2326,1304"/>
+<area shape="rect" id="node25" title=" " alt="" coords="2175,1154,2318,1194"/>
+<area shape="rect" id="node26" href="$classtson_1_1_property.html" title=" " alt="" coords="2161,954,2263,979"/>
+<area shape="rect" id="node31" href="$classtson_1_1_project_data.html" title=" " alt="" coords="2827,1781,2949,1806"/>
+<area shape="rect" id="node32" title=" " alt="" coords="2951,261,3111,287"/>
+<area shape="rect" id="node35" href="$classtson_1_1_enum_definition.html" title=" " alt="" coords="2815,318,2953,343"/>
+<area shape="rect" id="node36" title=" " alt="" coords="2861,197,2993,237"/>
+<area shape="rect" id="node38" href="$classtson_1_1_tiled_class.html" title=" " alt="" coords="2436,1403,2551,1429"/>
+<area shape="rect" id="node39" href="$classtson_1_1_text.html" title=" " alt="" coords="909,1663,987,1689"/>
+<area shape="rect" id="node43" href="$classtson_1_1_tile.html" title=" " alt="" coords="564,2118,639,2143"/>
+<area shape="rect" id="node47" href="$classtson_1_1_tileset.html" title=" " alt="" coords="2022,2349,2114,2374"/>
+<area shape="rect" id="node50" href="$classtson_1_1_wang_set.html" title=" " alt="" coords="2395,2008,2501,2033"/>
+<area shape="rect" id="node54" href="$classtson_1_1_wang_color.html" title=" " alt="" coords="2211,1781,2327,1806"/>
+<area shape="rect" id="node56" href="$classtson_1_1_terrain.html" title=" " alt="" coords="3308,1403,3401,1429"/>
+<area shape="rect" id="node57" href="$classtson_1_1_grid.html" title=" " alt="" coords="3172,205,3249,230"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2150,5,2274,45"/>
+<area shape="rect" id="node8" href="$classtson_1_1_vector2.html" title=" " alt="" coords="493,95,627,120"/>
+<area shape="rect" id="node62" href="$classtson_1_1_tile_object.html" title=" " alt="" coords="193,2246,305,2271"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1513,1876,1668,1916"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1437,1773,1579,1813"/>
+<area shape="rect" id="node12" href="$classtson_1_1_color.html" title=" " alt="" coords="1745,1535,1889,1561"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1131,2111,1255,2151"/>
+<area shape="rect" id="node15" title=" " alt="" coords="395,375,519,415"/>
+<area shape="rect" id="node17" title=" " alt="" coords="142,95,261,120"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1945,1663,2095,1689"/>
+<area shape="rect" id="node52" href="$classtson_1_1_wang_tile.html" title=" " alt="" coords="2077,1781,2184,1806"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1165,1876,1289,1916"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1045,1656,1169,1696"/>
+<area shape="rect" id="node22" href="$classtson_1_1_vector2.html" title=" " alt="" coords="995,1535,1123,1561"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1046,1403,1085,1429"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2461,640,2585,680"/>
+<area shape="rect" id="node30" title=" " alt="" coords="2456,439,2603,464"/>
+<area shape="rect" id="node33" href="$classtson_1_1_project_property_types.html" title=" " alt="" coords="2851,1663,3029,1689"/>
+<area shape="rect" id="node34" title=" " alt="" coords="2869,488,2993,528"/>
+<area shape="rect" id="node37" title=" " alt="" coords="2802,1528,2926,1568"/>
+<area shape="rect" id="node40" title=" " alt="" coords="2385,1528,2527,1568"/>
+<area shape="rect" id="node41" href="$classtson_1_1_vector2.html" title=" " alt="" coords="624,1535,768,1561"/>
+<area shape="rect" id="node42" title=" " alt="" coords="1238,2239,1370,2279"/>
+<area shape="rect" id="node48" title=" " alt="" coords="538,2239,662,2279"/>
+<area shape="rect" id="node60" title=" " alt="" coords="963,2239,1120,2279"/>
+<area shape="rect" id="node71" title=" " alt="" coords="330,2239,462,2279"/>
+<area shape="rect" id="node44" href="$classtson_1_1_animation.html" title=" " alt="" coords="550,2008,661,2033"/>
+<area shape="rect" id="node45" title=" " alt="" coords="462,1876,586,1916"/>
+<area shape="rect" id="node46" href="$classtson_1_1_frame.html" title=" " alt="" coords="496,1781,587,1806"/>
+<area shape="rect" id="node66" title=" " alt="" coords="65,2444,189,2484"/>
+<area shape="rect" id="node49" title=" " alt="" coords="2266,2175,2390,2215"/>
+<area shape="rect" id="node51" title=" " alt="" coords="2250,1876,2374,1916"/>
+<area shape="rect" id="node53" title=" " alt="" coords="2398,1876,2522,1916"/>
+<area shape="rect" id="node55" title=" " alt="" coords="3293,1592,3417,1632"/>
+<area shape="rect" id="node58" href="$classtson_1_1_transformations.html" title=" " alt="" coords="687,2246,833,2271"/>
+<area shape="rect" id="node59" href="$classtson_1_1_rect.html" title=" " alt="" coords="445,2008,525,2033"/>
+<area shape="rect" id="node61" title=" " alt="" coords="275,2341,461,2381"/>
+<area shape="rect" id="node63" title=" " alt="" coords="1693,1883,1825,1909"/>
+<area shape="rect" id="node64" title=" " alt="" coords="1365,1876,1489,1916"/>
+<area shape="rect" id="node65" href="$classtson_1_1_flagged_tile.html" title=" " alt="" coords="1292,1781,1412,1806"/>
+<area shape="rect" id="node67" href="$classtson_1_1_decompressor_container.html" title=" " alt="" coords="1197,1535,1389,1561"/>
+<area shape="rect" id="node68" title=" " alt="" coords="1206,1381,1381,1451"/>
+<area shape="rect" id="node69" title=" " alt="" coords="1204,1264,1383,1319"/>
+<area shape="rect" id="node70" href="$classtson_1_1_i_decompressor.html" title=" " alt="" coords="1223,1147,1364,1201"/>
+</map>

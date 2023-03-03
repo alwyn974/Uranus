@@ -1,0 +1,9 @@
+<map id="EnemyShooter" name="EnemyShooter">
+<area shape="rect" id="node1" title=" " alt="" coords="67,360,174,385"/>
+<area shape="rect" id="node2" href="$class_enemy.html" title=" " alt="" coords="39,257,101,283"/>
+<area shape="rect" id="node3" href="$classengine_1_1_base.html" title=" " alt="" coords="19,183,115,208"/>
+<area shape="rect" id="node4" title=" " alt="" coords="28,95,107,120"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,5,129,45"/>
+<area shape="rect" id="node6" href="$classengine_1_1_clock.html" title=" " alt="" coords="126,257,225,283"/>
+<area shape="rect" id="node7" title=" " alt="" coords="139,183,211,208"/>
+</map>

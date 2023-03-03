@@ -1,0 +1,5 @@
+<map id="Bullet" name="Bullet">
+<area shape="rect" id="node1" title=" " alt="" coords="26,79,81,104"/>
+<area shape="rect" id="node3" href="$class_bullet_enemy.html" title=" " alt="" coords="6,152,101,177"/>
+<area shape="rect" id="node2" href="$classengine_1_1_base.html" title=" " alt="" coords="5,5,101,31"/>
+</map>

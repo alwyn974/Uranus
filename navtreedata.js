@@ -25,15 +25,31 @@
 var NAVTREE =
 [
   [ "Uranus", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", null ]
+    ] ],
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ],
+      [ "Data Structure Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Data Fields", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
-    ] ]
+    ] ],
+    [ "Examples", "examples.html", "examples" ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_uranus_8hpp.html"
+"_0gffaa07ff-example.html",
+"classtson_1_1_map.html#aa8df83fa57ed4d985fceb2f9254b5a9b",
+"classtson_1_1_wang_tile.html#ac233392d977810cc1f5347fde4d8dac5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
