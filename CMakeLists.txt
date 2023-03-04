@@ -38,20 +38,6 @@ add_library(${PROJECT_NAME}
         src/engine/EntityManager.cpp
         src/engine/RenderWindow.cpp
 )
-add_executable(${PROJECT_NAME}-exe main.cpp
-        ../R-Type/client/src/game/Player.cpp
-        ../R-Type/client/src/game/Enemy.cpp
-        ../R-Type/client/src/game/Bullet.cpp
-        ../R-Type/client/src/game/scene/SceneMain.cpp
-        ../R-Type/client/src/game/Explosion.cpp
-        ../R-Type/client/src/game/EnemyShooter.cpp
-        ../R-Type/client/src/game/BulletEnenmy.cpp
-        ../R-Type/client/src/game/bonus/Bonus.cpp
-        ../R-Type/client/src/game/bonus/DoubleBullet.cpp
-        ../R-Type/client/src/game/ui/Button.cpp
-        ../R-Type/client/src/game/scene/SceneGame.cpp
-)
-target_link_libraries(${PROJECT_NAME}-exe PRIVATE ${PROJECT_NAME}) # TODO: remove this later
 
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
