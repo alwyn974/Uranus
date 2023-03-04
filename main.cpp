@@ -31,7 +31,7 @@ int main()
 
     auto &textureManager = engine::Manager::getTextureManager();
 
-    Map const map("./map.json", textureManager);
+    const Map map("./map.json", textureManager);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -44,4 +44,5 @@ int main()
         window.draw(map);
         window.display();
     }
+
 }
