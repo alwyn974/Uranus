@@ -161,7 +161,7 @@ namespace uranus {
          * @brief Set the 3D position of the sound in the audio scene
          * @param position Position of the sound
          */
-        void setPosition(const sf::Vector3f &position);
+        void setPosition(const Vector3f &position);
 
         /**
          * @brief Make the sound's position relative to the listener or absolute

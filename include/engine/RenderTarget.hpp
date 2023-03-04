@@ -19,7 +19,7 @@ namespace uranus {
         /**
          * @brief Default destructor
          */
-        ~RenderTarget() = default;
+        virtual ~RenderTarget() = default;
 
         /**
          * @brief Clear the render target with a single color

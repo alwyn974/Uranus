@@ -44,7 +44,7 @@ add_executable(${PROJECT_NAME} main.cpp
         include/engine/Vector2.cpp
         include/engine/Rect.hpp
         include/engine/Rect.cpp
-        include/engine/Image.hpp include/engine/Circle.hpp include/engine/Clock.hpp include/engine/Time.hpp include/engine/Convex.hpp include/engine/Cursor.hpp include/engine/Font.hpp include/engine/Glyph.hpp include/engine/Glyph.hpp include/engine/InputSoundFile.hpp include/engine/InputStream.hpp include/engine/Vector3.hpp include/engine/Listener.hpp include/engine/MemoryInputStream.hpp include/engine/FileInputStream.hpp include/engine/Mouse.hpp include/engine/Music.hpp include/engine/Rectangle.hpp include/engine/RenderStates.hpp include/engine/BlendMode.hpp include/engine/Shader.hpp include/engine/RenderTarget.hpp include/engine/GraphicView.hpp)
+        include/engine/Image.hpp include/engine/Circle.hpp include/engine/Clock.hpp include/engine/Time.hpp include/engine/Convex.hpp include/engine/Cursor.hpp include/engine/Font.hpp include/engine/Glyph.hpp include/engine/Glyph.hpp include/engine/InputSoundFile.hpp include/engine/InputStream.hpp include/engine/Vector3.hpp include/engine/Listener.hpp include/engine/MemoryInputStream.hpp include/engine/FileInputStream.hpp include/engine/Mouse.hpp include/engine/Music.hpp include/engine/Rectangle.hpp include/engine/RenderStates.hpp include/engine/BlendMode.hpp include/engine/Shader.hpp include/engine/RenderTarget.hpp include/engine/GraphicView.hpp include/engine/RenderTexture.hpp include/engine/Sound.hpp include/engine/Vertex.hpp include/engine/VertexArray.hpp include/engine/PrimitiveType.hpp include/engine/VertexBuffer.hpp include/engine/ContextSettings.hpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE
