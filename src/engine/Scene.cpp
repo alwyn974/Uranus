@@ -5,7 +5,7 @@
 ** Scene.cpp
 */
 
-#include "uranus/engine/Scene.hpp"
+#include "uranus/engine/components/Scene.hpp"
 
 engine::Scene::Scene(const std::string &name)
 {

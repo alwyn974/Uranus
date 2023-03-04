@@ -8,7 +8,7 @@
 #ifndef URANUS_TEXTUREMANAGER_HPP
 #define URANUS_TEXTUREMANAGER_HPP
 
-#include "Texture.hpp"
+#include "uranus/engine/components/Texture.hpp"
 
 namespace engine {
     class TextureManager {

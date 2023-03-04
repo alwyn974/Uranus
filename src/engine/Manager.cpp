@@ -5,7 +5,7 @@
 ** Manager.cpp
 */
 
-#include "uranus/engine/Manager.hpp"
+#include "uranus/engine/manager/Manager.hpp"
 
 std::shared_ptr<engine::RenderWindow> engine::Manager::window = nullptr;
 std::shared_ptr<uranus::ecs::Registry> engine::Manager::registry = nullptr;

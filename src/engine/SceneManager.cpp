@@ -5,8 +5,8 @@
 ** SceneManager.cpp
 */
 
-#include "uranus/engine/SceneManager.hpp"
-#include "uranus/engine/Manager.hpp"
+#include "uranus/engine/manager/SceneManager.hpp"
+#include "uranus/engine/manager/Manager.hpp"
 
 void engine::SceneManager::addScene(const std::shared_ptr<engine::Scene> &newScene)
 {

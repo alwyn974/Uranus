@@ -5,6 +5,6 @@
 ** RenderWindow.cpp
 */
 
-#include "uranus/engine/RenderWindow.hpp"
+#include "uranus/engine/components/RenderWindow.hpp"
 
 engine::RenderWindow::RenderWindow(sf::VideoMode mode, const std::string &title) : sf::RenderWindow(mode, title) {}

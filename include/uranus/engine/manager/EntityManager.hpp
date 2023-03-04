@@ -8,7 +8,7 @@
 #ifndef URANUS_ENTITYMANAGER_HPP
 #define URANUS_ENTITYMANAGER_HPP
 
-#include "Base.hpp"
+#include "uranus/engine/components/Base.hpp"
 
 namespace engine {
     class EntityManager {

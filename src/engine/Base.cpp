@@ -5,8 +5,8 @@
 ** Base.cpp
 */
 
-#include "uranus/engine/Base.hpp"
-#include "uranus/engine/Manager.hpp"
+#include "uranus/engine/components/Base.hpp"
+#include "uranus/engine/manager/Manager.hpp"
 
 engine::Base::Base(const std::string &uniqueName)
 {

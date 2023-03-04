@@ -5,7 +5,7 @@
 ** TextureManager.cpp
 */
 
-#include "uranus/engine/TextureManager.hpp"
+#include "uranus/engine/manager/TextureManager.hpp"
 
 std::shared_ptr<engine::Texture> &engine::TextureManager::getTextureByName(const std::string &textureName)
 {

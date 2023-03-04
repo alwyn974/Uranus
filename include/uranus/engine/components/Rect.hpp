@@ -8,7 +8,7 @@
 #ifndef URANUS_RECT_HPP
 #define URANUS_RECT_HPP
 
-#include "Dependencies.hpp"
+#include "uranus/engine/Dependencies.hpp"
 
 namespace engine {
 

@@ -9,10 +9,10 @@
 #define URANUS_COMPONENTS_HPP
 
 #include "uranus/Core.hpp"
-#include "uranus/engine/Clock.hpp"
-#include "uranus/engine/Event.hpp"
-#include "uranus/engine/Manager.hpp"
-#include "uranus/engine/Sprite.hpp"
+#include "uranus/engine/components/Clock.hpp"
+#include "uranus/engine/components/Event.hpp"
+#include "uranus/engine/manager/Manager.hpp"
+#include "uranus/engine/components/Sprite.hpp"
 #include <array>
 
 /**

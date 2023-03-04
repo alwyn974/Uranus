@@ -5,8 +5,8 @@
 #ifndef URANUS_SYSTEMS_HPP
 #define URANUS_SYSTEMS_HPP
 
-#include "Event.hpp"
-#include "Manager.hpp"
+#include "uranus/engine/components/Event.hpp"
+#include "uranus/engine/manager/Manager.hpp"
 #include "uranus/ecs/Components.hpp"
 #include "uranus/ecs/View.hpp"
 

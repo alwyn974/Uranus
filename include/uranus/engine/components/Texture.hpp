@@ -8,7 +8,7 @@
 #ifndef URANUS_TEXTURE_HPP
 #define URANUS_TEXTURE_HPP
 
-#include "Dependencies.hpp"
+#include "uranus/engine/Dependencies.hpp"
 
 namespace engine {
 

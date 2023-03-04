@@ -8,7 +8,7 @@
 #ifndef URANUS_SCENE_HPP
 #define URANUS_SCENE_HPP
 
-#include "Dependencies.hpp"
+#include "uranus/engine/Dependencies.hpp"
 
 namespace engine {
 

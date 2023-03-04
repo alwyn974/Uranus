@@ -5,7 +5,7 @@
 ** Texture.cpp
 */
 
-#include "uranus/engine/Texture.hpp"
+#include "uranus/engine/components/Texture.hpp"
 
 engine::Texture::Texture(const std::string &path, const std::string &name)
 {

@@ -10,8 +10,8 @@
 
 #include <iostream>
 
-#define LAYER_SIZE 4
-#define MASK_SIZE  4
+#define LAYER_SIZE 4 // NOLINT
+#define MASK_SIZE  4 // NOLINT
 
 #include "uranus/ecs/Registry.hpp"
 #include <SFML/Audio.hpp>

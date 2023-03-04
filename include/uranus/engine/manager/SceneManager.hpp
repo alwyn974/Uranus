@@ -8,7 +8,7 @@
 #ifndef URANUS_SCENEMANAGER_HPP
 #define URANUS_SCENEMANAGER_HPP
 
-#include "Scene.hpp"
+#include "uranus/engine/components/Scene.hpp"
 
 namespace engine {
 

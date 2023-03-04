@@ -3,7 +3,7 @@
 //
 
 #include "uranus/engine/Systems.hpp"
-#include "uranus/engine/Rect.hpp"
+#include "uranus/engine/components/Rect.hpp"
 
 void engine::system::position()
 {

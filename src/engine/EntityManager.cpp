@@ -5,7 +5,7 @@
 ** EntityManager.cpp
 */
 
-#include "uranus/engine/EntityManager.hpp"
+#include "uranus/engine/manager/EntityManager.hpp"
 
 void engine::EntityManager::addPrefab(const std::shared_ptr<engine::Base> &prefab)
 {

@@ -8,7 +8,7 @@
 #ifndef URANUS_RENDERWINDOW_HPP
 #define URANUS_RENDERWINDOW_HPP
 
-#include "Dependencies.hpp"
+#include "uranus/engine/Dependencies.hpp"
 
 namespace engine {
 

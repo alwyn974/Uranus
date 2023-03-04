@@ -8,7 +8,7 @@
 #ifndef URANUS_EVENT_HPP
 #define URANUS_EVENT_HPP
 
-#include "Dependencies.hpp"
+#include "uranus/engine/Dependencies.hpp"
 
 namespace engine {
     class Event : public sf::Event {};

@@ -9,7 +9,7 @@
 #define URANUS_MANAGER_HPP
 
 #include "EntityManager.hpp"
-#include "RenderWindow.hpp"
+#include "uranus/engine/components/RenderWindow.hpp"
 #include "SceneManager.hpp"
 #include "TextureManager.hpp"
 

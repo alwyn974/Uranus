@@ -8,7 +8,7 @@
 #ifndef URANUS_CLOCK_HPP
 #define URANUS_CLOCK_HPP
 
-#include "Dependencies.hpp"
+#include "uranus/engine/Dependencies.hpp"
 
 namespace engine {
     class Clock : public sf::Clock {};
