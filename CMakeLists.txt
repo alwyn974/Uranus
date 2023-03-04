@@ -49,7 +49,7 @@ target_include_directories(${PROJECT_NAME}
 
 find_package(spdlog 1.11.1 REQUIRED)
 find_package(Saturnity 1.0.1.7 REQUIRED)
-find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system)
+find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 find_package(nlohmann_json 3.11.2 REQUIRED)
 find_package(sol2 3.3.0 REQUIRED)
 find_package(ImGui-SFML 2.5 REQUIRED)
