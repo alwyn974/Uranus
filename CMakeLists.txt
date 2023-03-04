@@ -25,7 +25,6 @@ if(WIN32)
 endif()
 
 add_library(${PROJECT_NAME}
-        src/Uranus.cpp
         src/ecs/Components.cpp
         src/engine/Systems.cpp
         src/engine/Texture.cpp
