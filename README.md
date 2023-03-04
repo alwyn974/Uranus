@@ -109,6 +109,9 @@ It is cross-platform, it can be used on Windows, Linux and MacOS. <br />
 ### Installation
 
 You can install Uranus using the release package. <br />
+> **Warning**
+> It's not recommanded to use the release package, it's better to use the CMake installation method.
+
 You can also install Uranus with CMake:
 
 - You will need to create a `FindUranus.cmake` file in your project, create it in a `cmake` directory, and add the following lines:
