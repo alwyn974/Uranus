@@ -22,10 +22,12 @@ void engine::system::draw()
         drawable.shape->setPosition(pos.x, pos.y);
         drawable.shape->setFillColor(drawable.color);
         window->draw(*drawable.shape);
+        spdlog::info("Drawing drawable ({}) at ({}, {})", idx, pos.x, pos.y);
     }
     for (auto [idx, pos, sprite] : uranus::ecs::View<uranus::ecs::component::Position, uranus::ecs::component::Sprite>(*r)) {
         sprite.sprite->setPosition(pos.x, pos.y);
         window->draw(*sprite.sprite);
+        spdlog::info("Drawing sprite ({}) at ({}, {})", idx, pos.x, pos.y);
     }
 }
 
@@ -185,8 +187,7 @@ void engine::system::animation()
 }
 
 #include <imgui-SFML.h>
-#include <imgui.h>
-#include <spdlog/spdlog.h> // TODO: remove this
+#include <imgui.h> //TODO: remove
 
 void engine::system::gameLoop()
 {

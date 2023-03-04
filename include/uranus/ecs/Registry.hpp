@@ -10,6 +10,8 @@
 
 #include "Entity.hpp"
 #include "SparseArray.hpp"
+#include "uranus/Core.hpp"
+#include "uranus/Exceptions.hpp"
 #include <any>
 #include <functional>
 #include <list>
@@ -100,9 +102,11 @@ namespace uranus::ecs {
         Entity spawnEntity();
 
         /**
-         * @brief Create an entity from an index
+         * @brief Create an entity from an index (only use this if you know what you're doing) (this will not create a new entity)
          * @param idx Index of the entity
-         * @return The newly created entity
+         * @return the entity with the index
+         * @warning only use this if you know what you're doing, this will not create a new entity
+         * @throws uranus::ex::InvalidEntityIndex if the index is invalid (too big or id is not used)
          */
         Entity entityFromIndex(std::size_t idx) const;
 
@@ -176,7 +180,7 @@ namespace uranus::ecs {
          * @brief Get the maximum index of an entity
          * @return Maximum index of an entity
          */
-        //        size_t getEntityAliveMaxIndex() const;
+
     private:
         std::unordered_map<std::type_index, std::any> _componentsArrays; /**< Map containing all the components SparseArrays */
         std::unordered_map<std::type_index, std::function<void(size_t const &)>> _destroyArrays; /**< Map containing all the components delete functions */
@@ -264,30 +268,29 @@ namespace uranus::ecs {
 
     inline Entity Registry::entityFromIndex(std::size_t idx) const
     {
+        if (idx >= _entityCounter) throw ex::InvalidEntityIndex("Entity index out of range");
+        if (std::find(_freeIds.begin(), _freeIds.end(), idx) != _freeIds.end()) throw ex::InvalidEntityIndex("Entity index is not valid");
         return Entity(idx);
     }
 
     inline void Registry::killEntity(const Entity &e)
     {
         _freeIds.push_back(e._id);
-        for (auto &i : _destroyArrays) {
+        for (auto &i : _destroyArrays)
             i.second(e._id);
-        }
     }
 
     inline void Registry::killEntity(const size_t &e)
     {
         _freeIds.push_back(e);
-        for (auto &i : _destroyArrays) {
+        for (auto &i : _destroyArrays)
             i.second(e);
-        }
     }
 
     inline void Registry::killAllEntities()
     {
-        for (size_t i = 0; i < _entityCounter; i++) {
+        for (size_t i = 0; i < _entityCounter; i++)
             killEntity(i);
-        }
         _freeIds.clear();
         _entityCounter = 0;
     }
@@ -322,7 +325,7 @@ namespace uranus::ecs {
 
     inline int Registry::entitiesAliveCount() const
     {
-        return _entityCounter - _freeIds.size();
+        return static_cast<int>(_entityCounter - _freeIds.size());
     }
 
     inline size_t Registry::getEntityCounter() const
@@ -330,14 +333,6 @@ namespace uranus::ecs {
         return _entityCounter;
     }
 
-    //    //TODO what if there is no entity alive cf view
-    //    inline size_t Registry::getEntityAliveMaxIndex() const {
-    //        for (long int i = static_cast<int>(_entityCounter); i >= 0; i--) {
-    //            if (_freeIds.empty() || *std::max_element(_freeIds.begin(), _freeIds.end()) < i)
-    //                return i;
-    //        }
-    //        return 0;
-    //    }
 } // namespace uranus::ecs
 
 #endif // URANUS_REGISTRY_HPP

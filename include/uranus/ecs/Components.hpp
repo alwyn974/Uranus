@@ -8,12 +8,16 @@
 #ifndef URANUS_COMPONENTS_HPP
 #define URANUS_COMPONENTS_HPP
 
+#include "uranus/Core.hpp"
 #include "uranus/engine/Clock.hpp"
 #include "uranus/engine/Event.hpp"
 #include "uranus/engine/Manager.hpp"
 #include "uranus/engine/Sprite.hpp"
 #include <array>
 
+/**
+ * @brief Namespace containing all the base components
+ */
 namespace uranus::ecs::component {
 
     struct Name {

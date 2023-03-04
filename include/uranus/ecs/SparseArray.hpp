@@ -8,12 +8,15 @@
 #ifndef URANUS_SPARSEARRAY_HPP
 #define URANUS_SPARSEARRAY_HPP
 
+#include "uranus/Core.hpp"
 #include <memory>
 #include <optional>
 #include <vector>
 
+/**
+ * @brief Namespace containing all the ECS related classes
+ */
 namespace uranus::ecs {
-
     /**
      * @brief SparseArray class, used to store components in a sparse way
      * @tparam Component Type of the component to store

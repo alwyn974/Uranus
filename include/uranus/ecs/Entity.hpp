@@ -8,6 +8,7 @@
 #ifndef URANUS_ENTITY_HPP
 #define URANUS_ENTITY_HPP
 
+#include "uranus/Core.hpp"
 #include <cstddef>
 
 namespace uranus::ecs {
@@ -30,13 +31,13 @@ namespace uranus::ecs {
          * @breif Overloading the operator() to get the const id of the entity
          * @return Const id of the entity
          */
-        inline operator std::size_t() const { return _id; };
+        inline operator std::size_t() const { return _id; }; // NOLINT
 
         /**
          * @brief Overloading the operator() to get the id of the entity
          * @return Id of the entity
          */
-        inline operator std::size_t&() { return _id; }
+        inline operator std::size_t&() { return _id; } // NOLINT
 
     private:
         /**
