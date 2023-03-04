@@ -79,8 +79,7 @@ void engine::system::collision()
                 if (collision1.mask[i] && collision2.layer[i]) {
                     const sf::FloatRect obj1 {collision1.x + pos1.x, collision1.y + pos1.y, collision1.width, collision1.height};
                     const sf::FloatRect obj2 {collision2.x + pos2.x, collision2.y + pos2.y, collision2.width, collision2.height};
-                    if (isColliding(obj1, obj2))
-                        collision1.callback(entity1, entity2);
+                    if (isColliding(obj1, obj2)) collision1.callback(entity1, entity2);
                     break;
                 }
             }
@@ -185,24 +184,28 @@ void engine::system::animation()
     }
 }
 
+#include <imgui-SFML.h>
+#include <imgui.h>
 #include <spdlog/spdlog.h> // TODO: remove this
 
 void engine::system::gameLoop()
 {
     auto &window = engine::Manager::getWindow();
     auto &r = engine::Manager::getRegistry();
+    if (!ImGui::SFML::Init(*window)) spdlog::error("Failed to init ImGui-SFML");
     sf::Clock deltaClock;
+    bool set = false;
+    int fps = 60;
     while (window->isOpen()) {
         engine::Event event;
         while (window->pollEvent(event)) {
+            ImGui::SFML::ProcessEvent(*window, event);
             if (event.type == engine::Event::Closed) window->close();
             engine::system::input(event);
         }
         auto time = deltaClock.restart();
-        auto timeDeltaMs = static_cast<float>(static_cast<double>(time.asMicroseconds()) / 1000.0);
-        auto fps = 1000.F / timeDeltaMs;
-        spdlog::info("Alive entities: {}", r->entitiesAliveCount());
-        spdlog::info("FPS: {:.1f} (Time delta: {:.3f} ms)", fps, timeDeltaMs);
+        ImGui::SFML::Update(*window, time); // Update ImGui
+
         window->clear();
 
         engine::system::loop();
@@ -210,6 +213,19 @@ void engine::system::gameLoop()
         engine::system::collision();
         engine::system::animation();
         engine::system::draw();
+
+        if (!set) {
+            ImGui::SetWindowSize({300, 100});
+            ImGui::SetWindowPos({0, 0});
+            set = true;
+        }
+        auto timeDeltaMs = static_cast<float>(static_cast<double>(time.asMicroseconds()) / 1000.0);
+        ImGui::TextWrapped("FPS: %.1f (Time delta: %.3f ms)", 1000.F / timeDeltaMs, timeDeltaMs); // NOLINT
+        ImGui::TextWrapped("Entities: %d", r->entitiesAliveCount()); // NOLINT
+        ImGui::SliderInt("Max FPS", &fps, 10, 360, "%d"); // NOLINT
+        window->setFramerateLimit(fps);
+
+        ImGui::SFML::Render(*window);
 
         window->display();
     }
@@ -221,7 +237,10 @@ void engine::system::gameInit()
 {
     auto &window = engine::Manager::getWindow();
     auto &r = engine::Manager::getRegistry();
+    window->setSize({1280, 720});
     window->setFramerateLimit(60);
+    auto screenSize = sf::VideoMode::getDesktopMode();
+    window->setPosition({static_cast<int>((screenSize.width - window->getSize().x) / 2), static_cast<int>((screenSize.height - window->getSize().y) / 2)});
 
     r->registerComponent<uranus::ecs::component::Position>(deletePosition);
     r->registerComponent<uranus::ecs::component::Velocity>(deleteVelocity);

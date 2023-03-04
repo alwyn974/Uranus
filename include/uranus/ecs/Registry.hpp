@@ -256,8 +256,7 @@ namespace uranus::ecs {
 
     inline Entity Registry::spawnEntity()
     {
-        if (_freeIds.empty())
-            return Entity(_entityCounter++);
+        if (_freeIds.empty()) return Entity(_entityCounter++);
         const size_t id = _freeIds.front();
         _freeIds.pop_front();
         return Entity(id);

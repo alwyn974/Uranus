@@ -78,3 +78,6 @@ dist/
 
 # Exclude doxygen directory
 doc/
+
+# Exclude imgui files
+*.ini
