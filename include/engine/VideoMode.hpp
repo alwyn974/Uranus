@@ -11,7 +11,8 @@ namespace uranus {
     /**
      * @brief A class that represents a video mode.
      */
-    class VideoMode : sf::VideoMode {
+    class VideoMode {
+    public:
         /**
          * @brief Default constructor
          */
@@ -31,12 +32,6 @@ namespace uranus {
         explicit VideoMode(const sf::VideoMode& mode);
 
         /**
-         * @brief Get the width of the video mode
-         * @return Width of the video mode
-         */
-        unsigned int getWidth() const;
-
-        /**
          * @brief Get the current desktop video mode
          * @return Current desktop video mode
          */
@@ -47,6 +42,32 @@ namespace uranus {
          * @return All the video modes supported in fullscreen mode
          */
         static const std::vector<VideoMode> getFullscreenModes();
+
+        /**
+         * @brief Get the width of the video mode
+         * @return Width of the video mode
+         */
+        unsigned int getWidth() const;
+
+        /**
+         * @brief Get the height of the video mode
+         * @return Height of the video mode
+         */
+        unsigned int getHeight() const;
+
+        /**
+         * @brief Get the bits per pixel of the video mode
+         * @return Bits per pixel of the video mode
+         */
+        unsigned int getBitsPerPixel() const;
+
+        /**
+         * @brief Get the SFML video mode
+         * @return SFML video mode
+         */
+        sf::VideoMode getVideoMode() const;
+    private:
+        sf::VideoMode _mode /**< SFML video mode */;
     };
 }
 

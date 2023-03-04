@@ -8,6 +8,7 @@
 #include "Color.hpp"
 #include "Vector2.hpp"
 #include "InputStream.hpp"
+#include "Rect.hpp"
 
 namespace uranus {
     /**
@@ -19,6 +20,12 @@ namespace uranus {
          * @brief Default constructor
          */
         Image() = default;
+
+        /**
+         * @brief Constructor from a sf::Image
+         * @param image Image to copy
+         */
+        Image(const sf::Image &image);
 
         /**
          * @brief Default destructor
@@ -81,7 +88,7 @@ namespace uranus {
          * @param color Color of the mask
          * @param alpha Alpha of the mask
          */
-        void creatMaskFromColor(const Color &color, unsigned char alpha = 0);
+        void createMaskFromColor(const Color &color, unsigned char alpha = 0);
 
         /**
          * @brief Copy pixels from another image onto this one
@@ -91,7 +98,7 @@ namespace uranus {
          * @param sourceRect Rectangle of the source
          * @param applyAlpha Apply the alpha of the source
          */
-        void copy(const Image &image, unsigned int destX, unsigned int destY, sf::IntRect sourceRect, bool applyAlpha = false);
+        void copy(const Image &image, unsigned int destX, unsigned int destY, const IntRect &sourceRect, bool applyAlpha = false);
 
         /**
          * @brief Set a pixel of the image
@@ -125,6 +132,11 @@ namespace uranus {
          */
         void flipVertically();
 
+        /**
+         * @brief Get the SFML image
+         * @return SFML image
+         */
+        const sf::Image &getImage() const;
     private:
         sf::Image _image; /**< SFML image */
     };

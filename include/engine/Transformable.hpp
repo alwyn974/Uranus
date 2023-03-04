@@ -141,7 +141,13 @@ namespace uranus {
          */
         const Transform &getInverseTransform() const;
 
+        /**
+         * @brief Get the SFML transformable.
+         * @return SFML transformable.
+         */
+        sf::Transformable &getTransformable();
     protected:
+        sf::Transformable _transformable; /**< SFML transformable. */
         Vector2f _position; /**< Position of the transformable. */
         float _rotation; /**< Rotation of the transformable. */
         Vector2f _scale; /**< Scale of the transformable. */

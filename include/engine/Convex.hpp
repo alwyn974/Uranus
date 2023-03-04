@@ -16,12 +16,12 @@ namespace uranus {
         /**
          * @brief Default constructor
          */
-         Convex(std::size_t pointCount = 0);
+         explicit Convex(std::size_t pointCount = 0);
 
          /**
           * @brief Default destructor
           */
-        ~Convex() = default;
+        ~Convex() override = default;
 
         /**
          * @brief Set the number of points of the convex

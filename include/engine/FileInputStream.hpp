@@ -55,6 +55,12 @@ namespace uranus {
          * @return Size of the stream
          */
         long long getSize() override;
+
+        /**
+         * @brief Get the SFML InputStream
+         * @return SFML InputStream
+         */
+        sf::InputStream &getInputStream() override;
     private:
         sf::FileInputStream _fileInputStream; /**< SFML FileInputStream */
     };

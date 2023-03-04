@@ -18,12 +18,12 @@ namespace uranus {
          * @param radius Radius of the circle
          * @param pointCount Number of points of the circle
          */
-        Circle(float radius, std::size_t pointCount = 30);
+        explicit Circle(float radius, std::size_t pointCount = 30);
 
         /**
          * @brief Default destructor
          */
-        ~Circle() = default;
+        ~Circle() override = default;
 
         /**
          * @brief Set the radius of the circle

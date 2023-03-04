@@ -26,7 +26,7 @@ namespace uranus {
         /**
          * @brief Default constructor.
          */
-        Text();
+        Text() = default;
 
         /**
          * @brief Construct a text from a string, a font and a character size.
@@ -39,7 +39,7 @@ namespace uranus {
         /**
          * @brief Default destructor.
          */
-        ~Text();
+        ~Text() = default;
 
         /**
          * @brief Set the string of the text.
@@ -172,13 +172,13 @@ namespace uranus {
          * @brief Get the local bounds of the text.
          * @return Local bounds of the text.
          */
-        const FloatRect &getLocalBounds() const;
+        FloatRect getLocalBounds() const;
 
         /**
          * @brief Get the global bounds of the text.
          * @return Global bounds of the text.
          */
-        const FloatRect &getGlobalBounds() const;
+        FloatRect getGlobalBounds() const;
 
     private:
         /**

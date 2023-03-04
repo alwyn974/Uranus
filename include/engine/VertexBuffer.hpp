@@ -8,6 +8,7 @@
 #include "Vertex.hpp"
 #include "PrimitiveType.hpp"
 #include "Drawable.hpp"
+#include "RenderTarget.hpp"
 
 namespace uranus {
     /**
@@ -32,7 +33,7 @@ namespace uranus {
          * @brief Constructor from a primitive type
          * @param type Type of the primitive
          */
-        explicit VertexBuffer(sf::PrimitiveType type);
+        explicit VertexBuffer(PrimitiveType type);
 
         /**
          * @brief Constructor from a usage
@@ -148,7 +149,7 @@ namespace uranus {
          * @param target Render target to draw to
          * @param states Render states to use
          */
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        void draw(RenderTarget &target, RenderStates states) const;
 
         sf::VertexBuffer _vertexBuffer; /**< SFML vertex buffer */
         std::size_t _vertexCount; /**< Number of vertices */

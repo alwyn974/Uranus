@@ -47,14 +47,14 @@ namespace uranus {
 
         /**
          * @brief Constructor from the given parameters
-         * @param srcFactor Specifies how to compute the source factor for the color channels
-         * @param dstFactor Specifies how to compute the destination factor for the color channels
-         * @param srcAlphaFactor Specifies how to compute the source factor for the alpha channel
-         * @param dstAlphaFactor Specifies how to compute the destination factor for the alpha channel
-         * @param equation Specifies how to combine the source and destination factors for the color channels
-         * @param alphaEquation Specifies how to combine the source and destination factors for the alpha channel
+         * @param colorSrcFactor Specifies how to compute the source factor for the color channel
+         * @param colorDstFactor Specifies how to compute the destination factor for the color channel
+         * @param colorBlendEquation Specifies how to combine the source and destination factors for the color channel
+         * @param alphaSrcFactor Specifies how to compute the source factor for the alpha channel
+         * @param alphaDstFactor Specifies how to compute the destination factor for the alpha channel
+         * @param alphaBlendEquation Specifies how to combine the source and destination factors for the alpha channel
          */
-        BlendMode(Factor srcFactor, Factor dstFactor, Factor srcAlphaFactor, Factor dstAlphaFactor, Equation equation = ADD, Equation alphaEquation = ADD);
+        BlendMode(Factor colorSrcFactor, Factor colorDstFactor, Equation colorBlendEquation, Factor alphaSrcFactor, Factor alphaDstFactor, Equation alphaBlendEquation);
 
         /**
          * @brief Default destructor

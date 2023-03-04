@@ -56,6 +56,12 @@ namespace uranus {
          * @param type Type of the cursor
          */
         void loadFromSystem(Type type);
+
+        /**
+         * @brief Get the SFML Cursor
+         * @return The SFML Cursor
+         */
+        const sf::Cursor &getCursor() const;
     private:
         sf::Cursor _cursor /**< SFML cursor */;
     };

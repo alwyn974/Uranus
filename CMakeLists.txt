@@ -22,7 +22,6 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Player.cpp
         src/Enemy.cpp
         src/Bullet.cpp
-        src/engine/RenderWindow.cpp
         src/engine/Texture.cpp
         src/engine/Sprite.cpp
         include/engine/Event.hpp
@@ -44,7 +43,7 @@ add_executable(${PROJECT_NAME} main.cpp
         include/engine/Vector2.cpp
         include/engine/Rect.hpp
         include/engine/Rect.cpp
-        include/engine/Image.hpp include/engine/Circle.hpp include/engine/Clock.hpp include/engine/Time.hpp include/engine/Convex.hpp include/engine/Cursor.hpp include/engine/Font.hpp include/engine/Glyph.hpp include/engine/Glyph.hpp include/engine/InputSoundFile.hpp include/engine/InputStream.hpp include/engine/Vector3.hpp include/engine/Listener.hpp include/engine/MemoryInputStream.hpp include/engine/FileInputStream.hpp include/engine/Mouse.hpp include/engine/Music.hpp include/engine/Rectangle.hpp include/engine/RenderStates.hpp include/engine/BlendMode.hpp include/engine/Shader.hpp include/engine/RenderTarget.hpp include/engine/GraphicView.hpp include/engine/RenderTexture.hpp include/engine/Sound.hpp include/engine/Vertex.hpp include/engine/VertexArray.hpp include/engine/PrimitiveType.hpp include/engine/VertexBuffer.hpp include/engine/ContextSettings.hpp include/engine/Transformable.hpp include/engine/Text.hpp)
+        include/engine/Image.hpp include/engine/Circle.hpp include/engine/Clock.hpp include/engine/Time.hpp include/engine/Convex.hpp include/engine/Cursor.hpp include/engine/Font.hpp include/engine/Glyph.hpp include/engine/Glyph.hpp include/engine/InputSoundFile.hpp include/engine/InputStream.hpp include/engine/Vector3.hpp include/engine/Listener.hpp include/engine/MemoryInputStream.hpp include/engine/FileInputStream.hpp include/engine/Mouse.hpp include/engine/Music.hpp include/engine/Rectangle.hpp include/engine/RenderStates.hpp include/engine/BlendMode.hpp include/engine/Shader.hpp include/engine/RenderTarget.hpp include/engine/GraphicView.hpp include/engine/RenderTexture.hpp include/engine/Sound.hpp include/engine/Vertex.hpp include/engine/VertexArray.hpp include/engine/PrimitiveType.hpp include/engine/VertexBuffer.hpp include/engine/ContextSettings.hpp include/engine/Transformable.hpp include/engine/Text.hpp include/engine/BlendMode.cpp include/engine/Cursor.cpp include/engine/Convex.cpp include/engine/Clock.cpp include/engine/Circle.cpp include/engine/FileInputStream.cpp include/engine/Font.cpp include/engine/GraphicView.cpp include/engine/Image.cpp include/engine/Listener.cpp include/engine/MemoryInputStream.cpp include/engine/Mouse.cpp include/engine/Music.cpp include/engine/Rectangle.cpp include/engine/RenderTexture.cpp include/engine/RenderWindow.cpp include/engine/Sound.cpp include/engine/SoundBuffer.cpp include/engine/Transformable.cpp include/engine/VertexArray.cpp)
 # Include all headers directories
 target_include_directories(${PROJECT_NAME}
         PRIVATE

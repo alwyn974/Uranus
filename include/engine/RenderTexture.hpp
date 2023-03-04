@@ -65,7 +65,7 @@ namespace uranus {
          * @param active True to activate, false to deactivate
          * @return True if operation was successful, false otherwise
          */
-        bool setActive(bool active = true) const;
+        bool setActive(bool active = true) override;
 
         /**
          * @brief Update the contents of the target texture
@@ -76,7 +76,7 @@ namespace uranus {
          * @brief Get the size of the render texture
          * @return Size of the render texture
          */
-        virtual Vector2u getSize() const;
+        Vector2u getSize() const override;
 
         /**
          * @brief Get the texture of the render texture
@@ -88,9 +88,6 @@ namespace uranus {
         sf::RenderTexture _renderTexture; /**< SFML RenderTexture */
         std::shared_ptr<Texture> _texture; /**< Texture of the render texture */
         Vector2u _size; /**< Size of the render texture */
-        bool isSmoothed; /**< Is the render texture smoothed */
-        bool isOnRepeat; /**< Is the render texture repeated */
-
     };
 }
 

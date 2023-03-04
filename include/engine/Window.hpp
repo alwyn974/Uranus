@@ -6,7 +6,6 @@
 #define URANUS_WINDOW_HPP
 
 #include "Vector2.hpp"
-
 #include "VideoMode.hpp"
 #include "ContextSettings.hpp"
 #include "Event.hpp"
@@ -49,6 +48,13 @@ namespace uranus {
         void create(VideoMode mode, const std::string &title, unsigned int style = Style::DEFAULT, const ContextSettings &settings = ContextSettings());
 
         /**
+         * @brief Create the window from an existing control
+         * @param handle Handle of the control
+         * @param settings Context settings
+         */
+        void create(sf::WindowHandle handle, const ContextSettings &settings = ContextSettings());
+
+        /**
          * @brief Close the window
          */
         void close();
@@ -63,7 +69,7 @@ namespace uranus {
          * @brief Get the context settings of the window
          * @return The context settings
          */
-        const ContextSettings &getContextSettings() const;
+        const ContextSettings &getSettings() const;
 
         /**
          * @brief Pop the event on top of the event queue, if any, and return it
@@ -193,6 +199,11 @@ namespace uranus {
          */
         sf::WindowHandle getSystemHandle() const;
 
+        /**
+         * @brief Get the SFML window
+         * @return The SFML window
+         */
+        const sf::Window &getWindow() const;
     protected:
         /**
          * @brief Called when the window is created
@@ -206,11 +217,14 @@ namespace uranus {
 
     private:
         /**
-         * @brief Register a callback to be called when the context is destroyed
-         * @param callback Callback to register
-         * @param args Arguments to pass to the callback
-         */
-        static void registerContextDestroyCallback(sf::ContextDestroyCallback callback, void* args);
+//         * @brief Register a callback to be called when the context is destroyed
+//         * @param callback Callback to register
+//         * @param args Arguments to pass to the callback
+//         */
+//        static void registerContextDestroyCallback(sf::ContextDestroyCallback callback, void* args);
+
+        sf::Window _window; /**< SFML window */
+        ContextSettings _settings; /**< Context settings */
     };
 }
 

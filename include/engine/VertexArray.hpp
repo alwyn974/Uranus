@@ -24,7 +24,7 @@ namespace uranus {
         /**
          * @brief Default destructor
          */
-        ~VertexArray() = default;
+        ~VertexArray() override = default;
 
         /**
          * @brief Get the vertex count
@@ -81,9 +81,10 @@ namespace uranus {
          * @param target Render target
          * @param states Render states
          */
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+        void draw(RenderTarget &target, RenderStates states) const override;
 
-        sf::VertexArray _vertexArray; /**< SFML vertex array */
+        std::vector<Vertex> _vertexArray; /**< SFML vertex array */
+        PrimitiveType _primitiveType; /**< Primitive type */
     };
 }
 

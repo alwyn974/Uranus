@@ -154,6 +154,8 @@ namespace uranus {
          * @brief Initialize the render target
          */
         void initialize();
+
+    private:
     };
 }
 

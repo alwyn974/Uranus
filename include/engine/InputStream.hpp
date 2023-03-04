@@ -44,6 +44,12 @@ namespace uranus {
          * @return Total number of bytes available or -1 if an error occurred
          */
         virtual long long getSize() = 0;
+
+        /**
+         * @brief Get the SFML InputStream
+         * @return SFML InputStream
+         */
+        virtual sf::InputStream &getInputStream() = 0;
     };
 }
 

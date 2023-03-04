@@ -26,25 +26,25 @@ namespace uranus {
          * @brief Constructor from a BlendMode
          * @param blendMode BlendMode to construct from
          */
-        RenderStates(const BlendMode &blendMode);
+        explicit RenderStates(const BlendMode &blendMode);
 
         /**
          * @brief Constructor from a Transform
          * @param transform Transform to construct from
          */
-        RenderStates(const Transform &transform);
+        explicit RenderStates(const Transform &transform);
 
         /**
          * @brief Constructor from a Texture
          * @param texture Texture to construct from
          */
-        RenderStates(const Texture &texture);
+        explicit RenderStates(const std::shared_ptr<Texture> &texture);
 
         /**
          * @brief Constructor from a Shader
          * @param shader Shader to construct from
          */
-        RenderStates(const Shader &shader);
+        explicit RenderStates(const Shader &shader);
 
         /**
          * @brief Constructor from a BlendMode, a Transform, a Texture and a Shader
@@ -53,7 +53,7 @@ namespace uranus {
          * @param texture Texture to construct from
          * @param shader Shader to construct from
          */
-        RenderStates(const BlendMode &blendMode, const Transform &transform, const Texture &texture, const Shader &shader);
+        RenderStates(const BlendMode &blendMode, const Transform &transform, const std::shared_ptr<Texture> &texture, const Shader &shader);
 
         /**
          * @brief Default destructor
@@ -61,6 +61,9 @@ namespace uranus {
         ~RenderStates() = default;
 
         static const RenderStates Default; /**< Default render states */
+
+    private:
+        sf::RenderStates _renderStates; /**< SFML render states */
     };
 }
 

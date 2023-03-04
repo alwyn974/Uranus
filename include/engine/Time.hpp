@@ -24,6 +24,18 @@ namespace uranus {
         ~Time() = default;
 
         /**
+         * @brief Constructor from sf::Time
+         * @param time Time to copy
+         */
+        explicit Time(const sf::Time& time);
+
+        /**
+         * @brief Get the SFML Time
+         * @return The SFML Time
+         */
+        sf::Time getTime();
+
+        /**
          * @brief Get the time as seconds
          * @return Time as seconds
          */

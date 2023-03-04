@@ -27,7 +27,7 @@ namespace uranus {
          * @param style Style of the window
          * @param settings Context settings
          */
-        RenderWindow(sf::VideoMode mode, const std::string &title, unsigned int style = Style::DEFAULT, const ContextSettings &settings = ContextSettings());7
+        RenderWindow(VideoMode mode, const std::string &title, unsigned int style = Style::DEFAULT, const ContextSettings &settings = ContextSettings());
 
         /**
          * @brief Constructor from a window handle
@@ -39,31 +39,34 @@ namespace uranus {
         /**
          * @brief Default destructor
          */
-        virtual ~RenderWindow() = default;
+        ~RenderWindow() override = default;
 
         /**
          * @brief Get the size of the window
          * @return Size of the window
          */
-        virtual Vector2u getSize() const;
+        Vector2u getSize() const override;
 
         /**
          * @brief Activate or deactivate the window as the current target for OpenGL rendering
          * @param active True to activate, false to deactivate
          * @return True if operation was successful, false otherwise
          */
-        bool setActive(bool active = true) const;
+        bool setActive(bool active = true) override;
 
     protected:
         /**
          * @brief Called when the window is created
          */
-        virtual void onCreate();
+        void onCreate() override;
 
         /**
          * @brief Called when the window is resized
          */
-        virtual void onResize();
+        void onResize() override;
+
+    private:
+        sf::RenderWindow _window; /**< SFML RenderWindow */
     };
 
 }

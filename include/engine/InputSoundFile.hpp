@@ -89,7 +89,7 @@ namespace uranus {
          * @param maxCount Maximum number of samples to read
          * @return Number of samples actually read
          */
-        unsigned long long read(sf::Int16 *samples, unsigned long long maxCount);
+        unsigned long long read(short *samples, unsigned long long maxCount);
     private:
         sf::InputSoundFile _file /**< SFML InputSoundFile */;
     };

@@ -21,8 +21,8 @@ namespace uranus {
          * @brief Shader type
          */
         enum Type {
-            Vertex,     /// Vertex shader
-            Geometry,   /// Geometry shader
+            VERTEX,     /// Vertex shader
+            GEOMETRY,   /// Geometry shader
             Fragment    /// Fragment shader
         };
 
@@ -289,14 +289,20 @@ namespace uranus {
          */
         static bool isGeometryAvailable();
 
-        static CurrentTextureType CurrentTexture; /**< Represents the texture of the object being drawn */
-    private:
+        static CurrentTextureType currentTexture; /**< Represents the texture of the object being drawn */
+
         /**
-         * @brief Register a callback to be called when the context is destroyed
-         * @param callback Callback to register
-         * @param args Arguments to pass to the callback
+         * @brief Get the SFML shader
+         * @return SFML shader
          */
-        static void registerContextDestroyCallback(sf::ContextDestroyCallback callback, void* args);
+        const sf::Shader &getShader() const;
+    private:
+//        /**
+//         * @brief Register a callback to be called when the context is destroyed
+//         * @param callback Callback to register
+//         * @param args Arguments to pass to the callback
+//         */
+//        static void registerContextDestroyCallback(sf::ContextDestroyCallback callback, void* args);
 
         sf::Shader _shader; /**< SFML shader */
     };

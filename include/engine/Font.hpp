@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "Glyph.hpp"
 #include "InputStream.hpp"
+#include "Texture.hpp"
 
 namespace uranus {
     /**
@@ -64,14 +65,14 @@ namespace uranus {
          */
         const Info &getInfo() const;
 
-        /**
-         * @brief Get a glyph of the font
-         * @param codePoint Unicode code point of the character to get
-         * @param characterSize Size of the character
-         * @param bold True to get the bold version of the glyph, false otherwise
-         * @return Glyph of a character of the font
-         */
-        const Glyph &getGlyph(unsigned int codePoint, unsigned int characterSize, bool bold) const;
+//        /**
+//         * @brief Get a glyph of the font
+//         * @param codePoint Unicode code point of the character to get
+//         * @param characterSize Size of the character
+//         * @param bold True to get the bold version of the glyph, false otherwise
+//         * @return Glyph of a character of the font
+//         */
+//        const Glyph &getGlyph(unsigned int codePoint, unsigned int characterSize, bool bold) const;
 
         /**
          * @brief Get the kerning offset of two glyphs
@@ -80,14 +81,14 @@ namespace uranus {
          * @param characterSize Size of the characters
          * @return Kerning of two characters
          */
-        int getKerning(unsigned int first, unsigned int second, unsigned int characterSize) const;
+        float getKerning(unsigned int first, unsigned int second, unsigned int characterSize) const;
 
         /**
          * @brief Get the line spacing of the font
          * @param characterSize Size of the characters
          * @return Line spacing of the font
          */
-        int getLineSpacing(unsigned int characterSize) const;
+        float getLineSpacing(unsigned int characterSize) const;
 
         /**
          * @brief Get the underline position of the font
@@ -103,22 +104,27 @@ namespace uranus {
          */
         float getUnderlineThickness(unsigned int characterSize) const;
 
-        /**
-         * @brief Get the texture of the font
-         * @return Texture of the font
-         */
-        const std::shared_ptr<sf::Texture> &getTexture() const;
+//        /**
+//         * @brief Get the texture of the font
+//         * @return Texture of the font
+//         */
+//        const std::shared_ptr<Texture> &getTexture(unsigned int characterSize) const;
 
         /**
          * @brief Overload of assignment operator
          * @param font Font to copy
          * @return Reference to the font
          */
-        Font &operator=(const Font &font);
+        Font &operator=(const Font &font) = default;
+
+        /**
+         * @brief Get the SFML font
+         * @return SFML font
+         */
+        const sf::Font &getFont() const;
     private:
         sf::Font _font /**< SFML font */;
         Info _info /**< Info of the font */;
-        std::shared_ptr<sf::Texture> _texture /**< Texture of the font */;
     };
 }
 

@@ -34,11 +34,11 @@ namespace uranus {
 
         /**
          * @brief Set the position of the listener in the scene
-         * @param X X coordinate of the position
-         * @param Y Y coordinate of the position
-         * @param Z Z coordinate of the position
+         * @param x x coordinate of the position
+         * @param y y coordinate of the position
+         * @param z z coordinate of the position
          */
-        static void setPosition(float X, float Y, float Z);
+        static void setPosition(float x, float y, float z);
 
         /**
          * @brief Get the position of the listener in the scene
@@ -54,11 +54,11 @@ namespace uranus {
 
         /**
          * @brief Set the direction of the listener in the scene
-         * @param X X coordinate of the direction
-         * @param Y Y coordinate of the direction
-         * @param Z Z coordinate of the direction
+         * @param x x coordinate of the direction
+         * @param y y coordinate of the direction
+         * @param z z coordinate of the direction
          */
-        static void setDirection(float X, float Y, float Z);
+        static void setDirection(float x, float y, float z);
 
         /**
          * @brief Get the direction of the listener in the scene
@@ -74,11 +74,11 @@ namespace uranus {
 
         /**
          * @brief Set the up vector of the listener in the scene
-         * @param X X coordinate of the up vector
-         * @param Y Y coordinate of the up vector
-         * @param Z Z coordinate of the up vector
+         * @param x x coordinate of the up vector
+         * @param y y coordinate of the up vector
+         * @param z z coordinate of the up vector
          */
-        static void setUpVector(float X, float Y, float Z);
+        static void setUpVector(float x, float y, float z);
 
         /**
          * @brief Get the up vector of the listener in the scene

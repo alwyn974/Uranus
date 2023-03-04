@@ -14,7 +14,7 @@ namespace uranus {
     /**
      * @brief Event class
      */
-    class Event {
+    class Event : public sf::Event {
     public:
         /**
          * @brief Size event
@@ -167,8 +167,8 @@ namespace uranus {
             TouchEvent touch;
             SensorEvent sensor;
         };
-        };
     };
 }
+
 
 #endif //URANUS_EVENT_HPP

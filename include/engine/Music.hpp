@@ -9,12 +9,13 @@
 #include "Time.hpp"
 #include "InputStream.hpp"
 #include "Vector3.hpp"
+#include "SoundSource.hpp"
 
 namespace uranus {
     /**
      * @brief Music class
      */
-    class Music {
+    class Music : public SoundSource {
     public:
         /**
          * @brief Span struct defining a time range
@@ -34,6 +35,12 @@ namespace uranus {
              */
             Span(T off, T len) : offset(off), length(len) {};
 
+            /**
+             * @brief Constructor from sf::Music::TimeSpan
+             * @param span Span to copy
+             */
+            explicit Span(sf::Music::TimeSpan span) : offset(span.offset), length(span.length) {};
+
             T offset; /**< Offset of the span */
             T length; /**< Length of the span */
         };
@@ -47,7 +54,7 @@ namespace uranus {
         /**
          * @brief Default destructor
          */
-        ~Music() = default;
+        ~Music() override = default;
 
         /**
          * @brief Open a music from a file
@@ -86,17 +93,17 @@ namespace uranus {
         /**
          * @brief Play the music
          */
-        void play();
+        void play() override;
 
         /**
          * @brief Pause the music
          */
-        void pause();
+        void pause() override;
 
         /**
          * @brief Stop the music
          */
-        void stop();
+        void stop() override;
 
         /**
          * @brief Get the number of channels of the stream
@@ -114,7 +121,7 @@ namespace uranus {
          * @brief Get the current status of the stream
          * @return Current status
          */
-        sf::Sound::Status getStatus() const;
+        Status getStatus() const override;
 
         /**
          * @brief Get the current playing position of the stream
@@ -136,88 +143,90 @@ namespace uranus {
 
         /**
          * @brief Tells if the music is in loop mode or not
+         * @return True if the music is looping, false otherwise
          */
-        void getLoop() const;
+        bool getLoop() const;
 
         /**
          * @brief Set the pitch of the sound
          * @param pitch Pitch of the sound
          */
-        void setPitch(float pitch);
+        void setPitch(float pitch) override;
 
         /**
          * @brief Set the volume of the sound
          * @param volume Volume of the sound
          */
-        void setVolume(float volume);
+        void setVolume(float volume) override;
 
         /**
          * @brief Set the 3D position of the sound in the audio scene
          * @param position Position of the sound
          */
-        void setPosition(float x, float y, float z);
+        void setPosition(float x, float y, float z) override;
 
         /**
          * @brief Set the 3D position of the sound in the audio scene
          * @param position Position of the sound
          */
-        void setPosition(const Vector3f &position);
+        void setPosition(const Vector3f &position) override;
 
         /**
          * @brief Make the sound's position relative to the listener or absolute
          * @param relative True to set the position relative, false to set it absolute
          */
-        void setRelativeToListener(bool relative);
+        void setRelativeToListener(bool relative) override;
 
         /**
          * @brief Set the minimum distance of the sound
          * @param distance Minimum distance of the sound
          */
-        void setMinDistance(float distance);
+        void setMinDistance(float distance) override;
 
         /**
          * @brief Set the attenuation factor of the sound
          * @param attenuation Attenuation factor of the sound
          */
-        void setAttenuation(float attenuation);
+        void setAttenuation(float attenuation) override;
 
         /**
          * @brief Get the pitch of the sound
          * @return Pitch of the sound
          */
-        float getPitch() const;
+        float getPitch() const override;
 
         /**
          * @brief Get the volume of the sound
          * @return Volume of the sound
          */
-        float getVolume() const;
+        float getVolume() const override;
 
         /**
          * @brief Get the 3D position of the sound in the audio scene
          * @return Position of the sound
          */
-        const Vector3f &getPosition() const;
+        const Vector3f &getPosition() const override;
 
         /**
          * @brief Tell whether the sound's position is relative to the listener or is absolute
          * @return True if the position is relative, false if it's absolute
          */
-        bool isRelativeToListener() const;
+        bool isRelativeToListener() const override;
 
         /**
          * @brief Get the minimum distance of the sound
          * @return Minimum distance of the sound
          */
-        float getMinDistance() const;
+        float getMinDistance() const override;
 
         /**
          * @brief Get the attenuation factor of the sound
          * @return Attenuation factor of the sound
          */
-        float getAttenuation() const;
+        float getAttenuation() const override;
     private:
         sf::Music _music /**< SFML music */;
+        Vector3f _position; /**< Position of the sound */
     };
 }
 

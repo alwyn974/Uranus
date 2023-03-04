@@ -104,6 +104,11 @@ namespace uranus {
          */
         SoundBuffer &operator=(const SoundBuffer &other) = default;
 
+        /**
+         * @brief Get the SFML SoundBuffer.
+         * @return SFML SoundBuffer.
+         */
+        const sf::SoundBuffer &getBuffer() const;
     private:
         sf::SoundBuffer _buffer; /**< SFML SoundBuffer */
     };

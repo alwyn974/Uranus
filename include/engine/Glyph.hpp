@@ -16,7 +16,7 @@ namespace uranus {
         /**
          * @brief Default constructor
          */
-        Glyph() = default;
+        Glyph() : advance(0) {};
 
         /**
          * @brief Default copy constructor

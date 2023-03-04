@@ -6,6 +6,7 @@
 #define URANUS_MEMORYINPUTSTREAM_HPP
 
 #include "InputStream.hpp"
+#include "SFML/System.hpp"
 
 namespace uranus {
     /**
@@ -21,7 +22,7 @@ namespace uranus {
         /**
          * @brief Default destructor
          */
-        ~MemoryInputStream() = default;
+        ~MemoryInputStream() override = default;
 
         /**
          * @brief Open the stream from its data
@@ -58,11 +59,10 @@ namespace uranus {
         long long getSize() override;
 
         /**
-         * @brief Set the data of the stream
-         * @param data Data to set
-         * @param size Size of the data
+         * @brief Get the SFML InputStream
+         * @return SFML InputStream
          */
-        void setData(const void *data, std::size_t size);
+        sf::InputStream &getInputStream() override;
     private:
         sf::MemoryInputStream _stream; /**< SFML MemoryInputStream */
     };

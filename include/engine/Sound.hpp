@@ -71,7 +71,7 @@ namespace uranus {
          * @brief Get the sound buffer of the sound
          * @return Sound buffer of the sound
          */
-        const SoundBuffer getBuffer() const;
+        const SoundBuffer *getBuffer() const;
 
         /**
          * @brief Tells if the music is in loop mode or not

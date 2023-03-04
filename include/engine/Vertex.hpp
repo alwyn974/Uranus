@@ -13,7 +13,7 @@ namespace uranus {
     /**
      * @brief Vertex class
      */
-    class Vertex : sf::Vertex {
+    class Vertex : public sf::Vertex {
     public:
         /**
          * @brief Default constructor
@@ -24,21 +24,21 @@ namespace uranus {
          * @brief Constructor from a position
          * @param position Position of the vertex
          */
-        explicit Vertex(const sf::Vector2f &position);
+        explicit Vertex(const Vector2f &position);
 
         /**
          * @brief Constructor from a position and a color
          * @param position Position of the vertex
          * @param color Color of the vertex
          */
-        Vertex(const sf::Vector2f &position, const sf::Color &color);
+        Vertex(const Vector2f &position, const Color &color);
 
         /**
          * @brief Constructor from a position and a texture coordinate
          * @param position Position of the vertex
          * @param texCoords Texture coordinates of the vertex
          */
-        Vertex(const sf::Vector2f &position, const sf::Vector2f &texCoords);
+        Vertex(const Vector2f &position, const Vector2f &texCoords);
 
         /**
          * @brief Constructor from a position, a color and a texture coordinate
@@ -46,13 +46,18 @@ namespace uranus {
          * @param color Color of the vertex
          * @param texCoords Texture coordinates of the vertex
          */
-        Vertex(const sf::Vector2f &position, const sf::Color &color, const sf::Vector2f &texCoords);
+        Vertex(const Vector2f &position, const Color &color, const Vector2f &texCoords);
 
 //        Vector2f position; /**< Position of the vertex */
 //        Color color; /**< Color of the vertex */
 //        Vector2f texCoords; /**< Coordinates of the texture's pixel to map to the vertex. */
 //    private:
 //        sf::Vertex _vertex; /**< SFML vertex */
+
+    public:
+        Vector2f position; /**< Position of the vertex */
+        Color color; /**< Color of the vertex */
+        Vector2f texCoords; /**< Coordinates of the texture's pixel to map to the vertex. */
     };
 }
 
