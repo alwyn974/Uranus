@@ -9,12 +9,13 @@
 #include "Vertex.hpp"
 #include "Rect.hpp"
 #include "PrimitiveType.hpp"
+#include "Drawable.hpp"
 
 namespace uranus {
     /**
      * @brief Vertex array class
      */
-    class VertexArray {
+    class VertexArray : public Drawable {
         /**
          * @brief Default constructor
          */
@@ -75,6 +76,13 @@ namespace uranus {
         FloatRect getBounds() const;
 
     private:
+        /**
+         * @brief Draw the vertex array
+         * @param target Render target
+         * @param states Render states
+         */
+        void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
         sf::VertexArray _vertexArray; /**< SFML vertex array */
     };
 }

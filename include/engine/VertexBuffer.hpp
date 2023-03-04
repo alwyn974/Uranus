@@ -7,20 +7,21 @@
 
 #include "Vertex.hpp"
 #include "PrimitiveType.hpp"
+#include "Drawable.hpp"
 
 namespace uranus {
     /**
      * @brief A vertex buffer is a buffer that contains vertices.
      */
-    class VertexBuffer {
+    class VertexBuffer : public Drawable {
     public:
         /**
          * @brief Usage of the buffer
          */
         enum Usage {
-            Stream, /**< The buffer is updated once and used at most a few times. */
-            Dynamic, /**< The buffer is updated once and used many times. */
-            Static /**< The buffer is updated once and used many times. */
+            STREAM, /**< The buffer is updated once and used at most a few times. */
+            DYNAMIC, /**< The buffer is updated once and used many times. */
+            STATIC /**< The buffer is updated once and used many times. */
         };
         /**
          * @brief Default constructor
@@ -143,11 +144,11 @@ namespace uranus {
 
     private:
         /**
-         * @brief Register a callback to be called when the context is destroyed
-         * @param callback Callback to register
-         * @param args Arguments to pass to the callback
+         * @brief Draw the vertex buffer
+         * @param target Render target to draw to
+         * @param states Render states to use
          */
-        static void registerContextDestroyCallback(sf::ContextDestroyCallback callback, void* args);
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         sf::VertexBuffer _vertexBuffer; /**< SFML vertex buffer */
         std::size_t _vertexCount; /**< Number of vertices */

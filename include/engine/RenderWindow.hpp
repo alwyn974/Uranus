@@ -10,9 +10,10 @@
 
 #include "Dependencies.hpp"
 #include "Window.hpp"
+#include "RenderTarget.hpp"
 
 namespace uranus {
-    class RenderWindow: public Window {
+    class RenderWindow: public Window, public RenderTarget {
     public:
         /**
          * @brief Default constructor

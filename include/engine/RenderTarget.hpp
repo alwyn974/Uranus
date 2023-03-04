@@ -9,6 +9,9 @@
 #include "GraphicView.hpp"
 #include "Vector2.hpp"
 #include "Rect.hpp"
+#include "VertexBuffer.hpp"
+#include "Drawable.hpp"
+#include "RenderStates.hpp"
 
 namespace uranus {
     /**
@@ -82,7 +85,36 @@ namespace uranus {
          */
         Vector2i mapCoordsToPixel(const Vector2f &point, const View &view) const;
 
-        //Todo: draw functions
+        /**
+         * @brief Draw a drawable object
+         * @param drawable Drawable object to draw
+         * @param states Render states to use
+         */
+        void draw(const Drawable &drawable, const RenderStates &states = RenderStates::Default);
+
+        /**
+         * @brief Draw primitives defined by an array of vertices
+         * @param vertices Pointer to the vertices
+         * @param type Type of primitives to draw
+         * @param states Render states to use
+         */
+        void draw(const Vertex *vertices, std::size_t vertexCount, PrimitiveType type, const RenderStates &states = RenderStates::Default);
+
+        /**
+         * @brief Draw primitives defined by a vertex buffer
+         * @param vertexBuffer Vertex buffer to draw
+         * @param states Render states to use
+         */
+        void draw(const VertexBuffer &vertexBuffer, const RenderStates &states = RenderStates::Default);
+
+        /**
+         * @brief Draw primitives defined by a vertex buffer
+         * @param vertexBuffer Vertex buffer to draw
+         * @param firstVertex Index of the first vertex to draw
+         * @param vertexCount Number of vertices to draw
+         * @param states Render states to use
+         */
+        void draw(const VertexBuffer &vertexBuffer, std::size_t firstVertex, std::size_t vertexCount, const RenderStates &states = RenderStates::Default);
 
         /**
          * @brief Get the size of the render target

@@ -15,7 +15,7 @@ namespace uranus {
     /**
      * @brief Render states class that inherits from RenderStates
      */
-    class RenderStates : public RenderStates {
+    class RenderStates {
     public:
         /**
          * @brief Default constructor
@@ -59,6 +59,8 @@ namespace uranus {
          * @brief Default destructor
          */
         ~RenderStates() = default;
+
+        static const RenderStates Default; /**< Default render states */
     };
 }
 

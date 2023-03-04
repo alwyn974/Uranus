@@ -6,15 +6,14 @@
 #define URANUS_TEXT_HPP
 
 #include "Font.hpp"
-#include "Color.hpp"
-#include "Vector2.hpp"
-#include "Transform.hpp"
+#include "Drawable.hpp"
+#include "Transformable.hpp"
 
 namespace uranus {
     /**
      * @brief Text class.
      */
-    class Text {
+    class Text : public Drawable, public Transformable {
     public:
         enum Style {
             Regular = 0,
@@ -181,120 +180,19 @@ namespace uranus {
          */
         const FloatRect &getGlobalBounds() const;
 
-        /**
-         * @brief Set the position of the text.
-         * @param position Position to set.
-         */
-        void setPosition(const Vector2f &position);
-
-        /**
-         * @brief Set the position of the text.
-         * @param x X position to set.
-         * @param y Y position to set.
-         */
-        void setPosition(float x, float y);
-
-        /**
-         * @brief Set the rotation of the text.
-         * @param angle Angle to set.
-         */
-        void setRotation(float angle);
-
-        /**
-         * @brief Set the scale of the text.
-         * @param scale Scale to set.
-         */
-        void setScale(const Vector2f &scale);
-
-        /**
-         * @brief Set the scale of the text.
-         * @param factorX X factor to set.
-         * @param factorY Y factor to set.
-         */
-        void setScale(float factorX, float factorY);
-
-        /**
-         * @brief Set the origin of the text.
-         * @param origin Origin to set.
-         */
-        void setOrigin(const Vector2f &origin);
-
-        /**
-         * @brief Set the origin of the text.
-         * @param x X origin to set.
-         * @param y Y origin to set.
-         */
-        void setOrigin(float x, float y);
-
-        /**
-         * @brief Get the position of the text.
-         * @return Position of the text.
-         */
-        const Vector2f &getPosition() const;
-
-        /**
-         * @brief Get the rotation of the text.
-         * @return Rotation of the text.
-         */
-        float getRotation() const;
-
-        /**
-         * @brief Get the scale of the text.
-         * @return Scale of the text.
-         */
-        const Vector2f &getScale() const;
-
-        /**
-         * @brief Get the origin of the text.
-         * @return Origin of the text.
-         */
-        const Vector2f &getOrigin() const;
-
-        /**
-         * @brief Move the text.
-         * @param offset Offset to move.
-         */
-        void move(const Vector2f &offset);
-
-        /**
-         * @brief Move the text.
-         * @param offsetX X offset to move.
-         * @param offsetY Y offset to move.
-         */
-        void move(float offsetX, float offsetY);
-
-        /**
-         * @brief Rotate the text.
-         * @param angle Angle to rotate.
-         */
-        void rotate(float angle);
-
-        /**
-         * @brief Scale the text.
-         * @param factor Scale factor.
-         */
-        void scale(const Vector2f &factor);
-
-        /**
-         * @brief Scale the text.
-         * @param factorX X scale factor.
-         * @param factorY Y scale factor.
-         */
-        void scale(float factorX, float factorY);
-
-        /**
-         * @brief Get the transform of the text.
-         * @return Transform of the text.
-         */
-        const Transform &getTransform() const;
-
-        /**
-         * @brief Get the inverse transform of the text.
-         * @return Inverse transform of the text.
-         */
-        const Transform &getInverseTransform() const;
-
     private:
+        /**
+         * @brief Draw the text.
+         * @param target Target to draw on.
+         * @param states States to draw with.
+         */
+        void draw(RenderTarget &target, RenderStates states) const;
+
+        /**
+         * @brief Ensure the geometry update of the text.
+         */
+        void ensureGeometryUpdate() const;
+
         sf::Text _text; /**< SFML text. */
         std::string _string; /**< String of the text. */
         Font _font; /**< Font of the text. */
@@ -306,12 +204,6 @@ namespace uranus {
         Color _fillColor; /**< Fill color of the text. */
         Color _outlineColor; /**< Outline color of the text. */
         float _outlineThickness; /**< Outline thickness of the text. */
-        Vector2f _position; /**< Position of the text. */
-        float _rotation; /**< Rotation of the text. */
-        Vector2f _scale; /**< Scale of the text. */
-        Vector2f _origin; /**< Origin of the text. */
-        Transform _transform; /**< Transform of the text. */
-        Transform _inverseTransform; /**< Inverse transform of the text. */
     };
 }
 
