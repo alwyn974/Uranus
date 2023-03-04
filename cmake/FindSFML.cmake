@@ -14,10 +14,9 @@ endif()
 
 FetchContent_Declare(
         ${LIBRARY_NAME}
-        URL https://github.com/SFML/SFML/archive/refs/heads/2.6.x.zip
-        #[[GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_REPOSITORY https://github.com/alwyn974/SFML.git
         GIT_TAG 2.6.x
-        GIT_SHALLOW 1 # Only fetch the head commit]]
+        GIT_SHALLOW 1 # Only fetch the head commit
 )
 FetchContent_MakeAvailable(${LIBRARY_NAME})
 FetchContent_GetProperties(${LIBRARY_NAME})
