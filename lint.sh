@@ -26,7 +26,7 @@ fi
 
 echo "Running clang-format..."
 
-code="$(fdfind -E "cmake-*/" -i -e cpp -e hpp | xargs clang-format-16 -style=file --verbose --dry-run --Werror)"
+code="$(fdfind -E "cmake-*/" -E "imgui" -i -e cpp -e hpp | xargs clang-format-16 -style=file --verbose --dry-run --Werror)"
 if [ "$?" -eq 0 ]; then
   echo "No files to format"
   exit 0
@@ -34,7 +34,7 @@ else
   echo "Some files need to be formatted"
   read -r -p "Do you want to format it? [y/N] " response
   if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-    fdfind -E "cmake-*/" -i -e cpp -e hpp | xargs clang-format-16 -style=file --verbose -i
+    fdfind -E "cmake-*/" -E "imgui" -i -e cpp -e hpp | xargs clang-format-16 -style=file --verbose -i
     exit 0
   else
     exit 1
