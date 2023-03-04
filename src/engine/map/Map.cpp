@@ -1,8 +1,10 @@
-//
-// Created by bareth on 27/02/23.
-//
+/*
+** EPITECH PROJECT, 2023
+** Map.cpp
+** File description:
+** Map.cpp
+*/
 
-#include <fstream>
 #include "uranus/engine/map/Map.hpp"
 
 Map::Map(const std::string &path, std::shared_ptr<engine::TextureManager> &textureMng) {
@@ -18,8 +20,8 @@ Map::Map(const std::string &path, std::shared_ptr<engine::TextureManager> &textu
 
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
-    for (Layer layer: this->_layers) {
-        for (Tile tile: layer.getTiles()) {
+    for (const Layer &layer: this->_layers) {
+        for (const Tile &tile: layer.getTiles()) {
             auto texture = this->_textures.find(tile.getName());
             if (texture != this->_textures.end()) {
                 states.texture = texture->second.get();
@@ -48,20 +50,20 @@ void Map::loadTiles(tson::Layer *layer) {
                     auto texture = this->_textures.find(tileset->getName());
                     if (texture != this->_textures.end()) {
                         sf::VertexArray quad(sf::Quads, 4);
-                        sf::Vector2i pos = {x * tileset->getTileSize().x, y * tileset->getTileSize().y};
-                        sf::Vector2i size = {tileset->getTileSize().x, tileset->getTileSize().y};
+                        const sf::Vector2f pos = {static_cast<float>(x * tileset->getTileSize().x), static_cast<float>(y * tileset->getTileSize().y)};
+                        const sf::Vector2f size = {static_cast<float>(tileset->getTileSize().x), static_cast<float>(tileset->getTileSize().y)};
                         quad[0].position = sf::Vector2f(pos.x, pos.y);
                         quad[1].position = sf::Vector2f(pos.x + size.x, pos.y);
                         quad[2].position = sf::Vector2f(pos.x + size.x, pos.y + size.y);
                         quad[3].position = sf::Vector2f(pos.x, pos.y + size.y);
 
-                        auto tilePos = this->getTilePosition(tile->getId(), tileset);
+                        auto tilePos = static_cast<sf::Vector2f>(Map::getTilePosition(tile->getId(), tileset));
                         quad[0].texCoords = sf::Vector2f(tilePos.x * size.x, tilePos.y * size.y);
                         quad[1].texCoords = sf::Vector2f((tilePos.x + 1) * size.x, tilePos.y * size.y);
                         quad[2].texCoords = sf::Vector2f((tilePos.x + 1) * size.x, (tilePos.y + 1) * size.y);
                         quad[3].texCoords = sf::Vector2f(tilePos.x * size.x, (tilePos.y + 1) * size.y);
 
-                        this->_layers.back().getTiles().emplace_back(tileset->getName(), quad, tileset->getName());
+                        this->_layers.back().getTiles().emplace_back(tileset->getName(), quad);
                     }
                 }
             }
@@ -71,7 +73,7 @@ void Map::loadTiles(tson::Layer *layer) {
 
 void Map::loadTexture(std::shared_ptr<engine::TextureManager> &textureMng) {
     for (auto &tileset: this->_map->getTilesets()) {
-        textureMng->addTexture(tileset.getImagePath(), tileset.getName());
+        textureMng->addTexture(tileset.getImagePath().string(), tileset.getName());
         this->_textures.emplace(tileset.getName(), textureMng->getTextureByName(tileset.getName()));
     }
 }
@@ -85,8 +87,8 @@ tson::Tileset *Map::getTilesetByTileId(uint32_t id) {
 }
 
 sf::Vector2i Map::getTilePosition(uint32_t tileId, tson::Tileset *tileset) {
-    int x = (tileId - tileset->getFirstgid()) % tileset->getColumns();
-    int y = (tileId - tileset->getFirstgid()) / tileset->getColumns();
+    const int x = static_cast<int>(tileId - tileset->getFirstgid()) % tileset->getColumns();
+    const int y = static_cast<int>(tileId - tileset->getFirstgid()) / tileset->getColumns();
     return {x, y};
 }
 
@@ -94,8 +96,7 @@ Layer::Layer(const std::string &name) {
     this->_name = name;
 }
 
-Tile::Tile(const std::string &name, sf::VertexArray &quad, const std::string &texture) {
+Tile::Tile(const std::string &name, sf::VertexArray &quad) {
     this->_name = name;
     this->_quad = quad;
-    this->_texture = texture;
 }

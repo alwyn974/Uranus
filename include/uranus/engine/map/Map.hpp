@@ -1,26 +1,28 @@
-//
-// Created by bareth on 27/02/23.
-//
+/*
+** EPITECH PROJECT, 2023
+** Map.hpp
+** File description:
+** Map.hpp
+*/
 
 #ifndef PARSER_MAP_HPP
 #define PARSER_MAP_HPP
 
+#include "uranus/engine/Engine.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
-#include "uranus/external/tileson/Tileson.hpp"
-#include "uranus/engine/Engine.hpp"
+#include <uranus/external/tileson/Tileson.hpp>
 
 class Tile {
     public:
-        explicit Tile(const std::string &name, sf::VertexArray &quad, const std::string &texture);
+        explicit Tile(const std::string &name, sf::VertexArray &quad);
 
         inline const std::string &getName() const { return _name; };
         inline const sf::VertexArray &getQuad() const { return _quad; };
 
     private:
         std::string _name;
-        std::string _texture;
         sf::VertexArray _quad;
 };
 
@@ -30,6 +32,7 @@ class Layer {
 
         inline const std::string &getName() const { return _name; };
         inline std::vector<Tile> &getTiles()  { return _tiles; };
+        inline const std::vector<Tile> &getTiles() const { return this->_tiles; };
 
     private:
         std::string _name;
@@ -44,7 +47,7 @@ class Map: public sf::Drawable, public sf::Transformable {
         void loadTiles(tson::Layer *layer);
         void loadTexture(std::shared_ptr<engine::TextureManager> &textureMng);
         tson::Tileset *getTilesetByTileId(uint32_t id);
-        sf::Vector2i getTilePosition(uint32_t id, tson::Tileset *tileset);
+        static sf::Vector2i getTilePosition(uint32_t id, tson::Tileset *tileset);
 
 
     private:
