@@ -12,6 +12,7 @@
 #include "uranus/engine/Event.hpp"
 #include "uranus/engine/Manager.hpp"
 #include "uranus/engine/Sprite.hpp"
+#include <array>
 
 namespace uranus::ecs::component {
 
