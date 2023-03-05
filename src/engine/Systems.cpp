@@ -49,14 +49,14 @@ void engine::system::setLayer(size_t entity, const std::array<bool, LAYER_SIZE> 
 {
     auto &r = engine::Manager::getRegistry();
     auto &collision = r->getComponent<uranus::ecs::component::Collisionable>(entity);
-    collision->value().layer = layer;
+    collision->layer = layer;
 }
 
 void engine::system::setMask(size_t entity, const std::array<bool, MASK_SIZE> &mask)
 {
     auto &r = engine::Manager::getRegistry();
     auto &collision = r->getComponent<uranus::ecs::component::Collisionable>(entity);
-    collision->value().mask = mask;
+    collision->mask = mask;
 }
 
 void engine::system::collision()
@@ -119,7 +119,7 @@ void engine::system::addNewAnimation(size_t entity, const std::string &name, boo
     uranus::ecs::component::AnimationData animationData {name, loop, length, clock, false, frameList};
     auto &r = engine::Manager::getRegistry();
     auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
-    animation->value().animations.push_back(animationData);
+    animation->animations.push_back(animationData);
 }
 
 void engine::system::insertAnimationFrame(size_t entity, const std::string &name, float frameTime, int frame)
@@ -127,7 +127,7 @@ void engine::system::insertAnimationFrame(size_t entity, const std::string &name
     auto &r = engine::Manager::getRegistry();
     auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
     uranus::ecs::component::FrameData frameData {frameTime, frame};
-    for (uranus::ecs::component::AnimationData &animationData : animation->value().animations) {
+    for (uranus::ecs::component::AnimationData &animationData : animation->animations) {
         if (animationData.name == name) {
             animationData.frames.push_back(frameData);
             break;
@@ -140,12 +140,12 @@ void engine::system::playAnimation(size_t entity, const std::string &name)
     auto &r = engine::Manager::getRegistry();
     auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
 
-    for (uranus::ecs::component::AnimationData &animationData : animation->value().animations) {
+    for (uranus::ecs::component::AnimationData &animationData : animation->animations) {
         if (animationData.name == name) {
             animationData.isPlaying = true;
             auto &sprite = r->getComponent<uranus::ecs::component::Sprite>(entity);
-            sprite->value().sprite->setTextureRect(get_animation_rect(
-                animationData.frames.data()->frame, animation->value().hFrame, animation->value().vFrame, sprite->value().sprite->getTexture()->getSize()));
+            sprite->sprite->setTextureRect(get_animation_rect(
+                animationData.frames.data()->frame, animation->hFrame, animation->vFrame, sprite->sprite->getTexture()->getSize()));
         } else
             animationData.isPlaying = false;
     }
@@ -156,7 +156,7 @@ void engine::system::stopAnimation(size_t entity)
     auto &r = engine::Manager::getRegistry();
     auto &animation = r->getComponent<uranus::ecs::component::Animation>(entity);
 
-    for (uranus::ecs::component::AnimationData &animationData : animation->value().animations) {
+    for (uranus::ecs::component::AnimationData &animationData : animation->animations) {
         animationData.isPlaying = false;
     }
 }
