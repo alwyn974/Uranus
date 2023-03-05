@@ -97,7 +97,7 @@ namespace uranus::ecs {
                 while (idx < _registry.getEntityCounter()) {
                     bool hasAllComponents = true;
                     auto &component = _registry.getComponent<Component>(idx);
-                    if (component == nullptr || !component->has_value()) {
+                    if (component == nullptr) {
                         hasAllComponents = false;
                     }
                     if (hasAllComponents) {

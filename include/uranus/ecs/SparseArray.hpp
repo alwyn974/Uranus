@@ -24,7 +24,7 @@ namespace uranus::ecs {
     template<typename Component>
     class SparseArray {
     public:
-        using ValueType = std::shared_ptr<std::optional<Component>>;
+        using ValueType = std::shared_ptr<Component>;
         using ReferenceType = ValueType &;
         using ConstReferenceType = const ValueType &;
         using Container = std::vector<ValueType>;
@@ -264,7 +264,7 @@ namespace uranus::ecs {
     typename SparseArray<Component>::ReferenceType SparseArray<Component>::insertAt(SizeType pos, const Component &component)
     {
         if (pos >= _data.size()) _data.resize(pos + 1);
-        _data[pos] = std::make_shared<std::optional<Component>>(std::make_optional<Component>(component));
+        _data[pos] = std::make_shared<Component>(component);
         return _data[pos];
     }
 
@@ -272,7 +272,7 @@ namespace uranus::ecs {
     typename SparseArray<Component>::ReferenceType SparseArray<Component>::insertAt(SizeType pos, Component &&component)
     {
         if (pos >= _data.size()) _data.resize(pos + 1);
-        _data[pos] = std::move(std::make_shared<std::optional<Component>>(std::make_optional<Component>(component)));
+        _data[pos] = std::move(std::make_shared<Component>(component));
         return _data[pos];
     }
 
@@ -282,7 +282,7 @@ namespace uranus::ecs {
     typename SparseArray<Component>::ReferenceType SparseArray<Component>::emplaceAt(SizeType pos, Params &&...params)
     {
         if (pos >= _data.size()) _data.resize(pos + 1);
-        _data[pos] = std::make_shared<std::optional<Component>>(std::make_optional<Component>(std::forward<Params>(params)...));
+        _data[pos] = std::make_shared<Component>(std::forward<Params>(params)...);
         return _data[pos];
     }
 
@@ -297,8 +297,8 @@ namespace uranus::ecs {
     std::optional<typename SparseArray<Component>::SizeType> SparseArray<Component>::getIndex(const ValueType &ptr) const
     {
         for (SizeType i = 0; i < _data.size(); i++) {
-            if (_data[i] && _data[i]->has_value() && ptr->has_value()) {
-                if (std::addressof(_data[i]->value()) == std::addressof(ptr->value())) return i;
+            if (_data[i] && ptr) {
+                if (std::addressof(_data[i].get()) == std::addressof(ptr.get())) return i;
             }
         }
         return std::nullopt;
