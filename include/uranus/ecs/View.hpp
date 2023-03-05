@@ -59,13 +59,13 @@ namespace uranus::ecs {
              * @brief Postfix increment operator
              * @return the iterator
              */
-            Tuple operator->() { return Tuple(idx, (_registry.getComponent<Components>(idx).get()->value())...); }
+            Tuple operator->() { return Tuple(idx, (_registry.getComponent<Components>(idx).get())...); }
 
             /**
              * @brief Dereference operator
              * @return the tuple
              */
-            Tuple operator*() { return Tuple(idx, (_registry.getComponent<Components>(idx).get()->value())...); }
+            Tuple operator*() { return Tuple(idx, (_registry.getComponent<Components>(idx).get())...); }
 
             /**
              * @brief Equality operator
