@@ -18,6 +18,8 @@
 #include <exception>
 #include <memory>
 #include <string>
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 /**
  * @brief The uranus exception namespace.
