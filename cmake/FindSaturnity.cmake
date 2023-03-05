@@ -16,7 +16,7 @@ if (NOT ${LIBRARY_NAME}_FOUND)
     FetchContent_Declare(
             ${LIBRARY_NAME}
             GIT_REPOSITORY https://github.com/alwyn974/Saturnity.git
-            GIT_TAG v1.0.1.7
+            GIT_TAG main
             GIT_SHALLOW 1 # Only fetch the head commit
     )
     FetchContent_MakeAvailable(${LIBRARY_NAME})
